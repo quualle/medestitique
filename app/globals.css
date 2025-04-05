@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 74, 62, 58; /* #4A3E3A */
+  --background-rgb: 255, 251, 246; /* #FFFBF6 */
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24;
+  }
+  
+  .heading-1 {
+    @apply font-serif text-4xl md:text-5xl lg:text-6xl font-light tracking-wide;
+  }
+  
+  .heading-2 {
+    @apply font-serif text-3xl md:text-4xl font-light tracking-wide;
+  }
+  
+  .heading-3 {
+    @apply font-serif text-2xl md:text-3xl font-light tracking-wide;
+  }
+  
+  .paragraph {
+    @apply font-sans text-base md:text-lg leading-relaxed;
+  }
+  
+  .button-primary {
+    @apply px-6 py-2.5 rounded-sm font-light tracking-wider uppercase text-sm transform transition-all duration-300;
+    background: linear-gradient(to right, #C0A080, #D8B090);
+    box-shadow: 0 4px 12px rgba(192, 160, 128, 0.15), 0 2px 4px rgba(192, 160, 128, 0.1);
+  }
+  
+  .button-primary:hover {
+    background: linear-gradient(to right, #C0A080, #D8B090);
+    box-shadow: 0 6px 18px rgba(192, 160, 128, 0.2), 0 2px 6px rgba(192, 160, 128, 0.15);
+    transform: translateY(-1px);
+  }
+  
+  .button-secondary {
+    @apply px-6 py-2.5 rounded-sm font-light tracking-wider uppercase text-sm transform transition-all duration-300;
+    background: rgba(255, 251, 246, 0.5);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(192, 160, 128, 0.3);
+    box-shadow: 0 4px 12px rgba(192, 160, 128, 0.07), 0 2px 4px rgba(192, 160, 128, 0.05);
+    color: #E8C090; /* Hellere Goldfarbe für besseren Kontrast */
+    text-shadow: 0px 0px 1px rgba(74,62,58,0.5);
+    -webkit-text-stroke: 0.1px #4A3E3A; /* Feine Umrandung der Buchstaben mit wärmerem Ton */
+  }
+  
+  .button-secondary:hover {
+    background: rgba(255, 251, 246, 0.65);
+    border: 1px solid rgba(192, 160, 128, 0.5);
+    box-shadow: 0 6px 18px rgba(192, 160, 128, 0.12), 0 2px 6px rgba(192, 160, 128, 0.08);
+    transform: translateY(-1px);
+  }
+  
+  .price-card {
+    @apply bg-[#FFFBF6] p-8 border border-[#C0A080]/10 shadow-sm transition-all duration-300 hover:shadow-md hover:border-[#C0A080]/20;
+  }
+  
+  .bg-radial-gradient {
+    background: radial-gradient(circle, rgba(74,62,58,0) 0%, rgba(74,62,58,0.1) 100%);
+  }
+}
