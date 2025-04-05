@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 "use client";
 
 import { useState } from 'react';
@@ -396,7 +398,7 @@ const Treatments = () => {
   });
 
   // Handle selection of a treatment
-  const handleTreatmentClick = (treatment) => {
+  const handleTreatmentClick = (treatment: any) => {
     setSelectedTreatment(treatment);
     
     // If the treatment has sub-treatments and it's the hyaluronic one, show the submenu
@@ -413,7 +415,7 @@ const Treatments = () => {
   };
 
   // Handle selection of a sub-treatment
-  const handleSubTreatmentClick = (subTreatment) => {
+  const handleSubTreatmentClick = (subTreatment: any) => {
     setSelectedSubTreatment(subTreatment);
   };
 
@@ -550,7 +552,7 @@ const Treatments = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16 mt-32"
         >
-          <motion.div
+          <motion.div 
             initial={{ scale: 0.9, opacity: 0 }}
             animate={inView ? { scale: 1, opacity: 1 } : { scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}

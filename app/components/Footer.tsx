@@ -49,6 +49,10 @@ const Footer = () => {
       
       <div className="section-container !py-0 mt-8 pt-8 border-t border-gray-800 text-center text-sm">
         <p>&copy; {new Date().getFullYear()} MedEstetique. Alle Rechte vorbehalten.</p>
+        <div className="mt-2 space-x-4">
+          <Link href="/impressum" className="hover:text-[#C0A080] transition-colors">Impressum</Link>
+          <Link href="/datenschutz" className="hover:text-[#C0A080] transition-colors">Datenschutz</Link>
+        </div>
         <p className="mt-1">Mit Leidenschaft erstellt von Saskia Heer</p>
       </div>
     </footer>
