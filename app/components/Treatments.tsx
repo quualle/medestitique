@@ -379,6 +379,120 @@ const treatments = [
         </ol>
       </>
     )
+  },
+  {
+    id: 'antiAgingKonzept',
+    title: 'Exklusives Anti-Aging Konzept',
+    icon: <FaLeaf className="text-4xl text-[#C0A080]" />,
+    shortDescription: 'Ein 3-stufiges Intensivprogramm über 4 Behandlungen, inkl. Nährstoffanalyse.',
+    fullDescription: (
+      <>
+        <h3 className="heading-3 text-[#C0A080] mb-6 text-center">Unser Revolutionäres 4-Stufen Anti-Aging Konzept</h3>
+        <p className="paragraph mb-6 text-center">
+          Erleben Sie eine tiefgreifende Hautverjüngung mit unserem exklusiven 4-Sitzungs-Paket für 1.899 €. Jede der vier Behandlungen kombiniert drei hochwirksame Methoden, ergänzt durch eine abschließende Nährstoffanalyse für langanhaltende Ergebnisse. Dauer pro Sitzung (Schritt 1-3): ca. 1,5 - 2 Stunden.
+        </p>
+
+        {/* Schritt 1: PRP-Injektion */}
+        <div className="mb-8 p-6 bg-[#F9F0E6]/50 rounded-lg border border-[#C0A080]/20">
+          <h4 className="font-serif text-xl font-semibold mb-3 text-[#805A36] flex items-center">
+            <span className="bg-[#C0A080] text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 font-bold">1</span>
+            PRP-Injektion: Natürliche Hauterneuerung
+          </h4>
+          <p className="paragraph mb-4">
+            Die PRP (Platelet-Rich Plasma)-Therapie, auch als Vampir-Lifting bekannt, nutzt die regenerativen Eigenschaften Ihres eigenen Blutes. Wir entnehmen eine kleine Menge Blut, isolieren das plättchenreiche Plasma und injizieren es gezielt, um die Kollagenproduktion maximal anzukurbeln und die Hautstruktur nachhaltig zu verbessern.
+          </p>
+          <h5 className="font-semibold mb-2">Vorteile der PRP-Behandlung:</h5>
+          <ul className="list-disc list-inside mb-4 space-y-1 pl-4">
+            <li>Natürliche Verjüngung durch körpereigenes Material (risikoarm, sehr verträglich).</li>
+            <li>Sichtbare Verbesserung der Hauttextur: Reduziert Linien/Falten, strafft die Haut.</li>
+            <li>Vielfältige Anwendungsbereiche: Gesicht, Hals, Dekolleté, Hände.</li>
+          </ul>
+           <h5 className="font-semibold mb-2">Ablauf:</h5>
+           <ol className="list-decimal list-inside space-y-1 pl-4">
+             <li>Blutentnahme (kleine Menge).</li>
+             <li>Aufbereitung und Plasma-Isolierung mittels Zentrifugation.</li>
+             <li>Präzise Injektion des Plasmas mit feinen Nadeln.</li>
+           </ol>
+        </div>
+
+        {/* Schritt 2: Nährstoff-Infusion */}
+        <div className="mb-8 p-6 bg-[#F9F0E6]/50 rounded-lg border border-[#C0A080]/20">
+          <h4 className="font-serif text-xl font-semibold mb-3 text-[#805A36] flex items-center">
+             <span className="bg-[#C0A080] text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 font-bold">2</span>
+             Nährstoff-Infusion: Tiefenversorgung
+          </h4>
+          <p className="paragraph mb-4">
+            Im Anschluss an die PRP-Behandlung versorgen wir Ihre Haut über eine individuell zusammengestellte Infusion mit essentiellen Vitaminen, Mineralstoffen und Antioxidantien. Diese Nährstoffe gelangen direkt in den Blutkreislauf, unterstützen die Regeneration von innen und fördern ein gesundes, strahlendes Hautbild maximal.
+          </p>
+          <h5 className="font-semibold mb-2">Vorteile der Nährstoff-Infusion:</h5>
+          <ul className="list-disc list-inside mb-4 space-y-1 pl-4">
+            <li>Optimale Nährstoffaufnahme durch direkte intravenöse Zufuhr.</li>
+            <li>Steigerung der Hautelastizität und Kollagenbildung.</li>
+            <li>Förderung des allgemeinen Wohlbefindens und Energielevels.</li>
+          </ul>
+           <h5 className="font-semibold mb-2">Ablauf:</h5>
+           <ol className="list-decimal list-inside space-y-1 pl-4">
+             <li>Anamnese zur Ermittlung des individuellen Bedarfs.</li>
+             <li>Langsame Verabreichung der Nährstofflösung (ca. 30–60 Minuten).</li>
+           </ol>
+        </div>
+
+        {/* Schritt 3: Individuelle PRP-Creme */}
+        <div className="mb-8 p-6 bg-[#F9F0E6]/50 rounded-lg border border-[#C0A080]/20">
+          <h4 className="font-serif text-xl font-semibold mb-3 text-[#805A36] flex items-center">
+             <span className="bg-[#C0A080] text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 font-bold">3</span>
+             Plasmatrix Plasmabooster Creme: Personalisierte Nachsorge
+          </h4>
+          <p className="paragraph mb-4">
+            Zum Abschluss stellen wir aus Ihrem gewonnenen Plasma und einer speziellen Basiscreme die 100% natürliche Plasmatrix Plasmabooster Creme her. Diese maßgeschneiderte Pflege unterstützt die Hautregeneration optimal und verlängert die positiven Effekte der Behandlung. Sie steht Ihnen für ca. 2 Wochen zur Verfügung.
+          </p>
+          <h5 className="font-semibold mb-2">Vorteile der individuellen PRP-Creme:</h5>
+          <ul className="list-disc list-inside mb-4 space-y-1 pl-4">
+            <li>Perfekt auf die Bedürfnisse Ihrer Haut abgestimmt.</li>
+            <li>100% natürlich, ohne künstliche Zusätze oder Konservierungsstoffe.</li>
+            <li>Fördert die Regeneration und sorgt für ein langanhaltend frisches Hautgefühl.</li>
+          </ul>
+           <h5 className="font-semibold mb-2">Anwendung:</h5>
+           <p className="paragraph pl-4">Zweimal täglich auf die gereinigte Haut auftragen. Haltbarkeit ca. 2 Wochen.</p>
+        </div>
+        
+        {/* Schritt 4: Nährstoffanalyse - angepasst auf Haarprobe */}
+        <div className="mb-8 p-6 bg-[#E6F4F9]/60 rounded-lg border border-[#80A0C0]/20"> 
+          <h4 className="font-serif text-xl font-semibold mb-3 text-[#365A80] flex items-center">
+             <span className="bg-[#80A0C0] text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 font-bold">4</span>
+             Nährstoffanalyse per Haarprobe: Langfristige Optimierung
+          </h4>
+          <p className="paragraph mb-4">
+            Als abschließender, essenzieller Schritt unseres Programms findet eine umfassende Nährstoffanalyse mittels einer Haarprobe statt. Wir entnehmen eine kleine, unauffällige Haarprobe und senden diese an ein spezialisiertes Labor. Die detaillierten Ergebnisse besprechen wir anschließend gemeinsam – entweder persönlich vor Ort oder bequem per Videotermin.
+          </p>
+          <h5 className="font-semibold mb-2">Vorteile der Haaranalyse:</h5>
+          <ul className="list-disc list-inside mb-4 space-y-1 pl-4">
+            <li>Identifiziert individuelle Nährstoffmängel oder -ungleichgewichte über einen längeren Zeitraum.</li>
+            <li>Ermöglicht gezieltes Auffüllen von Defiziten für optimale Hautgesundheit von innen.</li>
+            <li>Bietet eine Grundlage für langfristige Strategien zur Erhaltung Ihrer Hautqualität.</li>
+            <li>Fördert ein ganzheitliches Verständnis für die Bedürfnisse Ihres Körpers und Ihrer Haut.</li>
+          </ul>
+           <h5 className="font-semibold mb-2">Ablauf:</h5>
+           <ol className="list-decimal list-inside space-y-1 pl-4">
+             <li>Entnahme einer kleinen Haarprobe (im Rahmen einer der letzten Sitzungen oder separat).</li>
+             <li>Versand der Probe an ein spezialisiertes Labor.</li>
+             <li>Ausführliche Besprechung der Laborergebnisse und individueller Empfehlungen (vor Ort oder Video).</li>
+           </ol>
+        </div>
+
+        {/* Allgemeine Hinweise - angepasst */}
+        <div className="mt-8 border-t border-[#C0A080]/30 pt-6">
+          <h4 className="font-serif text-xl font-semibold mb-3 text-[#805A36]">Das Konzept im Überblick:</h4>
+           <ul className="list-disc list-inside space-y-2">
+            <li><span className="font-semibold">Umfang:</span> 4 umfassende Behandlungssitzungen (Schritte 1-3 wiederholt) + 1 abschließende Nährstoffanalyse (Schritt 4).</li>
+            <li><span className="font-semibold">Empfohlener Abstand:</span> Jeweils 2 bis 4 Wochen zwischen den Sitzungen 1-3. Analyse nach Sitzung 3 oder 4.</li>
+            <li><span className="font-semibold">Dauer pro Sitzung (1-3):</span> Ca. 1,5 - 2 Stunden.</li>
+            <li><span className="font-semibold">Ergebnis:</span> Sofort sichtbare Frische, langfristige Strukturverbesserung und optimierte Nährstoffversorgung für nachhaltige Hautgesundheit.</li>
+            <li><span className="font-semibold">Gesamtpaket-Preis:</span> 1.899 €</li>
+          </ul>
+        </div>
+      </>
+    )
   }
 ];
 

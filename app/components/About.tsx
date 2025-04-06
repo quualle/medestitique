@@ -57,7 +57,7 @@ const About = () => {
             <h2 className="heading-2 mb-6">Über <span className="text-[#C0A080]">Saskia Heer</span></h2>
             
             <p className="paragraph mb-4">
-              Saskia Heer ist eine hochqualifizierte Spezialistin für ästhetische Medizin mit einer Leidenschaft dafür, Patienten zu natürlich aussehenden Ergebnissen zu verhelfen, die ihr Selbstvertrauen und Wohlbefinden steigern.
+              Saskia Heer ist eine Ärztin, die sich auf ästhetische Medizin spezialisiert hat, mit einer Leidenschaft dafür, Patienten zu natürlich aussehenden Ergebnissen zu verhelfen, die ihr Selbstvertrauen und Wohlbefinden steigern.
             </p>
             
             <p className="paragraph mb-6">
