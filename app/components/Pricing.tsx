@@ -46,6 +46,7 @@ const pricingPlans = [
     features: [
       '4 Sitzungen (PRP + Infusion + Creme)',
       'Inkl. Nährstoffanalyse (Haarprobe + Besprechung)',
+      'Individuelle Infusionstherapie basierend auf Analyseergebnissen',
       'Maximale Hauterneuerung & -gesundheit',
       '100% natürliche, individuelle PRP-Creme inklusive',
       'Langfristige Optimierung der Hautgesundheit'
