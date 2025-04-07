@@ -600,6 +600,9 @@ const Treatments = () => {
   const [selectedSubTreatment, setSelectedSubTreatment] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
   
+  // Neue Ref für den Behandlungsbeschreibungsbereich
+  const treatmentDescriptionRef = React.useRef(null);
+  
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: false
@@ -626,7 +629,16 @@ const Treatments = () => {
       setShowSubMenu(!showSubMenu);
     }
     
-    setTimeout(() => setIsAnimating(false), 500);
+    // Scroll zur Behandlungsbeschreibung nach einer kurzen Verzögerung
+    setTimeout(() => {
+      if (treatmentDescriptionRef.current) {
+        treatmentDescriptionRef.current.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start'
+        });
+      }
+      setIsAnimating(false);
+    }, 300);
   };
 
   // Handle selection of a sub-treatment
@@ -634,14 +646,24 @@ const Treatments = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setSelectedSubTreatment(subTreatment);
-    setTimeout(() => setIsAnimating(false), 500);
+    
+    // Scroll zur Behandlungsbeschreibung nach einer kurzen Verzögerung
+    setTimeout(() => {
+      if (treatmentDescriptionRef.current) {
+        treatmentDescriptionRef.current.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start'
+        });
+      }
+      setIsAnimating(false);
+    }, 300);
   };
 
   return (
     <section id="treatments" className="pt-32 pb-24 bg-gradient-to-b from-[#F9F0E6] to-[#FFFBF6] relative overflow-hidden">
-      {/* DRAMATISCHES LUXUS-TRENNUNGSELEMENT */}
-      <div className="absolute top-0 left-0 right-0 -mt-80 z-20 overflow-visible">
-        {/* Große geschwungene Wellenform */}
+      {/* Eleganter Übergangsbereich zwischen Titelseite und Behandlungen */}
+      <div className="absolute top-0 left-0 right-0 -mt-32 z-20 overflow-hidden">
+        {/* Sanfte Wellenform */}
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full" preserveAspectRatio="none">
           <defs>
             <linearGradient id="goldWaveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -656,94 +678,71 @@ const Treatments = () => {
           ></path>
         </svg>
         
-        {/* Dramatisches zentrales Element */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/4 w-full">
+        {/* Fließender zentraler Effekt */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full">
           <motion.div 
-            initial={{ scale: 0.4, opacity: 0 }}
+            initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.2, type: "spring", bounce: 0.4 }}
             className="relative flex justify-center"
           >
-            {/* Leuchtender Hintergrund */}
-            <div className="absolute w-60 h-60 rounded-full bg-[#C0A080]/10 blur-2xl"></div>
-            
-            {/* Rotierendes äußeres Element */}
+            {/* Schwebende goldene Kreise */}
             <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute w-56 h-56 rounded-full border border-[#C0A080]/30"
+              animate={{ 
+                y: [0, -15, 0],
+                opacity: [0.7, 1, 0.7]
+              }}
+              transition={{ 
+                duration: 3, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
+              className="absolute -right-10 top-0 w-16 h-16 rounded-full bg-gradient-to-br from-[#C0A080]/30 to-[#C0A080]/10 blur-sm"
             ></motion.div>
             
             <motion.div
-              animate={{ rotate: -360 }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-              className="absolute w-64 h-64 rounded-full border-2 border-dashed border-[#C0A080]/20"
+              animate={{ 
+                y: [0, 20, 0],
+                opacity: [0.5, 0.8, 0.5]
+              }}
+              transition={{ 
+                duration: 4, 
+                repeat: Infinity, 
+                ease: "easeInOut",
+                delay: 0.5
+              }}
+              className="absolute -left-20 top-20 w-24 h-24 rounded-full bg-gradient-to-tl from-[#C0A080]/20 to-[#C0A080]/5 blur-sm"
             ></motion.div>
             
-            {/* Leuchtender zentraler Kreis */}
-            <div className="relative w-40 h-40 rounded-full bg-gradient-to-br from-[#C0A080] to-[#E8C090] flex items-center justify-center shadow-[0_0_30px_10px_rgba(192,160,128,0.4)]">
-              {/* Innerer Kreis */}
-              <div className="w-32 h-32 rounded-full border-2 border-white/50 flex items-center justify-center relative overflow-hidden">
-                {/* Glitzereffekte */}
-                <motion.div 
-                  animate={{ 
-                    opacity: [0.3, 0.8, 0.3],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{ 
-                    duration: 3, 
-                    repeat: Infinity,
-                  }}
-                  className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent"
-                ></motion.div>
-                
-                {/* Logo Text */}
-                <span className="text-white font-serif text-3xl font-bold z-10 tracking-wider">ME</span>
-              </div>
-            </div>
-            
-            {/* Strahl-Effekte */}
-            {[...Array(8)].map((_, i) => (
+            {/* Zentrales Logo-Element */}
+            <motion.div
+              initial={{ opacity: 0, rotate: -10 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              transition={{ duration: 1.5, delay: 0.2 }}
+              className="w-32 h-32 relative"
+            >
               <motion.div 
-                key={i}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0.4, 0.7, 0.4] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                }}
-                className="absolute top-1/2 left-1/2 w-1 h-16 bg-gradient-to-b from-[#C0A080] to-transparent"
-                style={{ 
-                  transform: `translate(-50%, -50%) rotate(${i * 45}deg)`,
-                  transformOrigin: "center 0",
-                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 rounded-full border border-[#C0A080]/30"
               ></motion.div>
-            ))}
-            
-            {/* Schwebende Akzente */}
-            <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-10 right-5 w-16 h-16 backdrop-blur-sm bg-gradient-to-tr from-[#C0A080]/20 to-[#C0A080]/5 rounded-full"
-            ></motion.div>
-            
-            <motion.div
-              animate={{ y: [0, 15, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-10 -left-10 w-20 h-20 backdrop-blur-sm bg-gradient-to-bl from-[#C0A080]/20 to-[#C0A080]/5 rounded-full"
-            ></motion.div>
+              
+              <motion.div 
+                animate={{ rotate: -360 }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 rounded-full border-2 border-dashed border-[#C0A080]/20"
+                style={{ margin: "-5px" }}
+              ></motion.div>
+              
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#C0A080]/90 to-[#C0A080]/70 flex items-center justify-center shadow-[0_0_30px_rgba(192,160,128,0.3)]">
+                <span className="text-white font-serif text-2xl font-bold tracking-wider">ME</span>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
         
-        {/* Dramatische Bottom-Border */}
-        <div className="absolute bottom-0 left-0 w-full h-6">
-          <div className="relative w-full h-full">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#C0A080]/30 to-transparent h-px top-0"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#C0A080]/20 to-transparent h-px top-2"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#C0A080]/10 to-transparent h-px top-4"></div>
-          </div>
-        </div>
+        {/* Subtile horizontale Linie */}
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#C0A080]/20 to-transparent"></div>
       </div>
       
       {/* Decorative elements */}
@@ -794,269 +793,275 @@ const Treatments = () => {
           </motion.p>
         </motion.div>
 
-        {/* Main treatment selection - Modernisiertes Card-Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {treatments.map((treatment, index) => (
-            <motion.div 
-              key={treatment.id}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? 
-                { opacity: 1, y: 0 } : 
-                { opacity: 0, y: 50 }
-              }
-              transition={{ 
-                duration: 0.7, 
-                delay: index * 0.15, 
-                ease: "easeOut" 
-              }}
-              whileHover={{ 
-                scale: 1.03, 
-                boxShadow: "0 10px 25px -5px rgba(192, 160, 128, 0.2), 0 8px 10px -6px rgba(192, 160, 128, 0.1)" 
-              }}
-              className={`p-8 rounded-2xl cursor-pointer transition-all duration-300 backdrop-blur-sm
-                ${selectedTreatment.id === treatment.id 
-                ? 'bg-gradient-to-br from-[#C0A080] to-[#805A36] text-white shadow-lg' 
-                : 'bg-white/80 hover:bg-[#F3E8DD]/80 border border-[#C0A080]/10'}
-              `}
-              onClick={() => handleTreatmentClick(treatment)}
-            >
-              <div className="flex flex-col items-center text-center">
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 
+        {/* Horizontales Layout mit Karten oben und Erklärung darunter */}
+        <div>
+          {/* Main treatment selection - Behandlungskarten */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            {treatments.map((treatment, index) => (
+              <motion.div 
+                key={treatment.id}
+                initial={{ opacity: 0, y: 50 }}
+                animate={inView ? 
+                  { opacity: 1, y: 0 } : 
+                  { opacity: 0, y: 50 }
+                }
+                transition={{ 
+                  duration: 0.7, 
+                  delay: index * 0.15, 
+                  ease: "easeOut" 
+                }}
+                whileHover={{ 
+                  scale: 1.03, 
+                  boxShadow: "0 10px 25px -5px rgba(192, 160, 128, 0.2), 0 8px 10px -6px rgba(192, 160, 128, 0.1)" 
+                }}
+                className={`p-8 rounded-2xl cursor-pointer transition-all duration-300 backdrop-blur-sm
                   ${selectedTreatment.id === treatment.id 
-                  ? 'bg-white/20' 
-                  : 'bg-[#F3E8DD]'}`}
-                >
-                  {selectedTreatment.id === treatment.id 
-                    ? React.cloneElement(treatment.icon, { className: "text-4xl text-white" })
-                    : treatment.icon}
-                </div>
-                <h3 className={`heading-3 mb-3 ${selectedTreatment.id === treatment.id ? 'text-white' : ''}`}>
-                  {treatment.title}
-                </h3>
-                <p className={`mb-5 ${selectedTreatment.id === treatment.id ? 'text-white/90' : 'text-gray-600'}`}>
-                  {treatment.shortDescription}
-                </p>
-                
-                {/* Show dropdown indicator if this treatment has a submenu */}
-                {treatment.hasSubMenu && (
-                  <div className={`mt-2 flex items-center px-4 py-2 rounded-full 
+                  ? 'bg-gradient-to-br from-[#C0A080] to-[#805A36] text-white shadow-lg' 
+                  : 'bg-white/80 hover:bg-[#F3E8DD]/80 border border-[#C0A080]/10'}
+                `}
+                onClick={() => handleTreatmentClick(treatment)}
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 
                     ${selectedTreatment.id === treatment.id 
                     ? 'bg-white/20' 
                     : 'bg-[#F3E8DD]'}`}
                   >
-                    <span className={`mr-2 text-sm font-medium ${selectedTreatment.id === treatment.id ? 'text-white' : 'text-[#805A36]'}`}>
-                      Alle Behandlungen entdecken
-                    </span>
-                    <FaChevronDown className={`transition-all duration-300 ${showSubMenu && selectedTreatment.id === treatment.id ? 'rotate-180' : ''} ${selectedTreatment.id === treatment.id ? 'text-white' : 'text-[#C0A080]'}`} />
+                    {selectedTreatment.id === treatment.id 
+                      ? React.cloneElement(treatment.icon, { className: "text-4xl text-white" })
+                      : treatment.icon}
                   </div>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Submenu for selected treatments - Eleganter mit AnimatePresence */}
-        <AnimatePresence>
-          {showSubMenu && selectedTreatment.hasSubMenu && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0, y: -20 }}
-              animate={{ opacity: 1, height: 'auto', y: 0 }}
-              exit={{ opacity: 0, height: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="mb-12 rounded-2xl overflow-hidden shadow-xl bg-white border border-[#C0A080]/20"
-            >
-              <div className="p-5 bg-gradient-to-r from-[#C0A080] to-[#805A36]">
-                <h4 className="font-serif text-xl text-white text-center font-semibold">
-                  {selectedTreatment.id === 'botox' ? 'Unsere Botox Behandlungen' : 'Unsere Hyaluronsäure Behandlungen'}
-                </h4>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 p-8">
-                {selectedTreatment.subTreatments.map((subTreatment, index) => (
-                  <motion.div
-                    key={subTreatment.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(192, 160, 128, 0.1), 0 4px 6px -2px rgba(192, 160, 128, 0.05)" }}
-                    className={`p-5 rounded-xl cursor-pointer transition-all duration-300 flex flex-col items-center text-center
-                      ${selectedSubTreatment && selectedSubTreatment.id === subTreatment.id 
-                        ? 'bg-gradient-to-br from-[#C0A080] to-[#805A36] text-white shadow-lg border-2 border-white' 
-                        : 'bg-[#F9F5F0] hover:bg-[#F3E8DD] border border-transparent'}
-                    `}
-                    onClick={() => handleSubTreatmentClick(subTreatment)}
-                  >
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-3
-                      ${selectedSubTreatment && selectedSubTreatment.id === subTreatment.id 
-                        ? 'bg-white/20' 
-                        : 'bg-white'}
-                    `}>
-                      <div className={`text-2xl
-                        ${selectedSubTreatment && selectedSubTreatment.id === subTreatment.id 
-                          ? 'text-white' 
-                          : 'text-[#C0A080]'}
-                      `}>
-                        {subTreatment.icon}
-                      </div>
-                    </div>
-                    <h5 className="font-medium text-sm leading-tight">
-                      {subTreatment.title}
-                    </h5>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Main treatment description - Verbessert mit elegantem Design */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            ref={contentRef}
-            key={selectedTreatment.id + (selectedSubTreatment ? selectedSubTreatment.id : '')}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 30 }}
-            transition={{ duration: 0.5 }}
-            className="bg-white p-10 rounded-2xl shadow-xl border border-[#C0A080]/10 relative overflow-hidden"
-          >
-            {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-40 h-40 bg-[#C0A080]/5 rounded-full -mr-20 -mt-20"></div>
-            <div className="absolute bottom-0 left-0 w-60 h-60 bg-[#F3E8DD]/50 rounded-full -ml-20 -mb-20"></div>
-            
-            <div className="relative z-10">
-              {/* Animated accent bar */}
-              <motion.div 
-                initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-                className="absolute top-0 left-0 h-1 bg-gradient-to-r from-[#F3E8DD] via-[#C0A080] to-[#F3E8DD]"
-              ></motion.div>
-              
-              {/* Show selected sub-treatment info if available */}
-              {selectedSubTreatment ? (
-                <>
-                  <div className="flex items-center mb-6">
-                    <button 
-                      onClick={() => setSelectedSubTreatment(null)} 
-                      className="flex items-center text-[#C0A080] hover:text-[#805A36] transition-colors bg-[#F9F5F0] px-4 py-2 rounded-full"
+                  <h3 className={`heading-3 mb-3 ${selectedTreatment.id === treatment.id ? 'text-white' : ''}`}>
+                    {treatment.title}
+                  </h3>
+                  <p className={`mb-5 ${selectedTreatment.id === treatment.id ? 'text-white/90' : 'text-gray-600'}`}>
+                    {treatment.shortDescription}
+                  </p>
+                  
+                  {/* Show dropdown indicator if this treatment has a submenu */}
+                  {treatment.hasSubMenu && (
+                    <div className={`mt-2 flex items-center px-4 py-2 rounded-full 
+                      ${selectedTreatment.id === treatment.id 
+                      ? 'bg-white/20' 
+                      : 'bg-[#F3E8DD]'}`}
                     >
-                      <FaChevronDown className="rotate-90 mr-2" />
-                      <span className="font-medium">
-                        {selectedTreatment.id === 'botox' 
-                          ? 'Zurück zu allen Botox-Behandlungen' 
-                          : 'Zurück zu allen Hyaluronsäure-Behandlungen'}
+                      <span className={`mr-2 text-sm font-medium ${selectedTreatment.id === treatment.id ? 'text-white' : 'text-[#805A36]'}`}>
+                        Alle Behandlungen entdecken
                       </span>
-                    </button>
-                  </div>
-                  <div className="flex flex-col md:flex-row md:items-center mb-8 gap-6">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#C0A080] to-[#805A36] flex items-center justify-center flex-shrink-0">
-                      <div className="text-3xl text-white">{selectedSubTreatment.icon}</div>
+                      <FaChevronDown className={`transition-all duration-300 ${showSubMenu && selectedTreatment.id === treatment.id ? 'rotate-180' : ''} ${selectedTreatment.id === treatment.id ? 'text-white' : 'text-[#C0A080]'}`} />
                     </div>
-                    <h3 className="heading-3 text-[#805A36] mb-0">{selectedSubTreatment.title}</h3>
-                  </div>
-                  <div className="prose prose-lg max-w-none">
-                    <p className="paragraph mb-6 text-gray-700">{selectedSubTreatment.description}</p>
-                    <div className="p-6 rounded-xl bg-[#F9F5F0] border-l-4 border-[#C0A080] mb-8">
-                      <p className="paragraph mb-0 italic">
-                        {selectedTreatment.id === 'botox' 
-                          ? `Unsere Spezialisten für ${selectedSubTreatment.title} verwenden nur hochwertige Botox®-Produkte und präzise Injektionstechniken, um natürlich aussehende Ergebnisse zu erzielen, die Ihr Erscheinungsbild verbessern und gleichzeitig Ihre natürliche Ausdrucksfähigkeit bewahren.`
-                          : `Unsere Spezialisten für ${selectedSubTreatment.title} verwenden nur hochwertige Hyaluronsäure-Produkte und fortschrittliche Techniken, um natürlich aussehende Ergebnisse zu erzielen, die Ihre Gesichtszüge harmonisch ergänzen und betonen.`
-                        }
-                      </p>
-                    </div>
-                    
-                    {/* Special cases for certain treatments */}
-                    {selectedSubTreatment.id === 'hyaluronidase' && (
-                      <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
-                        <h4 className="font-serif text-xl font-semibold mb-4 text-[#805A36]">Wann wird Hyaluronidase eingesetzt?</h4>
-                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-0">
-                          {['Korrektur überfüllter Bereiche', 'Behandlung asymmetrischer Ergebnisse', 
-                            'Auflösung von Hyaluronsäure-Ansammlungen', 'Management von Komplikationen nach Filler-Behandlungen'].map((item, i) => (
-                            <li key={i} className="flex items-center bg-[#F9F5F0] p-3 rounded-lg">
-                              <svg className="h-5 w-5 text-[#C0A080] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                              </svg>
-                              <span className="ml-2">{item}</span>
-                            </li>
-                          ))}
-                        </ul>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Submenu for selected treatments */}
+          <AnimatePresence>
+            {showSubMenu && selectedTreatment.hasSubMenu && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0, y: -20 }}
+                animate={{ opacity: 1, height: 'auto', y: 0 }}
+                exit={{ opacity: 0, height: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="mb-8 rounded-2xl overflow-hidden shadow-xl bg-white border border-[#C0A080]/20"
+              >
+                <div className="p-5 bg-gradient-to-r from-[#C0A080] to-[#805A36]">
+                  <h4 className="font-serif text-xl text-white text-center font-semibold">
+                    {selectedTreatment.id === 'botox' ? 'Unsere Botox Behandlungen' : 'Unsere Hyaluronsäure Behandlungen'}
+                  </h4>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 p-8">
+                  {selectedTreatment.subTreatments.map((subTreatment, index) => (
+                    <motion.div
+                      key={subTreatment.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(192, 160, 128, 0.1), 0 4px 6px -2px rgba(192, 160, 128, 0.05)" }}
+                      className={`p-5 rounded-xl cursor-pointer transition-all duration-300 flex flex-col items-center text-center
+                        ${selectedSubTreatment && selectedSubTreatment.id === subTreatment.id 
+                          ? 'bg-gradient-to-br from-[#C0A080] to-[#805A36] text-white shadow-lg border-2 border-white' 
+                          : 'bg-[#F9F5F0] hover:bg-[#F3E8DD] border border-transparent'}
+                      `}
+                      onClick={() => handleSubTreatmentClick(subTreatment)}
+                    >
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-3
+                        ${selectedSubTreatment && selectedSubTreatment.id === subTreatment.id 
+                          ? 'bg-white/20' 
+                          : 'bg-white'}
+                      `}>
+                        <div className={`text-2xl
+                          ${selectedSubTreatment && selectedSubTreatment.id === subTreatment.id 
+                            ? 'text-white' 
+                            : 'text-[#C0A080]'}
+                        `}>
+                          {subTreatment.icon}
+                        </div>
                       </div>
-                    )}
-                    
-                    {selectedSubTreatment.id === 'bruxismBotox' && (
-                      <div className="space-y-6">
-                        <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
-                          <h4 className="font-serif text-xl font-semibold mb-3 text-[#805A36]">Wie wirkt Botox® gegen Zähneknirschen?</h4>
-                          <p className="paragraph mb-0">
-                            Bei der Behandlung von Zähneknirschen wird Botox® in spezifische Punkte im Kieferbereich injiziert. Es blockiert die Freisetzung von Muskelaktivitäten, die Zähneknirschen auslösen oder verschlimmern können.
+                      <h5 className="font-medium text-sm leading-tight">
+                        {subTreatment.title}
+                      </h5>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Behandlungsbeschreibung - jetzt mit besserem Erscheinen von oben */}
+          <div ref={treatmentDescriptionRef}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                ref={contentRef}
+                key={selectedTreatment.id + (selectedSubTreatment ? selectedSubTreatment.id : '')}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="bg-white p-10 rounded-2xl shadow-xl border border-[#C0A080]/10 relative overflow-hidden"
+              >
+                {/* Decorative elements */}
+                <div className="absolute top-0 right-0 w-40 h-40 bg-[#C0A080]/5 rounded-full -mr-20 -mt-20"></div>
+                <div className="absolute bottom-0 left-0 w-60 h-60 bg-[#F3E8DD]/50 rounded-full -ml-20 -mb-20"></div>
+                
+                <div className="relative z-10">
+                  {/* Animated accent bar */}
+                  <motion.div 
+                    initial={{ width: "0%" }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 1.2, ease: "easeInOut" }}
+                    className="absolute top-0 left-0 h-1 bg-gradient-to-r from-[#F3E8DD] via-[#C0A080] to-[#F3E8DD]"
+                  ></motion.div>
+                  
+                  {/* Show selected sub-treatment info if available */}
+                  {selectedSubTreatment ? (
+                    <>
+                      <div className="flex items-center mb-6">
+                        <button 
+                          onClick={() => setSelectedSubTreatment(null)} 
+                          className="flex items-center text-[#C0A080] hover:text-[#805A36] transition-colors bg-[#F9F5F0] px-4 py-2 rounded-full"
+                        >
+                          <FaChevronDown className="rotate-90 mr-2" />
+                          <span className="font-medium">
+                            {selectedTreatment.id === 'botox' 
+                              ? 'Zurück zu allen Botox-Behandlungen' 
+                              : 'Zurück zu allen Hyaluronsäure-Behandlungen'}
+                          </span>
+                        </button>
+                      </div>
+                      <div className="flex flex-col md:flex-row md:items-center mb-8 gap-6">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#C0A080] to-[#805A36] flex items-center justify-center flex-shrink-0">
+                          <div className="text-3xl text-white">{selectedSubTreatment.icon}</div>
+                        </div>
+                        <h3 className="heading-3 text-[#805A36] mb-0">{selectedSubTreatment.title}</h3>
+                      </div>
+                      <div className="prose prose-lg max-w-none">
+                        <p className="paragraph mb-6 text-gray-700">{selectedSubTreatment.description}</p>
+                        <div className="p-6 rounded-xl bg-[#F9F5F0] border-l-4 border-[#C0A080] mb-8">
+                          <p className="paragraph mb-0 italic">
+                            {selectedTreatment.id === 'botox' 
+                              ? `Unsere Spezialisten für ${selectedSubTreatment.title} verwenden nur hochwertige Botox®-Produkte und präzise Injektionstechniken, um natürlich aussehende Ergebnisse zu erzielen, die Ihr Erscheinungsbild verbessern und gleichzeitig Ihre natürliche Ausdrucksfähigkeit bewahren.`
+                              : `Unsere Spezialisten für ${selectedSubTreatment.title} verwenden nur hochwertige Hyaluronsäure-Produkte und fortschrittliche Techniken, um natürlich aussehende Ergebnisse zu erzielen, die Ihre Gesichtszüge harmonisch ergänzen und betonen.`
+                            }
                           </p>
                         </div>
                         
-                        <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
-                          <h4 className="font-serif text-xl font-semibold mb-4 text-[#805A36]">Vorteile:</h4>
-                          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-0">
-                            {['Reduziert Häufigkeit und Schwere von Zähneknirschen', 'Kann die Anzahl von Kopfschmerztagen deutlich verringern', 
-                              'Wirkt präventiv, nicht nur symptomatisch', 'Effekt hält typischerweise 3-6 Monate'].map((item, i) => (
-                              <li key={i} className="flex items-center bg-[#F9F5F0] p-3 rounded-lg">
-                                <svg className="h-5 w-5 text-[#C0A080] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span className="ml-2">{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    )}
-                    
-                    {selectedSubTreatment.id === 'hyperhidrosisBotox' && (
-                      <div className="space-y-6">
-                        <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
-                          <h4 className="font-serif text-xl font-semibold mb-3 text-[#805A36]">Botox® bei übermäßigem Schwitzen</h4>
-                          <p className="paragraph mb-0">
-                            Bei der Behandlung von Hyperhidrose (übermäßiges Schwitzen) blockiert Botox® temporär die Nervenenden, die die Schweißdrüsen aktivieren. Dadurch wird die Schweißproduktion in den behandelten Bereichen deutlich reduziert, ohne die natürliche Regulation der Körpertemperatur zu beeinträchtigen.
-                          </p>
-                        </div>
+                        {/* Special cases for certain treatments */}
+                        {selectedSubTreatment.id === 'hyaluronidase' && (
+                          <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
+                            <h4 className="font-serif text-xl font-semibold mb-4 text-[#805A36]">Wann wird Hyaluronidase eingesetzt?</h4>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-0">
+                              {['Korrektur überfüllter Bereiche', 'Behandlung asymmetrischer Ergebnisse', 
+                                'Auflösung von Hyaluronsäure-Ansammlungen', 'Management von Komplikationen nach Filler-Behandlungen'].map((item, i) => (
+                                <li key={i} className="flex items-center bg-[#F9F5F0] p-3 rounded-lg">
+                                  <svg className="h-5 w-5 text-[#C0A080] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                  </svg>
+                                  <span className="ml-2">{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                         
-                        <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
-                          <h4 className="font-serif text-xl font-semibold mb-4 text-[#805A36]">Einsatzgebiete:</h4>
-                          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-0">
-                            {['Achseln', 'Handinnenflächen', 'Fußsohlen', 'Stirn und Kopfhaut'].map((item, i) => (
-                              <li key={i} className="flex items-center bg-[#F9F5F0] p-3 rounded-lg">
-                                <svg className="h-5 w-5 text-[#C0A080] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span className="ml-2">{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                        {/* Spezialfälle für bestimmte Behandlungen */}
+                        {selectedSubTreatment.id === 'bruxismBotox' && (
+                          <div className="space-y-6">
+                            <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
+                              <h4 className="font-serif text-xl font-semibold mb-3 text-[#805A36]">Wie wirkt Botox® gegen Zähneknirschen?</h4>
+                              <p className="paragraph mb-0">
+                                Bei der Behandlung von Zähneknirschen wird Botox® in spezifische Punkte im Kieferbereich injiziert. Es blockiert die Freisetzung von Muskelaktivitäten, die Zähneknirschen auslösen oder verschlimmern können.
+                              </p>
+                            </div>
+                            
+                            <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
+                              <h4 className="font-serif text-xl font-semibold mb-4 text-[#805A36]">Vorteile:</h4>
+                              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-0">
+                                {['Reduziert Häufigkeit und Schwere von Zähneknirschen', 'Kann die Anzahl von Kopfschmerztagen deutlich verringern', 
+                                  'Wirkt präventiv, nicht nur symptomatisch', 'Effekt hält typischerweise 3-6 Monate'].map((item, i) => (
+                                  <li key={i} className="flex items-center bg-[#F9F5F0] p-3 rounded-lg">
+                                    <svg className="h-5 w-5 text-[#C0A080] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span className="ml-2">{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        )}
+                        
+                        {selectedSubTreatment.id === 'hyperhidrosisBotox' && (
+                          <div className="space-y-6">
+                            <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
+                              <h4 className="font-serif text-xl font-semibold mb-3 text-[#805A36]">Botox® bei übermäßigem Schwitzen</h4>
+                              <p className="paragraph mb-0">
+                                Bei der Behandlung von Hyperhidrose (übermäßiges Schwitzen) blockiert Botox® temporär die Nervenenden, die die Schweißdrüsen aktivieren. Dadurch wird die Schweißproduktion in den behandelten Bereichen deutlich reduziert, ohne die natürliche Regulation der Körpertemperatur zu beeinträchtigen.
+                              </p>
+                            </div>
+                            
+                            <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
+                              <h4 className="font-serif text-xl font-semibold mb-4 text-[#805A36]">Einsatzgebiete:</h4>
+                              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-0">
+                                {['Achseln', 'Handinnenflächen', 'Fußsohlen', 'Stirn und Kopfhaut'].map((item, i) => (
+                                  <li key={i} className="flex items-center bg-[#F9F5F0] p-3 rounded-lg">
+                                    <svg className="h-5 w-5 text-[#C0A080] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span className="ml-2">{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex flex-col md:flex-row md:items-center mb-8 gap-6">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#C0A080] to-[#805A36] flex items-center justify-center flex-shrink-0">
+                          {React.cloneElement(selectedTreatment.icon, { className: "text-3xl text-white" })}
+                        </div>
+                        <h3 className="heading-3 mb-0 text-[#805A36]">{selectedTreatment.title}</h3>
+                      </div>
+                      <div className="prose prose-lg max-w-none">
+                        {selectedTreatment.fullDescription}
+                      </div>
+                    </>
+                  )}
+                  
+                  <div className="mt-10 text-center">
+                    <a href="#contact" className="inline-block px-8 py-4 bg-gradient-to-r from-[#C0A080] to-[#805A36] text-white font-semibold rounded-full hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                      Behandlung Buchen
+                    </a>
                   </div>
-                </>
-              ) : (
-                <>
-                  <div className="flex flex-col md:flex-row md:items-center mb-8 gap-6">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#C0A080] to-[#805A36] flex items-center justify-center flex-shrink-0">
-                      {React.cloneElement(selectedTreatment.icon, { className: "text-3xl text-white" })}
-                    </div>
-                    <h3 className="heading-3 mb-0 text-[#805A36]">{selectedTreatment.title}</h3>
-                  </div>
-                  <div className="prose prose-lg max-w-none">
-                    {selectedTreatment.fullDescription}
-                  </div>
-                </>
-              )}
-              
-              <div className="mt-10 text-center">
-                <a href="#contact" className="inline-block px-8 py-4 bg-gradient-to-r from-[#C0A080] to-[#805A36] text-white font-semibold rounded-full hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-                  Behandlung Buchen
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </section>
   );
