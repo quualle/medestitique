@@ -3,7 +3,7 @@
 "use client";
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaSyringe, FaWater, FaTint, FaChevronDown, FaSmile, FaAngry, FaGrinAlt, FaUserAlt, FaTeeth, 
          FaColumns, FaChartPie, FaCircle, FaBrain, FaSnowflake, FaGrimace, FaBabyCarriage, 
@@ -18,12 +18,6 @@ const botoxSubTreatments = [
     title: 'AUGENBRAUENLIFTING',
     icon: <FaEye />,
     description: 'Natürliches Anheben der Augenbrauen für einen offeneren, wacheren Blick.'
-  },
-  {
-    id: 'barbieBotox',
-    title: 'BARBIE BOTOX®',
-    icon: <FaBabyCarriage />,
-    description: 'Gezielte Behandlung für einen schlanken, definierten Hals und Nackenbereich.'
   },
   {
     id: 'migraineBotox',
@@ -48,6 +42,12 @@ const botoxSubTreatments = [
     title: 'BUNNY LINES',
     icon: <FaSmileWink />,
     description: 'Glättet feine Nasenfalten, die beim Lächeln oder Naserümpfen entstehen.'
+  },
+  {
+    id: 'erdbeerkinn',
+    title: 'ERDBEERKINN',
+    icon: <FaAngry />,
+    description: 'Glättet die charakteristische Orangenhaut-Struktur am Kinn für ein ebenmäßigeres Erscheinungsbild.'
   },
   {
     id: 'slimming',
@@ -80,12 +80,6 @@ const botoxSubTreatments = [
     description: 'Entspannt die Muskeln, die Mundwinkel nach unten ziehen, für ein freundlicheres Erscheinungsbild.'
   },
   {
-    id: 'microBotox',
-    title: 'MICRO–BOTOX®',
-    icon: <FaSun />,
-    description: 'Oberflächliche Mikro-Injektionen zur Verfeinerung der Hautstruktur und Porenverkleinerung.'
-  },
-  {
     id: 'noseTip',
     title: 'NASENSPITZE ANHEBEN',
     icon: <FaArrowUp />,
@@ -96,6 +90,12 @@ const botoxSubTreatments = [
     title: 'STIRNFALTEN UNTERSPRITZEN',
     icon: <FaSadTear />,
     description: 'Glättung horizontaler Stirnfalten für ein entspannteres, jugendlicheres Erscheinungsbild.'
+  },
+  {
+    id: 'zornesfalte',
+    title: 'ZORNESFALTE',
+    icon: <FaAngry />,
+    description: 'Gezielte Behandlung der vertikalen Falten zwischen den Augenbrauen für einen entspannteren Gesichtsausdruck.'
   },
   {
     id: 'touchUp',
@@ -114,6 +114,12 @@ const hyaluronSubTreatments = [
     description: 'Enzym zur Abbau von unerwünschten oder überschüssigen Hyaluronsäure-Fillern.'
   },
   {
+    id: 'barcode',
+    title: 'BARCODE (LIPPENLINIEN)',
+    icon: <FaColumns />,
+    description: 'Gezielte Behandlung der vertikalen Linien oberhalb der Lippen für ein glatteres, jüngeres Erscheinungsbild.'
+  },
+  {
     id: 'jawline',
     title: 'JAWLINE',
     icon: <FaTeeth />,
@@ -124,12 +130,6 @@ const hyaluronSubTreatments = [
     title: 'KINNAUFBAU',
     icon: <FaUserAlt />,
     description: 'Verbesserung der Kinnform und -projektion für ein ausgewogenes Gesichtsprofil.'
-  },
-  {
-    id: 'lips',
-    title: 'LIPPENAUFBAU',
-    icon: <FaSmile />,
-    description: 'Natürliche Volumenverbesserung und Definition der Lippen.'
   },
   {
     id: 'marionette',
@@ -144,18 +144,6 @@ const hyaluronSubTreatments = [
     description: 'Glättung von Falten rund um den Mund für einen jugendlicheren Ausdruck.'
   },
   {
-    id: 'corners',
-    title: 'MUNDWINKEL ANHEBEN',
-    icon: <FaGrinAlt />,
-    description: 'Anheben herabhängender Mundwinkel für einen freundlicheren Gesichtsausdruck.'
-  },
-  {
-    id: 'nose',
-    title: 'NASENKORREKTUR MIT HYALURONSÄURE',
-    icon: <FaUserAlt />,
-    description: 'Nicht-chirurgische Nasenformung für eine harmonischere Gesichtsbalance.'
-  },
-  {
     id: 'nasolabial',
     title: 'NASOLABIALFALTE',
     icon: <FaColumns />,
@@ -166,6 +154,12 @@ const hyaluronSubTreatments = [
     title: 'TRÄNENRINNE UNTERSPRITZEN',
     icon: <FaWater />,
     description: 'Auffüllung von Tränenrinnen zur Reduzierung von Augenringen und müdem Aussehen.'
+  },
+  {
+    id: 'fullface',
+    title: 'FULL FACE',
+    icon: <FaUserAlt />,
+    description: 'Ganzheitliche Gesichtsbehandlung, die mehrere Bereiche harmonisch kombiniert für ein natürlich verjüngtes Erscheinungsbild.'
   },
   {
     id: 'vLift',
@@ -229,7 +223,7 @@ const treatments = [
           Hyaluronsäure ist eine natürlich vorkommende Substanz in Ihrem Körper, die hilft, die Hautfeuchtigkeit und das Volumen zu erhalten. Mit zunehmendem Alter nimmt unsere natürliche Hyaluronsäure ab, was zu Volumenverlust und Faltenbildung führt.
         </p>
         <p className="paragraph mb-4">
-          Unsere Premium-Hyaluronsäure-Filler stellen verlorenes Volumen wieder her, verbessern die Gesichtskonturen und erhöhen die Hautfeuchtigkeit. Dr. Heer verwendet fortschrittliche Techniken, um Filler präzise dort zu platzieren, wo sie für natürlich aussehende Ergebnisse benötigt werden.
+          Unsere Premium-Hyaluronsäure-Filler stellen verlorenes Volumen wieder her, verbessern die Gesichtskonturen und erhöhen die Hautfeuchtigkeit. Saskia Heer verwendet fortschrittliche Techniken, um Filler präzise dort zu platzieren, wo sie für natürlich aussehende Ergebnisse benötigt werden.
         </p>
         <h4 className="font-serif text-xl font-semibold mb-2">Vorteile:</h4>
         <ul className="list-disc list-inside mb-4 space-y-1">
@@ -252,7 +246,7 @@ const treatments = [
   },
   {
     id: 'prp',
-    title: 'PRP Therapie',
+    title: 'PRP Therapie (inklusive Microneedling)',
     icon: <FaTint className="text-4xl text-[#C0A080]" />,
     shortDescription: 'Nutzen Sie die natürlichen Heilkräfte Ihres Körpers mit der PRP-Therapie.',
     fullDescription: (
@@ -284,7 +278,7 @@ const treatments = [
   },
   {
     id: 'mesotherapy',
-    title: 'Mesotherapie',
+    title: 'Mesotherapie (inklusive Microneedling)',
     icon: <FaVials className="text-4xl text-[#C0A080]" />,
     shortDescription: 'Injizierte Nährstoffcocktails für strahlende, revitalisierte Haut.',
     fullDescription: (
@@ -310,6 +304,110 @@ const treatments = [
           <li>Präzise Injektion der maßgeschneiderten Wirkstoffcocktails</li>
           <li>Kurze Ruhezeit und Anwendung beruhigender Produkte</li>
           <li>Mehrere Sitzungen im Abstand von 2-4 Wochen für optimale Ergebnisse</li>
+        </ol>
+      </>
+    )
+  },
+  {
+    id: 'micronutrient',
+    title: 'Mikronährstoffanalyse & Vitamininfusion',
+    icon: <FaFlask className="text-4xl text-[#C0A080]" />,
+    shortDescription: 'Umfassende Analyse und gezielte Nährstoffversorgung für optimale Hautgesundheit.',
+    fullDescription: (
+      <>
+        <p className="paragraph mb-4">
+          Unsere Mikronährstoffanalyse ist ein umfassender diagnostischer Ansatz, um den individuellen Nährstoffstatus zu ermitteln. Durch eine präzise Analyse können wir Ungleichgewichte und Defizite identifizieren, die die Hautgesundheit und das allgemeine Wohlbefinden beeinträchtigen könnten.
+        </p>
+        <p className="paragraph mb-4">
+          Nach der Auswertung erfolgt eine maßgeschneiderte Vitamininfusion, die genau auf Ihre persönlichen Bedürfnisse abgestimmt ist. Diese hochdosierte intravenöse Zufuhr stellt sicher, dass die lebenswichtigen Nährstoffe direkt in den Blutkreislauf gelangen und optimal vom Körper aufgenommen werden können.
+        </p>
+        <h4 className="font-serif text-xl font-semibold mb-2">Vorteile:</h4>
+        <ul className="list-disc list-inside mb-4 space-y-1">
+          <li>Wissenschaftlich fundierte Analyse Ihres individuellen Nährstoffbedarfs</li>
+          <li>Maßgeschneiderte Nährstoffversorgung für optimale Wirksamkeit</li>
+          <li>Deutlich verbesserte Hautqualität durch gezielte Nährstoffzufuhr</li>
+          <li>Stärkung des Immunsystems und Steigerung der Vitalität</li>
+          <li>Unterstützung der natürlichen Regenerationsprozesse des Körpers</li>
+        </ul>
+        <h4 className="font-serif text-xl font-semibold mb-2">Behandlungsablauf:</h4>
+        <ol className="list-decimal list-inside mb-4 space-y-1">
+          <li>Ausführliche Anamnese und Entnahme einer Probe für die Mikronährstoffanalyse</li>
+          <li>Detaillierte Auswertung und Erstellung eines personalisierten Infusionsplans</li>
+          <li>Individuelle Zusammenstellung der Nährstofflösung basierend auf den Analyseergebnissen</li>
+          <li>Verabreichung der personalisierten Vitamininfusion (30-60 Minuten)</li>
+          <li>Ausführliche Besprechung der Ergebnisse und Empfehlungen für die Zukunft</li>
+        </ol>
+      </>
+    )
+  },
+  {
+    id: 'lipolysis',
+    title: 'Lipolyse (Fettwegspritze)',
+    icon: <FaSyringe className="text-4xl text-[#C0A080]" />,
+    shortDescription: 'Gezielte Reduzierung von Fettdepots ohne Operation für eine definierte Silhouette.',
+    fullDescription: (
+      <>
+        <p className="paragraph mb-4">
+          Die Lipolyse, auch als Fettwegspritze bekannt, ist eine nicht-chirurgische Methode zur gezielten Reduzierung lokaler Fettdepots. Bei dieser Behandlung wird eine spezielle Lösung injiziert, die die Fettzellen auflöst und deren natürlichen Abbau durch den Körper fördert.
+        </p>
+        <p className="paragraph mb-4">
+          Besonders effektiv ist die Lipolyse bei der Behandlung von hartnäckigen kleinen bis mittelgroßen Fettdepots wie Doppelkinn, Bauchschwarte oder Cellulite. Die Behandlung ermöglicht eine präzise Konturierung ohne die Risiken und Ausfallzeiten einer Operation.
+        </p>
+        <h4 className="font-serif text-xl font-semibold mb-2">Anwendungsbereiche:</h4>
+        <ul className="list-disc list-inside mb-4 space-y-1">
+          <li><span className="font-semibold">Doppelkinn:</span> Definierte Kiefer- und Halslinie für ein schlankeres Profil</li>
+          <li><span className="font-semibold">Bauchschwarte:</span> Gezielte Reduktion hartnäckiger Fettpolster am Bauch</li>
+          <li><span className="font-semibold">Cellulite:</span> Verbesserung des Hautbildes und Minderung der Orangenhaut-Struktur</li>
+          <li>Lokale Fettdepots an Oberschenkeln, Hüften und Rücken</li>
+        </ul>
+        <h4 className="font-serif text-xl font-semibold mb-2">Vorteile:</h4>
+        <ul className="list-disc list-inside mb-4 space-y-1">
+          <li>Nicht-invasive Alternative zur Fettabsaugung</li>
+          <li>Gezielte Behandlung problematischer Bereiche</li>
+          <li>Minimale Ausfallzeit und Risiken</li>
+          <li>Natürlich wirkende, schrittweise Ergebnisse</li>
+          <li>Dauerhafte Ergebnisse bei gleichbleibender Lebensweise</li>
+        </ul>
+        <h4 className="font-serif text-xl font-semibold mb-2">Behandlungsablauf:</h4>
+        <ol className="list-decimal list-inside mb-4 space-y-1">
+          <li>Eingehende Beratung und Analyse der Problemzonen</li>
+          <li>Präzise Markierung der zu behandelnden Bereiche</li>
+          <li>Anwendung eines lokalen Betäubungsmittels für maximalen Komfort</li>
+          <li>Gezielte Injektion der lipolytischen Lösung in die Fettschicht</li>
+          <li>Typischerweise 2-4 Behandlungen im Abstand von 3-4 Wochen für optimale Ergebnisse</li>
+        </ol>
+      </>
+    )
+  },
+  {
+    id: 'exosomes',
+    title: 'Exosomentherapie (inklusive Microneedling)',
+    icon: <FaDna className="text-4xl text-[#C0A080]" />,
+    shortDescription: 'Modernste regenerative Therapie mit zellulären Botenstoffen für intensive Hautregeneration.',
+    fullDescription: (
+      <>
+        <p className="paragraph mb-4">
+          Die Exosomentherapie repräsentiert den neuesten Stand der regenerativen Medizin. Exosomen sind winzige Vesikel, die von Stammzellen freigesetzt werden und als Botenstoffe fungieren, die zelluläre Regenerationsprozesse aktivieren und koordinieren. Diese innovativen Signalmoleküle enthalten Wachstumsfaktoren, Proteine, mRNA und weitere bioaktive Substanzen, die die Hautverjüngung auf zellulärer Ebene fördern.
+        </p>
+        <p className="paragraph mb-4">
+          Die Kombination mit Microneedling verstärkt die Wirkung der Exosomen deutlich, da die mikroskopisch kleinen Kanäle in der Haut eine optimale Aufnahme der regenerativen Botenstoffe ermöglichen. Diese Synergie bewirkt eine umfassende Hauterneuerung, die weit über herkömmliche Behandlungen hinausgeht.
+        </p>
+        <h4 className="font-serif text-xl font-semibold mb-2">Vorteile:</h4>
+        <ul className="list-disc list-inside mb-4 space-y-1">
+          <li>Fortschrittlichste Form der regenerativen Hauttherapie</li>
+          <li>Intensive Stimulation der körpereigenen Kollagen- und Elastinproduktion</li>
+          <li>Signifikante Verbesserung von Hautstruktur, -festigkeit und -elastizität</li>
+          <li>Effektive Behandlung von feinen Linien, Aknenarben und unregelmäßiger Pigmentierung</li>
+          <li>Maximale Hautregeneration mit minimalen Nebenwirkungen und Ausfallzeiten</li>
+        </ul>
+        <h4 className="font-serif text-xl font-semibold mb-2">Behandlungsablauf:</h4>
+        <ol className="list-decimal list-inside mb-4 space-y-1">
+          <li>Gründliche Hautanalyse und Beratungsgespräch</li>
+          <li>Reinigung und Vorbereitung der Haut</li>
+          <li>Auftragen einer anästhesierenden Creme für maximalen Komfort</li>
+          <li>Präzises Microneedling zur Schaffung mikroskopischer Kanäle in der Haut</li>
+          <li>Applizierung der hochkonzentrierten Exosomenlösung für optimale Penetration</li>
+          <li>Abschließende beruhigende Behandlung und individuelle Nachsorgeanweisungen</li>
         </ol>
       </>
     )
@@ -500,6 +598,7 @@ const Treatments = () => {
   const [selectedTreatment, setSelectedTreatment] = useState(treatments[0]);
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [selectedSubTreatment, setSelectedSubTreatment] = useState(null);
+  const [isAnimating, setIsAnimating] = useState(false);
   
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -513,24 +612,29 @@ const Treatments = () => {
 
   // Handle selection of a treatment
   const handleTreatmentClick = (treatment: any) => {
+    if (isAnimating) return;
+    
+    setIsAnimating(true);
     setSelectedTreatment(treatment);
     
-    // If the treatment has sub-treatments and it's the hyaluronic one, show the submenu
-    if (treatment.hasSubMenu) {
-      setShowSubMenu(true);
-      // Default to first sub-treatment if none is selected
-      if (!selectedSubTreatment) {
-        setSelectedSubTreatment(treatment.subTreatments[0]);
-      }
-    } else {
+    // If the clicked treatment doesn't have a submenu or is different from the current one, hide submenu
+    if (!treatment.hasSubMenu || treatment.id !== selectedTreatment.id) {
       setShowSubMenu(false);
       setSelectedSubTreatment(null);
+    } else {
+      // Toggle submenu for the same treatment
+      setShowSubMenu(!showSubMenu);
     }
+    
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
   // Handle selection of a sub-treatment
   const handleSubTreatmentClick = (subTreatment: any) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
     setSelectedSubTreatment(subTreatment);
+    setTimeout(() => setIsAnimating(false), 500);
   };
 
   return (
@@ -658,9 +762,8 @@ const Treatments = () => {
         className="absolute bottom-40 -left-32 w-80 h-80 rounded-full"
       />
       
-      <div className="section-container !pt-0 !pb-0 relative z-10">
-        <motion.div
-          ref={ref}
+      <div className="section-container !pt-0 !pb-0 relative z-10" ref={ref}>
+        <motion.div 
           initial={{ opacity: 0, y: 60 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -671,7 +774,15 @@ const Treatments = () => {
             animate={inView ? { scale: 1, opacity: 1 } : { scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h2 className="heading-2 mb-4">Unsere Premium <span className="text-[#C0A080]">Behandlungen</span></h2>
+            <h2 className="heading-2 mb-4 relative inline-block">
+              Unsere Premium <span className="text-[#C0A080]">Behandlungen</span>
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={inView ? { width: '100%' } : { width: 0 }}
+                transition={{ duration: 1, delay: 0.8 }}
+                className="absolute -bottom-2 left-0 h-[3px] bg-gradient-to-r from-transparent via-[#C0A080] to-transparent"
+              ></motion.div>
+            </h2>
           </motion.div>
           <motion.p 
             initial={{ y: 20, opacity: 0 }}
@@ -679,19 +790,19 @@ const Treatments = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="paragraph max-w-3xl mx-auto"
           >
-            Wir bieten modernste ästhetische Verfahren, die Ihre natürliche Schönheit mit minimaler Ausfallzeit und maximalen Ergebnissen verbessern.
+            Wir bieten medizinisch geprüfte ästhetische Verfahren nach neuesten wissenschaftlichen Standards an. Unser Fokus liegt auf der Unterstützung der körpereigenen Regeneration für natürliche Schönheit ohne künstliches Erscheinungsbild. Alle Behandlungen sind klinisch erprobt und fördern die Revitalisierung Ihrer Haut auf natürliche Weise.
           </motion.p>
         </motion.div>
 
-        {/* Main treatment selection */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+        {/* Main treatment selection - Modernisiertes Card-Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {treatments.map((treatment, index) => (
             <motion.div 
               key={treatment.id}
-              initial={{ opacity: 0, y: 50, rotateY: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               animate={inView ? 
-                { opacity: 1, y: 0, rotateY: 0 } : 
-                { opacity: 0, y: 50, rotateY: 30 }
+                { opacity: 1, y: 0 } : 
+                { opacity: 0, y: 50 }
               }
               transition={{ 
                 duration: 0.7, 
@@ -700,27 +811,43 @@ const Treatments = () => {
               }}
               whileHover={{ 
                 scale: 1.03, 
-                boxShadow: "0 10px 25px -5px rgba(192, 160, 128, 0.1), 0 8px 10px -6px rgba(192, 160, 128, 0.1)" 
+                boxShadow: "0 10px 25px -5px rgba(192, 160, 128, 0.2), 0 8px 10px -6px rgba(192, 160, 128, 0.1)" 
               }}
-              className={`p-6 rounded-xl cursor-pointer transition-all duration-300 ${selectedTreatment.id === treatment.id ? 'bg-[#C0A080] shadow-lg' : 'bg-white hover:bg-[#C0A080]/10'}`}
+              className={`p-8 rounded-2xl cursor-pointer transition-all duration-300 backdrop-blur-sm
+                ${selectedTreatment.id === treatment.id 
+                ? 'bg-gradient-to-br from-[#C0A080] to-[#805A36] text-white shadow-lg' 
+                : 'bg-white/80 hover:bg-[#F3E8DD]/80 border border-[#C0A080]/10'}
+              `}
               onClick={() => handleTreatmentClick(treatment)}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="mb-4">
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 
+                  ${selectedTreatment.id === treatment.id 
+                  ? 'bg-white/20' 
+                  : 'bg-[#F3E8DD]'}`}
+                >
                   {selectedTreatment.id === treatment.id 
-                    ? React.cloneElement(treatment.icon, { className: "text-4xl text-light" })
+                    ? React.cloneElement(treatment.icon, { className: "text-4xl text-white" })
                     : treatment.icon}
                 </div>
-                <h3 className={`heading-3 mb-2 ${selectedTreatment.id === treatment.id ? 'text-light' : ''}`}>{treatment.title}</h3>
-                <p className={`${selectedTreatment.id === treatment.id ? 'text-light/80' : 'text-gray-600'}`}>{treatment.shortDescription}</p>
+                <h3 className={`heading-3 mb-3 ${selectedTreatment.id === treatment.id ? 'text-white' : ''}`}>
+                  {treatment.title}
+                </h3>
+                <p className={`mb-5 ${selectedTreatment.id === treatment.id ? 'text-white/90' : 'text-gray-600'}`}>
+                  {treatment.shortDescription}
+                </p>
                 
                 {/* Show dropdown indicator if this treatment has a submenu */}
                 {treatment.hasSubMenu && (
-                  <div className="mt-3 flex items-center">
-                    <span className={`mr-2 ${selectedTreatment.id === treatment.id ? 'text-light' : 'text-[#C0A080]'}`}>
-                      Entdecken Sie alle Behandlungen
+                  <div className={`mt-2 flex items-center px-4 py-2 rounded-full 
+                    ${selectedTreatment.id === treatment.id 
+                    ? 'bg-white/20' 
+                    : 'bg-[#F3E8DD]'}`}
+                  >
+                    <span className={`mr-2 text-sm font-medium ${selectedTreatment.id === treatment.id ? 'text-white' : 'text-[#805A36]'}`}>
+                      Alle Behandlungen entdecken
                     </span>
-                    <FaChevronDown className={`transition-all ${showSubMenu && selectedTreatment.id === treatment.id ? 'rotate-180' : ''} ${selectedTreatment.id === treatment.id ? 'text-light' : 'text-[#C0A080]'}`} />
+                    <FaChevronDown className={`transition-all duration-300 ${showSubMenu && selectedTreatment.id === treatment.id ? 'rotate-180' : ''} ${selectedTreatment.id === treatment.id ? 'text-white' : 'text-[#C0A080]'}`} />
                   </div>
                 )}
               </div>
@@ -728,165 +855,208 @@ const Treatments = () => {
           ))}
         </div>
 
-        {/* Submenu for selected treatments */}
-        {showSubMenu && selectedTreatment.hasSubMenu && (
-          <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="mb-10 rounded-xl overflow-hidden shadow-lg bg-gradient-to-r from-[#F3E8DD] via-white to-[#F3E8DD]"
+        {/* Submenu for selected treatments - Eleganter mit AnimatePresence */}
+        <AnimatePresence>
+          {showSubMenu && selectedTreatment.hasSubMenu && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0, y: -20 }}
+              animate={{ opacity: 1, height: 'auto', y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="mb-12 rounded-2xl overflow-hidden shadow-xl bg-white border border-[#C0A080]/20"
+            >
+              <div className="p-5 bg-gradient-to-r from-[#C0A080] to-[#805A36]">
+                <h4 className="font-serif text-xl text-white text-center font-semibold">
+                  {selectedTreatment.id === 'botox' ? 'Unsere Botox Behandlungen' : 'Unsere Hyaluronsäure Behandlungen'}
+                </h4>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 p-8">
+                {selectedTreatment.subTreatments.map((subTreatment, index) => (
+                  <motion.div
+                    key={subTreatment.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    whileHover={{ scale: 1.05, boxShadow: "0 10px 15px -3px rgba(192, 160, 128, 0.1), 0 4px 6px -2px rgba(192, 160, 128, 0.05)" }}
+                    className={`p-5 rounded-xl cursor-pointer transition-all duration-300 flex flex-col items-center text-center
+                      ${selectedSubTreatment && selectedSubTreatment.id === subTreatment.id 
+                        ? 'bg-gradient-to-br from-[#C0A080] to-[#805A36] text-white shadow-lg border-2 border-white' 
+                        : 'bg-[#F9F5F0] hover:bg-[#F3E8DD] border border-transparent'}
+                    `}
+                    onClick={() => handleSubTreatmentClick(subTreatment)}
+                  >
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-3
+                      ${selectedSubTreatment && selectedSubTreatment.id === subTreatment.id 
+                        ? 'bg-white/20' 
+                        : 'bg-white'}
+                    `}>
+                      <div className={`text-2xl
+                        ${selectedSubTreatment && selectedSubTreatment.id === subTreatment.id 
+                          ? 'text-white' 
+                          : 'text-[#C0A080]'}
+                      `}>
+                        {subTreatment.icon}
+                      </div>
+                    </div>
+                    <h5 className="font-medium text-sm leading-tight">
+                      {subTreatment.title}
+                    </h5>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Main treatment description - Verbessert mit elegantem Design */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            ref={contentRef}
+            key={selectedTreatment.id + (selectedSubTreatment ? selectedSubTreatment.id : '')}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            transition={{ duration: 0.5 }}
+            className="bg-white p-10 rounded-2xl shadow-xl border border-[#C0A080]/10 relative overflow-hidden"
           >
-            <div className="p-4 bg-[#C0A080]/20">
-              <h4 className="font-serif text-xl text-[#805A36] text-center font-semibold">
-                {selectedTreatment.id === 'botox' ? 'Unsere Botox Behandlungen' : 'Unsere Hyaluronsäure Behandlungen'}
-              </h4>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-6">
-              {selectedTreatment.subTreatments.map((subTreatment) => (
-                <motion.div
-                  key={subTreatment.id}
-                  whileHover={{ scale: 1.03 }}
-                  className={`p-4 rounded-lg cursor-pointer transition-all duration-300 flex flex-col items-center text-center ${
-                    selectedSubTreatment && selectedSubTreatment.id === subTreatment.id 
-                      ? 'bg-[#C0A080] text-white' 
-                      : 'bg-white hover:bg-[#C0A080]/10'
-                  }`}
-                  onClick={() => handleSubTreatmentClick(subTreatment)}
-                >
-                  <div className={`text-3xl mb-2 ${
-                    selectedSubTreatment && selectedSubTreatment.id === subTreatment.id 
-                      ? 'text-white' 
-                      : 'text-[#C0A080]'
-                  }`}>
-                    {subTreatment.icon}
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-40 h-40 bg-[#C0A080]/5 rounded-full -mr-20 -mt-20"></div>
+            <div className="absolute bottom-0 left-0 w-60 h-60 bg-[#F3E8DD]/50 rounded-full -ml-20 -mb-20"></div>
+            
+            <div className="relative z-10">
+              {/* Animated accent bar */}
+              <motion.div 
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                className="absolute top-0 left-0 h-1 bg-gradient-to-r from-[#F3E8DD] via-[#C0A080] to-[#F3E8DD]"
+              ></motion.div>
+              
+              {/* Show selected sub-treatment info if available */}
+              {selectedSubTreatment ? (
+                <>
+                  <div className="flex items-center mb-6">
+                    <button 
+                      onClick={() => setSelectedSubTreatment(null)} 
+                      className="flex items-center text-[#C0A080] hover:text-[#805A36] transition-colors bg-[#F9F5F0] px-4 py-2 rounded-full"
+                    >
+                      <FaChevronDown className="rotate-90 mr-2" />
+                      <span className="font-medium">
+                        {selectedTreatment.id === 'botox' 
+                          ? 'Zurück zu allen Botox-Behandlungen' 
+                          : 'Zurück zu allen Hyaluronsäure-Behandlungen'}
+                      </span>
+                    </button>
                   </div>
-                  <h5 className="font-medium text-sm mb-2">{subTreatment.title}</h5>
-                </motion.div>
-              ))}
+                  <div className="flex flex-col md:flex-row md:items-center mb-8 gap-6">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#C0A080] to-[#805A36] flex items-center justify-center flex-shrink-0">
+                      <div className="text-3xl text-white">{selectedSubTreatment.icon}</div>
+                    </div>
+                    <h3 className="heading-3 text-[#805A36] mb-0">{selectedSubTreatment.title}</h3>
+                  </div>
+                  <div className="prose prose-lg max-w-none">
+                    <p className="paragraph mb-6 text-gray-700">{selectedSubTreatment.description}</p>
+                    <div className="p-6 rounded-xl bg-[#F9F5F0] border-l-4 border-[#C0A080] mb-8">
+                      <p className="paragraph mb-0 italic">
+                        {selectedTreatment.id === 'botox' 
+                          ? `Unsere Spezialisten für ${selectedSubTreatment.title} verwenden nur hochwertige Botox®-Produkte und präzise Injektionstechniken, um natürlich aussehende Ergebnisse zu erzielen, die Ihr Erscheinungsbild verbessern und gleichzeitig Ihre natürliche Ausdrucksfähigkeit bewahren.`
+                          : `Unsere Spezialisten für ${selectedSubTreatment.title} verwenden nur hochwertige Hyaluronsäure-Produkte und fortschrittliche Techniken, um natürlich aussehende Ergebnisse zu erzielen, die Ihre Gesichtszüge harmonisch ergänzen und betonen.`
+                        }
+                      </p>
+                    </div>
+                    
+                    {/* Special cases for certain treatments */}
+                    {selectedSubTreatment.id === 'hyaluronidase' && (
+                      <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
+                        <h4 className="font-serif text-xl font-semibold mb-4 text-[#805A36]">Wann wird Hyaluronidase eingesetzt?</h4>
+                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-0">
+                          {['Korrektur überfüllter Bereiche', 'Behandlung asymmetrischer Ergebnisse', 
+                            'Auflösung von Hyaluronsäure-Ansammlungen', 'Management von Komplikationen nach Filler-Behandlungen'].map((item, i) => (
+                            <li key={i} className="flex items-center bg-[#F9F5F0] p-3 rounded-lg">
+                              <svg className="h-5 w-5 text-[#C0A080] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                              </svg>
+                              <span className="ml-2">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    
+                    {selectedSubTreatment.id === 'bruxismBotox' && (
+                      <div className="space-y-6">
+                        <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
+                          <h4 className="font-serif text-xl font-semibold mb-3 text-[#805A36]">Wie wirkt Botox® gegen Zähneknirschen?</h4>
+                          <p className="paragraph mb-0">
+                            Bei der Behandlung von Zähneknirschen wird Botox® in spezifische Punkte im Kieferbereich injiziert. Es blockiert die Freisetzung von Muskelaktivitäten, die Zähneknirschen auslösen oder verschlimmern können.
+                          </p>
+                        </div>
+                        
+                        <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
+                          <h4 className="font-serif text-xl font-semibold mb-4 text-[#805A36]">Vorteile:</h4>
+                          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-0">
+                            {['Reduziert Häufigkeit und Schwere von Zähneknirschen', 'Kann die Anzahl von Kopfschmerztagen deutlich verringern', 
+                              'Wirkt präventiv, nicht nur symptomatisch', 'Effekt hält typischerweise 3-6 Monate'].map((item, i) => (
+                              <li key={i} className="flex items-center bg-[#F9F5F0] p-3 rounded-lg">
+                                <svg className="h-5 w-5 text-[#C0A080] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span className="ml-2">{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {selectedSubTreatment.id === 'hyperhidrosisBotox' && (
+                      <div className="space-y-6">
+                        <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
+                          <h4 className="font-serif text-xl font-semibold mb-3 text-[#805A36]">Botox® bei übermäßigem Schwitzen</h4>
+                          <p className="paragraph mb-0">
+                            Bei der Behandlung von Hyperhidrose (übermäßiges Schwitzen) blockiert Botox® temporär die Nervenenden, die die Schweißdrüsen aktivieren. Dadurch wird die Schweißproduktion in den behandelten Bereichen deutlich reduziert, ohne die natürliche Regulation der Körpertemperatur zu beeinträchtigen.
+                          </p>
+                        </div>
+                        
+                        <div className="bg-white p-6 rounded-xl shadow-md border border-[#C0A080]/10">
+                          <h4 className="font-serif text-xl font-semibold mb-4 text-[#805A36]">Einsatzgebiete:</h4>
+                          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-0">
+                            {['Achseln', 'Handinnenflächen', 'Fußsohlen', 'Stirn und Kopfhaut'].map((item, i) => (
+                              <li key={i} className="flex items-center bg-[#F9F5F0] p-3 rounded-lg">
+                                <svg className="h-5 w-5 text-[#C0A080] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span className="ml-2">{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex flex-col md:flex-row md:items-center mb-8 gap-6">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#C0A080] to-[#805A36] flex items-center justify-center flex-shrink-0">
+                      {React.cloneElement(selectedTreatment.icon, { className: "text-3xl text-white" })}
+                    </div>
+                    <h3 className="heading-3 mb-0 text-[#805A36]">{selectedTreatment.title}</h3>
+                  </div>
+                  <div className="prose prose-lg max-w-none">
+                    {selectedTreatment.fullDescription}
+                  </div>
+                </>
+              )}
+              
+              <div className="mt-10 text-center">
+                <a href="#contact" className="inline-block px-8 py-4 bg-gradient-to-r from-[#C0A080] to-[#805A36] text-white font-semibold rounded-full hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                  Behandlung Buchen
+                </a>
+              </div>
             </div>
           </motion.div>
-        )}
-
-        {/* Main treatment description */}
-        <motion.div
-          ref={contentRef}
-          key={selectedTreatment.id + (selectedSubTreatment ? selectedSubTreatment.id : '')}
-          initial={{ opacity: 0, y: 30 }}
-          animate={contentInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.7 }}
-          className="bg-white p-8 rounded-2xl shadow-lg border border-[#C0A080]/10 relative"
-        >
-          <motion.div 
-            initial={{ width: "0%" }}
-            animate={contentInView ? { width: "100%" } : { width: "0%" }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="absolute top-0 left-0 h-1 bg-gradient-to-r from-transparent via-[#C0A080] to-transparent"
-          ></motion.div>
-          {/* Show selected sub-treatment info if available */}
-          {selectedSubTreatment ? (
-            <>
-              <div className="flex items-center mb-4">
-                <button 
-                  onClick={() => setSelectedSubTreatment(null)} 
-                  className="flex items-center text-[#C0A080] hover:text-[#805A36] transition-colors"
-                >
-                  <FaChevronDown className="rotate-90 mr-2" />
-                  <span>
-                    {selectedTreatment.id === 'botox' 
-                      ? 'Zurück zu allen Botox-Behandlungen' 
-                      : 'Zurück zu allen Hyaluronsäure-Behandlungen'}
-                  </span>
-                </button>
-              </div>
-              <div className="flex items-center mb-6">
-                <div className="text-4xl text-[#C0A080] mr-4">{selectedSubTreatment.icon}</div>
-                <h3 className="heading-3 text-[#C0A080]">{selectedSubTreatment.title}</h3>
-              </div>
-              <div className="prose prose-lg max-w-none">
-                <p className="paragraph mb-6">{selectedSubTreatment.description}</p>
-                <p className="paragraph mb-6">
-                  {selectedTreatment.id === 'botox' 
-                    ? `Unsere Spezialisten für ${selectedSubTreatment.title} verwenden nur hochwertige Botox®-Produkte und präzise Injektionstechniken, um natürlich aussehende Ergebnisse zu erzielen, die Ihr Erscheinungsbild verbessern und gleichzeitig Ihre natürliche Ausdrucksfähigkeit bewahren.`
-                    : `Unsere Spezialisten für ${selectedSubTreatment.title} verwenden nur hochwertige Hyaluronsäure-Produkte und fortschrittliche Techniken, um natürlich aussehende Ergebnisse zu erzielen, die Ihre Gesichtszüge harmonisch ergänzen und betonen.`
-                  }
-                </p>
-                {/* Special cases for certain treatments */}
-                {selectedSubTreatment.id === 'hyaluronidase' && (
-                  <>
-                    <h4 className="font-serif text-xl font-semibold mb-2">Wann wird Hyaluronidase eingesetzt?</h4>
-                    <ul className="list-disc list-inside mb-4 space-y-1">
-                      <li>Korrektur überfüllter Bereiche</li>
-                      <li>Behandlung asymmetrischer Ergebnisse</li>
-                      <li>Auflösung von Hyaluronsäure-Ansammlungen</li>
-                      <li>Management von Komplikationen nach Filler-Behandlungen</li>
-                    </ul>
-                  </>
-                )}
-                
-                {selectedSubTreatment.id === 'barbieBotox' && (
-                  <>
-                    <h4 className="font-serif text-xl font-semibold mb-2">Was ist Barbie Botox®?</h4>
-                    <p className="paragraph mb-4">
-                      Barbie Botox®, auch als "Trapeziusreduktion" bekannt, ist eine spezialisierte Botox-Behandlung, die den Trapezmuskel im Nacken- und Schulterbereich gezielt entspannt. Dies schafft einen optisch längeren, schlankeren Hals und definierte Schultern – ähnlich der ikonischen Silhouette der Barbie-Puppe.
-                    </p>
-                    <h4 className="font-serif text-xl font-semibold mb-2">Vorteile:</h4>
-                    <ul className="list-disc list-inside mb-4 space-y-1">
-                      <li>Schafft einen längeren, eleganteren Hals</li>
-                      <li>Definiert die Schulterkontur</li>
-                      <li>Reduziert Verspannungen im Nacken- und Schulterbereich</li>
-                      <li>Effekt hält typischerweise 3-4 Monate</li>
-                    </ul>
-                  </>
-                )}
-                
-                {selectedSubTreatment.id === 'migraineBotox' && (
-                  <>
-                    <h4 className="font-serif text-xl font-semibold mb-2">Wie wirkt Botox® gegen Migräne?</h4>
-                    <p className="paragraph mb-4">
-                      Bei der Migränebehandlung wird Botox® in spezifische Punkte im Kopf-, Nacken- und Schulterbereich injiziert. Es blockiert die Freisetzung von Schmerzneurotransmittern und entspannt überaktive Muskeln, die Migräneanfälle auslösen oder verschlimmern können.
-                    </p>
-                    <h4 className="font-serif text-xl font-semibold mb-2">Vorteile:</h4>
-                    <ul className="list-disc list-inside mb-4 space-y-1">
-                      <li>Reduziert Häufigkeit und Schwere von Migräneanfällen</li>
-                      <li>Kann die Anzahl von Kopfschmerztagen deutlich verringern</li>
-                      <li>Wirkt präventiv, nicht nur symptomatisch</li>
-                      <li>Effekt hält typischerweise 3-6 Monate</li>
-                    </ul>
-                  </>
-                )}
-                
-                {selectedSubTreatment.id === 'hyperhidrosisBotox' && (
-                  <>
-                    <h4 className="font-serif text-xl font-semibold mb-2">Botox® bei übermäßigem Schwitzen</h4>
-                    <p className="paragraph mb-4">
-                      Bei der Behandlung von Hyperhidrose (übermäßiges Schwitzen) blockiert Botox® temporär die Nervenenden, die die Schweißdrüsen aktivieren. Dadurch wird die Schweißproduktion in den behandelten Bereichen deutlich reduziert, ohne die natürliche Regulation der Körpertemperatur zu beeinträchtigen.
-                    </p>
-                    <h4 className="font-serif text-xl font-semibold mb-2">Einsatzgebiete:</h4>
-                    <ul className="list-disc list-inside mb-4 space-y-1">
-                      <li>Achseln</li>
-                      <li>Handinnenflächen</li>
-                      <li>Fußsohlen</li>
-                      <li>Stirn und Kopfhaut</li>
-                    </ul>
-                  </>
-                )}
-              </div>
-            </>
-          ) : (
-            <>
-              <h3 className="heading-3 mb-6 text-[#C0A080]">{selectedTreatment.title}</h3>
-              <div className="prose prose-lg max-w-none">
-                {selectedTreatment.fullDescription}
-              </div>
-            </>
-          )}
-          <div className="mt-8 text-center">
-            <a href="#contact" className="button-primary">
-              Behandlung Buchen
-            </a>
-          </div>
-        </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );
