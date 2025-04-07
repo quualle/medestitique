@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaLeaf } from 'react-icons/fa';
+import { FaLeaf, FaDiamond, FaStar } from 'react-icons/fa6';
+import Image from 'next/image';
 
 const pricingPlans = [
   {
@@ -18,7 +19,8 @@ const pricingPlans = [
       'Nachuntersuchung'
     ],
     popular: true,
-    natural: false
+    natural: false,
+    icon: '/images/logo.jpg'
   },
   {
     title: 'Hyaluronsäure Filler',
@@ -33,7 +35,8 @@ const pricingPlans = [
       'Verfügbar für Lippen, Wangen und Nasolabialfalten'
     ],
     popular: false,
-    natural: false
+    natural: false,
+    icon: '/images/logo.jpg'
   },
   {
     title: 'Exklusives Anti-Aging Konzept',
@@ -48,7 +51,8 @@ const pricingPlans = [
       'Langfristige Optimierung der Hautgesundheit'
     ],
     popular: false,
-    natural: true
+    natural: true,
+    icon: '/images/logo.jpg'
   },
   {
     title: 'PRP Therapie (Einzeln)',
@@ -63,7 +67,8 @@ const pricingPlans = [
       'Gut kombinierbar mit Microneedling (+€150)'
     ],
     popular: false,
-    natural: true
+    natural: true,
+    icon: '/images/logo.jpg'
   }
 ];
 
@@ -73,91 +78,174 @@ const Pricing = () => {
     triggerOnce: true
   });
 
+  const fadeUpVariant = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1]
+      }
+    })
+  };
+
   return (
-    <section id="pricing" className="py-24 bg-primary/20">
-      <div className="section-container !pt-0 !pb-0">
+    <section id="pricing" className="py-28 relative overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 bg-gradient-radial opacity-70"></div>
+      <div className="absolute inset-0 opacity-5" 
+        style={{
+          backgroundImage: `radial-gradient(circle, ${hexToRGBA('#D2B48C', 0.7)} 1px, transparent 1px)`,
+          backgroundSize: '40px 40px'
+        }}>
+      </div>
+      
+      <div className="section-container relative !pt-0 !pb-0">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
         >
-          <h2 className="heading-2 mb-4">Behandlungs<span className="text-[#C0A080]">preise</span></h2>
-          <p className="paragraph max-w-3xl mx-auto">
+          <motion.div 
+            initial={{ width: 0 }}
+            animate={inView ? { width: '80px' } : {}}
+            transition={{ duration: 1.2, delay: 0.3 }}
+            className="h-px bg-secondary/50 mx-auto mb-8"
+          />
+          
+          <h2 className="heading-2 mb-6">
+            <span className="block text-primary">Behandlungs</span>
+            <span className="text-secondary font-medium">preise</span>
+          </h2>
+          
+          <p className="paragraph max-w-3xl mx-auto text-primary/80">
             Wir bieten transparente Preise für unsere Premium-Behandlungen. Alle Verfahren werden von Saskia Heer mit ausschließlich hochwertigen Produkten durchgeführt.
           </p>
+          
+          <motion.div 
+            initial={{ width: 0 }}
+            animate={inView ? { width: '80px' } : {}}
+            transition={{ duration: 1.2, delay: 0.3 }}
+            className="h-px bg-secondary/50 mx-auto mt-8"
+          />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-6">
           {pricingPlans.map((plan, index) => (
             <motion.div
               key={plan.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`price-card relative ${plan.popular ? 'ring-2 ring-[#C0A080]' : ''} ${plan.natural ? 'border-2 border-green-300' : ''}`}
+              custom={index}
+              variants={fadeUpVariant}
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+              className={`price-card relative overflow-hidden group ${
+                plan.popular ? 'shadow-gold border-secondary/30' : ''
+              } ${
+                plan.natural ? 'border-green-400/30' : ''
+              }`}
             >
+              {/* Top corner decoration */}
+              <div className="absolute -top-12 -right-12 w-24 h-24 opacity-20 transform rotate-45 bg-gradient-to-br from-secondary to-transparent"></div>
+              
+              {/* Popular badge */}
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[#C0A080] text-white px-4 py-1 rounded-full text-sm font-bold shadow-md z-10">
-                  Beliebteste Wahl
-                </div>
-              )}
-              {plan.natural && !plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-1 rounded-full text-sm font-bold shadow-md z-10 flex items-center">
-                  <FaLeaf className="mr-1" /> Besonders Natürlich
-                </div>
-              )}
-              {plan.natural && plan.popular && (
-                <div className="absolute top-6 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-3 py-0.5 rounded-full text-xs font-bold shadow-md z-10 flex items-center">
-                  <FaLeaf className="mr-1" /> Natürlich
+                <div className="absolute top-6 right-6 text-secondary">
+                  <FaStar className="h-6 w-6" />
                 </div>
               )}
               
-              <div className="text-center pt-8 pb-6">
-                <h3 className="heading-3 mb-2">{plan.title}</h3>
-                <p className="text-gray-600 mb-6">{plan.description}</p>
-                <div className="mb-4">
-                  <span className="text-4xl font-bold text-[#C0A080]">{plan.price}</span>
-                  <span className="text-gray-500 ml-1">{plan.priceDetail}</span>
+              {/* Natural badge */}
+              {plan.natural && (
+                <div className="absolute top-6 right-6 text-green-500">
+                  <FaLeaf className="h-5 w-5" />
+                </div>
+              )}
+              
+              <div className="text-center pt-10 pb-6">
+                <div className="w-12 h-12 mx-auto mb-6 rounded-full overflow-hidden shadow-elegant">
+                  <div className="w-full h-full bg-gradient-luxury rounded-full flex items-center justify-center">
+                    <div className="text-light text-opacity-90">
+                      <FaDiamond className="w-5 h-5" />
+                    </div>
+                  </div>
+                </div>
+                
+                <h3 className="heading-3 mb-2 group-hover:text-secondary transition-colors duration-300">{plan.title}</h3>
+                <div className="w-12 h-px bg-secondary/30 mx-auto my-3"></div>
+                <p className="text-primary/70 text-sm px-4 mb-6">{plan.description}</p>
+                
+                <div className="mb-8 group-hover:scale-105 transition-transform duration-500">
+                  <span className="text-4xl font-light text-secondary">{plan.price}</span>
+                  <span className="text-primary/70 ml-2 text-sm">{plan.priceDetail}</span>
                 </div>
               </div>
               
-              <ul className="space-y-3 mb-8 px-6">
+              <ul className="space-y-3 mb-10 px-8">
                 {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-start">
-                    <svg className={`h-6 w-6 ${plan.natural ? 'text-green-500' : 'text-[#C0A080]'} flex-shrink-0`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="ml-2">{feature}</span>
+                  <li key={i} className="flex items-start text-sm">
+                    <div className={`h-5 w-5 ${plan.natural ? 'text-green-500' : 'text-secondary'} flex-shrink-0 opacity-80`}>
+                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="ml-3 text-primary/80">{feature}</span>
                   </li>
                 ))}
               </ul>
               
-              <div className="text-center pb-8">
-                <a href="#contact" className={plan.popular ? 'button-primary' : 'button-secondary'}>
-                  Jetzt Buchen
+              <div className="text-center pb-10">
+                <a 
+                  href="#contact" 
+                  className={plan.popular || plan.natural 
+                    ? 'button-primary text-light/95 group-hover:shadow-gold' 
+                    : 'button-secondary group-hover:shadow-gold'
+                  }
+                >
+                  Termin Vereinbaren
                 </a>
               </div>
+              
+              {/* Subtle hover effect overlay */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             </motion.div>
           ))}
         </div>
         
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-12 text-center bg-white p-6 rounded-xl shadow-md max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="mt-20 text-center p-10 max-w-3xl mx-auto relative"
         >
-          <h4 className="font-serif text-xl font-semibold mb-2">Individuelle Behandlungspakete</h4>
-          <p className="mb-4">Suchen Sie einen personalisierten Ansatz? Wir bieten maßgeschneiderte Behandlungskombinationen zu Sonderkonditionen an.</p>
-          <a href="#contact" className="button-secondary">
-            Individuelles Angebot Anfordern
-          </a>
+          <div className="absolute inset-0 bg-light shadow-elegant rounded-none border border-secondary/20"></div>
+          
+          <div className="relative">
+            <div className="gold-circle mb-6"></div>
+            <h4 className="font-serif text-2xl font-light mb-3 text-secondary">Individuelle Behandlungspakete</h4>
+            <p className="mb-8 max-w-lg mx-auto">
+              Suchen Sie einen personalisierten Ansatz für Ihre ästhetischen Ziele? 
+              Wir kreieren maßgeschneiderte Behandlungskombinationen, die perfekt auf Ihre individuellen Bedürfnisse zugeschnitten sind.
+            </p>
+            <a href="#contact" className="button-secondary hover:shadow-gold">
+              Individuelles Angebot Anfordern
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>
   );
 };
+
+// Helper function to convert hex color to rgba
+function hexToRGBA(hex: string, alpha: number) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
 
 export default Pricing;

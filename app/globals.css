@@ -3,13 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 74, 62, 58; /* #4A3E3A */
-  --background-rgb: 255, 251, 246; /* #FFFBF6 */
+  --foreground-rgb: 60, 50, 45; /* #3C322D */
+  --background-rgb: 255, 249, 244; /* #FFF9F4 */
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
+  scroll-behavior: smooth;
 }
 
 @layer components {
@@ -18,15 +19,15 @@ body {
   }
   
   .heading-1 {
-    @apply font-serif text-4xl md:text-5xl lg:text-6xl font-light tracking-wide;
+    @apply font-serif text-4xl md:text-5xl lg:text-6xl font-light tracking-wide leading-tight;
   }
   
   .heading-2 {
-    @apply font-serif text-3xl md:text-4xl font-light tracking-wide;
+    @apply font-serif text-3xl md:text-4xl font-light tracking-wide leading-tight;
   }
   
   .heading-3 {
-    @apply font-serif text-2xl md:text-3xl font-light tracking-wide;
+    @apply font-serif text-2xl md:text-3xl font-light tracking-wide leading-tight;
   }
   
   .paragraph {
@@ -34,40 +35,80 @@ body {
   }
   
   .button-primary {
-    @apply px-6 py-2.5 rounded-sm font-light tracking-wider uppercase text-sm transform transition-all duration-300;
-    background: linear-gradient(to right, #C0A080, #D8B090);
-    box-shadow: 0 4px 12px rgba(192, 160, 128, 0.15), 0 2px 4px rgba(192, 160, 128, 0.1);
+    @apply px-7 py-3 rounded-none font-light tracking-wider uppercase text-sm transform transition-all duration-300 shadow-elegant;
+    background: linear-gradient(to right, #D2B48C, #E6C9A8);
+    box-shadow: 0 4px 15px rgba(210, 180, 140, 0.2), 0 2px 5px rgba(210, 180, 140, 0.15);
   }
   
   .button-primary:hover {
-    background: linear-gradient(to right, #C0A080, #D8B090);
-    box-shadow: 0 6px 18px rgba(192, 160, 128, 0.2), 0 2px 6px rgba(192, 160, 128, 0.15);
-    transform: translateY(-1px);
+    background: linear-gradient(to right, #D2B48C, #E6C9A8);
+    box-shadow: 0 8px 20px rgba(210, 180, 140, 0.25), 0 4px 8px rgba(210, 180, 140, 0.2);
+    transform: translateY(-2px);
   }
   
   .button-secondary {
-    @apply px-6 py-2.5 rounded-sm font-light tracking-wider uppercase text-sm transform transition-all duration-300;
-    background: rgba(255, 251, 246, 0.5);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(192, 160, 128, 0.3);
-    box-shadow: 0 4px 12px rgba(192, 160, 128, 0.07), 0 2px 4px rgba(192, 160, 128, 0.05);
-    color: #E8C090; /* Hellere Goldfarbe für besseren Kontrast */
-    text-shadow: 0px 0px 1px rgba(74,62,58,0.5);
-    -webkit-text-stroke: 0.1px #4A3E3A; /* Feine Umrandung der Buchstaben mit wärmerem Ton */
+    @apply px-7 py-3 rounded-none font-light tracking-wider uppercase text-sm transform transition-all duration-300;
+    background: rgba(255, 249, 244, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(210, 180, 140, 0.3);
+    box-shadow: 0 4px 15px rgba(210, 180, 140, 0.1), 0 2px 5px rgba(210, 180, 140, 0.07);
+    color: #D2B48C;
   }
   
   .button-secondary:hover {
-    background: rgba(255, 251, 246, 0.65);
-    border: 1px solid rgba(192, 160, 128, 0.5);
-    box-shadow: 0 6px 18px rgba(192, 160, 128, 0.12), 0 2px 6px rgba(192, 160, 128, 0.08);
-    transform: translateY(-1px);
+    background: rgba(255, 249, 244, 0.8);
+    border: 1px solid rgba(210, 180, 140, 0.6);
+    box-shadow: 0 8px 20px rgba(210, 180, 140, 0.15), 0 4px 8px rgba(210, 180, 140, 0.1);
+    transform: translateY(-2px);
   }
   
   .price-card {
-    @apply bg-[#FFFBF6] p-8 border border-[#C0A080]/10 shadow-sm transition-all duration-300 hover:shadow-md hover:border-[#C0A080]/20;
+    @apply bg-light p-10 border border-secondary/20 shadow-elegant transition-all duration-300 hover:shadow-gold hover:border-secondary/30;
   }
   
   .bg-radial-gradient {
-    background: radial-gradient(circle, rgba(74,62,58,0) 0%, rgba(74,62,58,0.1) 100%);
+    background: radial-gradient(circle, rgba(60,50,45,0) 0%, rgba(60,50,45,0.03) 100%);
+  }
+  
+  /* Luxurious decorative elements */
+  .gold-divider {
+    @apply w-full h-px relative overflow-hidden;
+    background: linear-gradient(90deg, transparent, rgba(210, 180, 140, 0.5), transparent);
+  }
+  
+  .gold-divider::before {
+    content: "";
+    @apply absolute left-1/2 top-0 w-1/4 h-px transform -translate-x-1/2;
+    background: linear-gradient(90deg, transparent, rgba(210, 180, 140, 0.9), transparent);
+    animation: shine 3s infinite;
+  }
+  
+  .gold-circle {
+    @apply w-3 h-3 rounded-full mx-auto;
+    background: radial-gradient(circle, #D2B48C, #E6C9A8);
+    box-shadow: 0 0 10px rgba(210, 180, 140, 0.4), 0 0 5px rgba(210, 180, 140, 0.2);
+  }
+  
+  .elegant-shadow {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(210, 180, 140, 0.1);
+  }
+  
+  .marquee-overlay {
+    @apply absolute inset-0;
+    background: linear-gradient(90deg, #FFF9F4, transparent 10%, transparent 90%, #FFF9F4);
+  }
+  
+  @keyframes shine {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%) translateY(-50%);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(100%) translateY(-50%);
+    }
   }
 }
