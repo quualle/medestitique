@@ -46,15 +46,15 @@ const Hero = () => {
         <div className="fixed inset-0 w-full h-full z-0">
           <motion.div 
             initial={{ scale: 1.1, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.35 }}
+            animate={{ scale: 1, opacity: 0.25 }}
             transition={{ duration: 2.5, ease: "easeOut" }}
             className="absolute inset-0 bg-[url('/images/hero-bg.jpg')] bg-cover bg-fixed bg-center bg-no-repeat w-full h-full"
             style={{ 
               minHeight: '100vh',
-              filter: 'contrast(1.05) brightness(0.95)',
+              filter: 'contrast(1.05) brightness(0.95) blur(3px)',
             }} 
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark/10 via-transparent to-light/30"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-dark/15 via-transparent to-light/40"></div>
           
           {/* Subtle grid pattern overlay */}
           {showDecorations && (
@@ -94,7 +94,7 @@ const Hero = () => {
                 initial={{ width: 0 }}
                 animate={{ width: '100%' }}
                 transition={{ duration: 1.5, delay: 0.3 }}
-                className="absolute top-1/2 h-px bg-secondary/40 -left-12 -right-12 transform -translate-y-1/2"
+                className="absolute top-[-25px] h-px bg-secondary/40 -left-12 -right-12 transform"
               />
               <h1 className="font-serif text-6xl md:text-8xl text-secondary tracking-widest relative">
                 <span className="relative z-10">
@@ -105,7 +105,7 @@ const Hero = () => {
                 initial={{ width: 0 }}
                 animate={{ width: '60%' }}
                 transition={{ duration: 1, delay: 0.8 }}
-                className="h-px bg-secondary/40 mx-auto mt-4"
+                className="h-px bg-secondary/40 mx-auto mt-8"
               />
             </motion.div>
           </motion.div>

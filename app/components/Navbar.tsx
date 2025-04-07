@@ -119,14 +119,18 @@ const Navbar = () => {
               href={link.href} 
               className={`relative font-light text-sm tracking-wide uppercase ${
                 activeSection === link.id 
-                  ? 'text-secondary font-normal' 
-                  : 'text-dark/80 hover:text-secondary'
-              } transition-colors duration-300 group py-1`}
+                  ? 'text-secondary font-medium' 
+                  : 'text-dark hover:text-secondary'
+              } transition-colors duration-300 group py-1 px-3`}
+              style={{ textShadow: scrolled ? 'none' : '0px 0px 10px rgba(255,249,244,0.8), 0px 0px 5px rgba(255,249,244,0.6)' }}
             >
-              {link.name}
+              <span className={`relative z-10`}>{link.name}</span>
               <span className={`absolute inset-x-0 bottom-0 h-px bg-secondary transform origin-left transition-transform duration-300 ${
                 activeSection === link.id ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
               }`}></span>
+              {!scrolled && (
+                <span className="absolute inset-0 bg-dark/10 backdrop-blur-sm rounded-sm -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              )}
             </Link>
           ))}
         </div>

@@ -200,10 +200,11 @@ const Pricing = () => {
               <div className="text-center pb-10">
                 <a 
                   href="#contact" 
-                  className={plan.popular || plan.natural 
-                    ? 'button-primary text-light/95 group-hover:shadow-gold' 
-                    : 'button-secondary group-hover:shadow-gold'
-                  }
+                  className={`inline-block ${
+                    plan.popular || plan.natural 
+                      ? 'button-primary text-light/95' 
+                      : 'button-secondary'
+                  } transform transition-all duration-500 hover:shadow-gold hover:translate-y-[-4px]`}
                 >
                   Termin Vereinbaren
                 </a>

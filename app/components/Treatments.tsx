@@ -13,29 +13,30 @@ import {
 } from 'react-icons/fa';
 import React from 'react';
 
-// --- NEUE FARBPALETTE & STILE ---
+// --- REFINED COLOR PALETTE ---
 const colors = {
-  backgroundStart: '#FFFFFF', // Reinweiß für den Start
-  backgroundEnd: '#FFF7F5',   // Sehr heller Pfirsich/Rosa-Ton
-  primaryAccent: '#FFB6C1',  // LightPink als Hauptakzent
-  secondaryAccent: '#FFDAB9', // PeachPuff als Sekundärakzent
-  gold: '#D4AF37',           // Ein helleres, leuchtenderes Gold
-  textPrimary: '#333333',    // Dunkles Grau für Haupttexte
-  textSecondary: '#666666',  // Mittleres Grau für Sekundärtexte
+  backgroundStart: '#FFFFFF',
+  backgroundEnd: '#F9F5F2',
+  primaryAccent: '#D2B48C',       // Sophisticated champagne gold
+  secondaryAccent: '#E6C9A8',     // Soft warm beige
+  gold: '#B89F7A',                // Muted antique gold
+  textPrimary: '#3C322D',         // Deep warm brown
+  textSecondary: '#5D4E46',       // Softer brown for supporting text
   white: '#FFFFFF',
-  cardBgDefault: 'rgba(255, 255, 255, 0.7)', // Leicht transparentes Weiß
-  cardBgHover: 'rgba(255, 247, 245, 0.9)', // Heller Pfirsich-Ton bei Hover
-  cardBorder: 'rgba(255, 182, 193, 0.3)', // LightPink-Rand
-  selectedGradientStart: '#FFDAB9', // PeachPuff
-  selectedGradientEnd: '#FFB6C1',   // LightPink
-  selectedText: '#4B0082',         // Indigo für Kontrast auf hellem Gradient
-  iconBgDefault: 'rgba(255, 218, 185, 0.3)', // Sehr heller Pfirsich für Icon-BG
-  iconColorDefault: '#D4AF37', // Gold für Icons
-  iconBgSelected: 'rgba(255, 255, 255, 0.3)', // Weißlich für Icon-BG bei Auswahl
-  iconColorSelected: '#FFFFFF', // Weiß für Icons bei Auswahl
-  buttonGradientStart: '#FFB6C1', // LightPink
-  buttonGradientEnd: '#FF69B4',   // HotPink für Button
+  cardBgDefault: 'rgba(255, 255, 255, 0.8)',
+  cardBgHover: 'rgba(249, 245, 242, 0.95)',
+  cardBorder: 'rgba(210, 180, 140, 0.25)',
+  selectedGradientStart: 'rgba(210, 180, 140, 0.85)',
+  selectedGradientEnd: 'rgba(230, 201, 168, 0.9)',
+  selectedText: '#3C322D',
+  iconBgDefault: 'rgba(210, 180, 140, 0.15)',
+  iconColorDefault: '#B89F7A',
+  iconBgSelected: 'rgba(255, 255, 255, 0.25)',
+  iconColorSelected: '#3C322D',
+  buttonGradientStart: '#D2B48C',
+  buttonGradientEnd: '#B89F7A',
   buttonText: '#FFFFFF',
+  purpleAccent: '#5D4E66', // Deep purple for specific elements
 };
 
 // Sub-treatments (Inhalte bleiben gleich, Icons können angepasst werden)
@@ -169,6 +170,128 @@ const treatments = [
   }
 ];
 
+// Create a specific component for treatment cards to ensure consistent styling
+const TreatmentCard = ({ treatment, isSelected, onClick, index, inView }) => {
+  const cardGradients = {
+    // Define specific gradients for each treatment card for a more luxury feel
+    botox: {
+      start: 'rgba(224, 212, 194, 0.85)', 
+      end: 'rgba(230, 201, 168, 0.9)'
+    },
+    hyaluronic: {
+      start: 'rgba(215, 198, 172, 0.85)',
+      end: 'rgba(194, 173, 140, 0.9)'
+    },
+    prp: {
+      start: 'rgba(208, 191, 168, 0.85)',
+      end: 'rgba(189, 169, 143, 0.9)'
+    },
+    mesotherapy: {
+      start: 'rgba(210, 194, 175, 0.85)',
+      end: 'rgba(196, 179, 158, 0.9)'
+    },
+    micronutrients: {
+      start: 'rgba(204, 188, 169, 0.85)',
+      end: 'rgba(186, 171, 150, 0.9)'
+    },
+    lipolysis: {
+      start: 'rgba(214, 195, 174, 0.85)',
+      end: 'rgba(199, 180, 158, 0.9)'
+    },
+    exosomes: {
+      start: 'rgba(201, 185, 164, 0.85)',
+      end: 'rgba(184, 169, 147, 0.9)'
+    }
+  };
+
+  const gradientForCard = cardGradients[treatment.id] || {
+    start: colors.selectedGradientStart,
+    end: colors.selectedGradientEnd
+  };
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 60, scale: 0.9 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 60, scale: 0.9 }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 1, 0.5, 1] }}
+      whileHover={{ 
+        scale: 1.04, 
+        boxShadow: `0 15px 35px -10px rgba(60, 50, 45, 0.15)`,
+        transition: { duration: 0.2 } 
+      }}
+      className={`rounded-3xl cursor-pointer transition-all duration-300 ease-out overflow-hidden relative group
+        ${isSelected 
+          ? 'shadow-2xl' 
+          : 'shadow-lg shadow-gray-200/50'
+        }
+      `}
+      style={{
+         background: isSelected 
+          ? `linear-gradient(135deg, ${gradientForCard.start}, ${gradientForCard.end})` 
+          : colors.cardBgDefault,
+         border: `1px solid ${isSelected ? 'transparent' : colors.cardBorder}`,
+         backdropFilter: isSelected ? 'none' : 'blur(10px)'
+      }}
+      onClick={onClick}
+    >
+      {/* Subtle radial gradient overlay */}
+      <motion.div 
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: `radial-gradient(circle at top left, rgba(210, 180, 140, 0.12) 0%, transparent 70%)`}}
+      ></motion.div>
+      
+      <div className="p-8 relative z-10 flex flex-col items-center text-center h-full">
+        {/* Icon Container */}
+        <motion.div 
+          className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 relative overflow-hidden border-2
+            ${isSelected ? 'border-white/30' : 'border-secondary/20'}`}
+          style={{ 
+            background: isSelected ? colors.iconBgSelected : colors.iconBgDefault,
+            boxShadow: isSelected ? '0 0 20px rgba(210, 180, 140, 0.2)' : 'none'
+          }}
+          whileHover={{ scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          {/* Icon */}
+          <div className="text-4xl transition-colors duration-300" 
+               style={{ color: isSelected ? colors.iconColorSelected : colors.iconColorDefault }}
+          >
+              {treatment.icon}
+          </div>
+          {/* Animated circle in icon background */}
+          <motion.div 
+            animate={{ rotate: 360 }} 
+            transition={{ duration: 10, repeat: Infinity, ease: 'linear'}}
+            className="absolute w-24 h-24 border-t-2 border-r-2 rounded-full opacity-30"
+            style={{ borderColor: isSelected ? colors.iconColorSelected : colors.iconColorDefault }}
+           ></motion.div>
+        </motion.div>
+        
+        <h3 className={`heading-3 mb-3 transition-colors duration-300 ${isSelected ? 'font-semibold' : ''}`}
+            style={{ color: isSelected ? colors.selectedText : colors.textPrimary }} >
+          {treatment.title}
+        </h3>
+        <p className={`mb-5 flex-grow transition-colors duration-300 ${isSelected ? 'font-light' : ''}`} 
+           style={{ color: isSelected ? colors.selectedText : colors.textSecondary }} >
+          {treatment.shortDescription}
+        </p>
+        
+        {/* Details button */}
+        {treatment.hasSubMenu && (
+          <div className={`mt-auto flex items-center px-5 py-2 rounded-full text-sm font-medium transition-all duration-300
+            ${isSelected 
+              ? 'bg-white/25 text-primary'
+              : 'bg-secondary/10 text-primary'
+            }`}
+           >
+            <span className="mr-2">Details</span>
+            <FaChevronDown className={`transition-transform duration-300`} />
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+};
 
 // --- Treatments Component ---
 const Treatments = () => {
@@ -312,90 +435,20 @@ const Treatments = () => {
 
         {/* Horizontales Layout: Karten oben, Erklärung unten */}
         <div>
-          {/* Behandlungskarten - STARK ÜBERARBEITET */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-12"> {/* Mehr Gap */}
+          {/* Behandlungskarten - Now using the TreatmentCard component */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-12"> 
             {treatments.map((treatment, index) => {
               const isSelected = selectedTreatment.id === treatment.id;
               return (
-                <motion.div 
+                <TreatmentCard 
                   key={treatment.id}
-                  initial={{ opacity: 0, y: 60, scale: 0.9 }}
-                  animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 60, scale: 0.9 }}
-                  transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 1, 0.5, 1] }} // Smoother Ease
-                  whileHover={{ 
-                    scale: 1.04, 
-                    boxShadow: `0 15px 35px -10px ${colors.primaryAccent}33`, // Sanfter, farbiger Glow
-                    transition: { duration: 0.2 } 
-                  }}
-                  className={`rounded-3xl cursor-pointer transition-all duration-300 ease-out overflow-hidden relative group
-                    ${isSelected 
-                      ? 'shadow-2xl' // Stärkerer Schatten bei Auswahl
-                      : 'shadow-lg shadow-gray-200/50' // Leichter Basisschatten
-                    }
-                  `}
-                  style={{
-                     background: isSelected 
-                      ? `linear-gradient(135deg, ${colors.selectedGradientStart}, ${colors.selectedGradientEnd})` 
-                      : colors.cardBgDefault,
-                     border: `1px solid ${isSelected ? 'transparent' : colors.cardBorder}`,
-                     backdropFilter: isSelected ? 'none' : 'blur(10px)' // Blur nur im Default
-                  }}
+                  treatment={treatment}
+                  isSelected={isSelected}
                   onClick={() => handleTreatmentClick(treatment)}
-                >
-                  {/* Hintergrund-Glow-Effekt bei Hover */}
-                  <motion.div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: `radial-gradient(circle at top left, ${colors.secondaryAccent}33 0%, transparent 50%)`}}
-                  ></motion.div>
-                  
-                  <div className="p-8 relative z-10 flex flex-col items-center text-center h-full">
-                     {/* Icon Container - Überarbeitet */}
-                    <motion.div 
-                      className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 relative overflow-hidden border-2
-                        ${isSelected ? 'border-white/50' : `border-[${colors.primaryAccent}]/30`}`}
-                      style={{ background: isSelected ? colors.iconBgSelected : colors.iconBgDefault }}
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                       {/* Icon selbst */}
-                      <div className="text-4xl transition-colors duration-300" 
-                           style={{ color: isSelected ? colors.iconColorSelected : colors.iconColorDefault }}
-                      >
-                          {treatment.icon}
-                      </div>
-                      {/* Kleiner animierter Punkt im Icon-BG */}
-                      <motion.div 
-                        animate={{ rotate: 360 }} 
-                        transition={{ duration: 10, repeat: Infinity, ease: 'linear'}}
-                        className="absolute w-24 h-24 border-t-2 border-r-2 rounded-full opacity-50"
-                        style={{ borderColor: isSelected ? colors.white : colors.primaryAccent }}
-                       ></motion.div>
-                    </motion.div>
-                    
-                    <h3 className={`heading-3 mb-3 transition-colors duration-300 ${isSelected ? 'font-semibold' : ''}`}
-                        style={{ color: isSelected ? colors.selectedText : colors.textPrimary }} >
-                      {treatment.title}
-                    </h3>
-                    <p className={`mb-5 flex-grow transition-colors duration-300 ${isSelected ? 'font-light' : ''}`} 
-                       style={{ color: isSelected ? colors.selectedText : colors.textSecondary }} >
-                      {treatment.shortDescription}
-                    </p>
-                    
-                    {/* Dropdown Indikator - Überarbeitet */}
-                    {treatment.hasSubMenu && (
-                      <div className={`mt-auto flex items-center px-5 py-2 rounded-full text-sm font-medium transition-all duration-300
-                        ${isSelected ? 'bg-white/20' : `bg-[${colors.iconBgDefault}]`} `}
-                        style={{ color: isSelected ? colors.selectedText : colors.gold }}
-                       >
-                        <span className="mr-2">Details</span>
-                        <FaChevronDown className={`transition-transform duration-300 
-                          ${showSubMenu && isSelected ? 'rotate-180' : ''}`} 
-                        />
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              )
+                  index={index}
+                  inView={inView}
+                />
+              );
             })}
           </div>
 

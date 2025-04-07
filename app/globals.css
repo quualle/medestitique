@@ -43,7 +43,6 @@ body {
   .button-primary:hover {
     background: linear-gradient(to right, #D2B48C, #E6C9A8);
     box-shadow: 0 8px 20px rgba(210, 180, 140, 0.25), 0 4px 8px rgba(210, 180, 140, 0.2);
-    transform: translateY(-2px);
   }
   
   .button-secondary {
@@ -59,11 +58,15 @@ body {
     background: rgba(255, 249, 244, 0.8);
     border: 1px solid rgba(210, 180, 140, 0.6);
     box-shadow: 0 8px 20px rgba(210, 180, 140, 0.15), 0 4px 8px rgba(210, 180, 140, 0.1);
-    transform: translateY(-2px);
   }
   
   .price-card {
-    @apply bg-light p-10 border border-secondary/20 shadow-elegant transition-all duration-300 hover:shadow-gold hover:border-secondary/30;
+    @apply bg-light p-10 border border-secondary/20 shadow-elegant transition-all duration-300;
+  }
+  
+  .price-card:hover {
+    @apply shadow-gold border-secondary/30;
+    transform: translateY(-3px);
   }
   
   .bg-radial-gradient {
