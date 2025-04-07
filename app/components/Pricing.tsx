@@ -118,8 +118,7 @@ const Pricing = () => {
           />
           
           <h2 className="heading-2 mb-6">
-            <span className="block text-primary">Behandlungs</span>
-            <span className="text-secondary font-medium">preise</span>
+            <span className="inline text-primary">Behandlungs</span><span className="text-secondary font-medium">preise</span>
           </h2>
           
           <p className="paragraph max-w-3xl mx-auto text-primary/80">
@@ -142,7 +141,7 @@ const Pricing = () => {
               variants={fadeUpVariant}
               initial="hidden"
               animate={inView ? "visible" : "hidden"}
-              className={`price-card relative overflow-hidden group ${
+              className={`price-card relative overflow-hidden group flex flex-col ${
                 plan.popular ? 'shadow-gold border-secondary/30' : ''
               } ${
                 plan.natural ? 'border-green-400/30' : ''
@@ -184,7 +183,7 @@ const Pricing = () => {
                 </div>
               </div>
               
-              <ul className="space-y-3 mb-10 px-8">
+              <ul className="space-y-3 mb-10 px-8 flex-grow">
                 {plan.features.map((feature, i) => (
                   <li key={i} className="flex items-start text-sm">
                     <div className={`h-5 w-5 ${plan.natural ? 'text-green-500' : 'text-secondary'} flex-shrink-0 opacity-80`}>
@@ -197,7 +196,7 @@ const Pricing = () => {
                 ))}
               </ul>
               
-              <div className="text-center pb-10">
+              <div className="text-center pb-10 mt-auto">
                 <a 
                   href="#contact" 
                   className={`inline-block ${
