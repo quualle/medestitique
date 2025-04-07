@@ -301,6 +301,7 @@ const Treatments = () => {
   const [selectedSubTreatment, setSelectedSubTreatment] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const treatmentDescriptionRef = React.useRef(null);
+  const subMenuRef = React.useRef(null);
 
   // Intersection Observer bleiben gleich
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: false });
@@ -321,10 +322,17 @@ const Treatments = () => {
       setShowSubMenu(false);
     }
 
-    // Scroll zur Beschreibung nach kurzer Verzögerung
+    // Scroll zur submenu or Beschreibung nach kurzer Verzögerung
     setTimeout(() => {
-      if (treatmentDescriptionRef.current) {
-        treatmentDescriptionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // If treatment has submenu, scroll to submenu, otherwise scroll to description
+      if (treatment.hasSubMenu) {
+        if (subMenuRef.current) {
+          subMenuRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        if (treatmentDescriptionRef.current) {
+          treatmentDescriptionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
       setIsAnimating(false);
     }, 350); // Etwas längere Verzögerung für sanfteren Übergang
@@ -453,79 +461,81 @@ const Treatments = () => {
           </div>
 
           {/* Submenu - STARK ÜBERARBEITET */}
-          <AnimatePresence>
-            {showSubMenu && selectedTreatment.hasSubMenu && (
-              <motion.div 
-                initial={{ opacity: 0, y: -30, scaleY: 0.9 }}
-                animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                exit={{ opacity: 0, y: -30, scaleY: 0.9 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="mb-12 rounded-3xl overflow-hidden shadow-xl border"
-                style={{ 
-                  background: 'rgba(255, 255, 255, 0.8)', 
-                  borderColor: colors.cardBorder,
-                  backdropFilter: 'blur(12px)' 
-                }}
-              >
-                {/* Submenu Header */}
-                <div className="p-6" style={{ background: `linear-gradient(90deg, ${colors.secondaryAccent}66, ${colors.primaryAccent}66)` }}>
-                  <h4 className="font-serif text-xl text-center font-semibold" style={{ color: colors.textPrimary }}>
-                    {selectedTreatment.title} - Optionen
-                  </h4>
-                </div>
-                {/* Submenu Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 p-8"> {/* Mehr Spalten, weniger Gap */}
-                  {selectedTreatment.subTreatments.map((subTreatment, index) => {
-                    const isSubSelected = selectedSubTreatment?.id === subTreatment.id;
-                    return (
-                      <motion.div
-                        key={subTreatment.id}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3, delay: index * 0.04 }}
-                        whileHover={{ 
-                          scale: 1.06, 
-                           boxShadow: `0 8px 20px -5px ${colors.primaryAccent}22` 
-                         }}
-                        className={`p-5 rounded-2xl cursor-pointer transition-all duration-300 ease-out flex flex-col items-center text-center relative overflow-hidden group
-                          ${isSubSelected 
-                            ? 'shadow-lg' 
-                            : ''}
-                        `}
-                        style={{ 
-                          background: isSubSelected 
-                            ? `linear-gradient(135deg, ${colors.selectedGradientStart}, ${colors.selectedGradientEnd})` 
-                            : 'rgba(255, 255, 255, 0.6)',
-                          border: `1px solid ${isSubSelected ? 'transparent' : colors.cardBorder}`
-                         }}
-                        onClick={() => handleSubTreatmentClick(subTreatment)}
-                      >
-                         {/* Hintergrund-Glow bei Hover (Submenu) */}
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                             style={{ background: `radial-gradient(circle at center, ${colors.secondaryAccent}22 0%, transparent 60%)`}}>
-                        </div>
-                        
-                        {/* Icon Container (Submenu) */}
-                         <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 transition-colors duration-300 border
-                          ${isSubSelected ? `border-white/30 bg-[${colors.iconBgSelected}]` : `border-[${colors.cardBorder}] bg-[${colors.iconBgDefault}]`}`}
-                         >
-                          <div className={`text-2xl transition-colors duration-300`}
-                                style={{ color: isSubSelected ? colors.iconColorSelected : colors.iconColorDefault }}
-                          >
-                            {subTreatment.icon}
+          <div ref={subMenuRef} className="scroll-mt-32">
+            <AnimatePresence>
+              {showSubMenu && selectedTreatment.hasSubMenu && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -30, scaleY: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                  exit={{ opacity: 0, y: -30, scaleY: 0.9 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="mb-12 rounded-3xl overflow-hidden shadow-xl border"
+                  style={{ 
+                    background: 'rgba(255, 255, 255, 0.8)', 
+                    borderColor: colors.cardBorder,
+                    backdropFilter: 'blur(12px)' 
+                  }}
+                >
+                  {/* Submenu Header */}
+                  <div className="p-6" style={{ background: `linear-gradient(90deg, ${colors.secondaryAccent}66, ${colors.primaryAccent}66)` }}>
+                    <h4 className="font-serif text-xl text-center font-semibold" style={{ color: colors.textPrimary }}>
+                      {selectedTreatment.title} - Optionen
+                    </h4>
+                  </div>
+                  {/* Submenu Grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 p-8"> {/* Mehr Spalten, weniger Gap */}
+                    {selectedTreatment.subTreatments.map((subTreatment, index) => {
+                      const isSubSelected = selectedSubTreatment?.id === subTreatment.id;
+                      return (
+                        <motion.div
+                          key={subTreatment.id}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.3, delay: index * 0.04 }}
+                          whileHover={{ 
+                            scale: 1.06, 
+                             boxShadow: `0 8px 20px -5px ${colors.primaryAccent}22` 
+                           }}
+                          className={`p-5 rounded-2xl cursor-pointer transition-all duration-300 ease-out flex flex-col items-center text-center relative overflow-hidden group
+                            ${isSubSelected 
+                              ? 'shadow-lg' 
+                              : ''}
+                          `}
+                          style={{ 
+                            background: isSubSelected 
+                              ? `linear-gradient(135deg, ${colors.selectedGradientStart}, ${colors.selectedGradientEnd})` 
+                              : 'rgba(255, 255, 255, 0.6)',
+                            border: `1px solid ${isSubSelected ? 'transparent' : colors.cardBorder}`
+                           }}
+                          onClick={() => handleSubTreatmentClick(subTreatment)}
+                        >
+                           {/* Hintergrund-Glow bei Hover (Submenu) */}
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                               style={{ background: `radial-gradient(circle at center, ${colors.secondaryAccent}22 0%, transparent 60%)`}}>
                           </div>
-                        </div>
-                        <h5 className="font-medium text-sm leading-tight"
-                            style={{ color: isSubSelected ? colors.selectedText : colors.textPrimary }}>
-                          {subTreatment.title}
-                        </h5>
-                      </motion.div>
-                    )
-                  })}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                          
+                          {/* Icon Container (Submenu) */}
+                           <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 transition-colors duration-300 border
+                            ${isSubSelected ? `border-white/30 bg-[${colors.iconBgSelected}]` : `border-[${colors.cardBorder}] bg-[${colors.iconBgDefault}]`}`}
+                           >
+                            <div className={`text-2xl transition-colors duration-300`}
+                                  style={{ color: isSubSelected ? colors.iconColorSelected : colors.iconColorDefault }}
+                            >
+                              {subTreatment.icon}
+                            </div>
+                          </div>
+                          <h5 className="font-medium text-sm leading-tight"
+                              style={{ color: isSubSelected ? colors.selectedText : colors.textPrimary }}>
+                            {subTreatment.title}
+                          </h5>
+                        </motion.div>
+                      )
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Behandlungsbeschreibung - ÜBERARBEITET */}
           <div ref={treatmentDescriptionRef} className="scroll-mt-24"> {/* Scroll-Margin hinzugefügt */}
