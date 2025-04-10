@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import Image from 'next/image';
 
 const About = () => {
   const { ref, inView } = useInView({
@@ -13,71 +12,61 @@ const About = () => {
   return (
     <section id="about" className="py-24 bg-white">
       <div className="section-container !pt-0 !pb-0">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 gap-12">
           <motion.div
-            ref={ref}
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="relative"
-          >
-            <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-xl">
-              <div className="absolute inset-0 bg-[url('/images/saskia.jpg')] bg-cover bg-center"></div>
-            </div>
-            <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg max-w-xs">
-              <h4 className="font-serif text-xl font-bold mb-2">Ausbildung</h4>
-              <ul className="space-y-2">
-                <li className="flex items-start">
-                  <svg className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="ml-2">Medizinstudium, Charité Berlin</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="ml-2">Spezialisierung in Ästhetischer Medizin</span>
-                </li>
-                <li className="flex items-start">
-                  <svg className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="ml-2">Fortgeschrittene Ausbildung in Injektionstechniken</span>
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="max-w-4xl mx-auto"
           >
-            <h2 className="heading-2 mb-6">Über <span className="text-[#C0A080]">Saskia Heer</span></h2>
+            <h2 className="heading-2 mb-6 text-center">Über <span className="text-secondary">Saskia Heer</span></h2>
             
-            <p className="paragraph mb-4">
-              Saskia Heer ist eine Ärztin, die sich auf ästhetische Medizin spezialisiert hat, mit einer Leidenschaft dafür, Patienten zu natürlich aussehenden Ergebnissen zu verhelfen, die ihr Selbstvertrauen und Wohlbefinden steigern.
-            </p>
+            <div className="w-20 h-px bg-secondary/30 mx-auto mb-8"></div>
             
             <p className="paragraph mb-6">
-              Nach Abschluss ihres Medizinstudiums an der renommierten Charité Medizinischen Hochschule in Berlin im Jahr 2024 spezialisierte sich Saskia auf ästhetische Medizin mit Fokus auf nicht-chirurgische Gesichtsverjüngungstechniken. Ihr Ansatz verbindet wissenschaftliche Expertise mit einem künstlerischen Auge für Gesichtsharmonie und -proportion.
+              Als Fachärztin mit einer außergewöhnlichen Leidenschaft für ästhetische Medizin widmet sich Saskia Heer der Kunst, natürliche Schönheit durch präzise, individuelle Behandlungskonzepte zu betonen – stets mit dem Ziel, harmonische Ergebnisse zu erzielen, die das Selbstbewusstsein und Wohlbefinden ihrer Patientinnen und Patienten nachhaltig steigern.
             </p>
             
-            <div className="bg-primary/30 p-6 rounded-xl mb-8">
-              <h4 className="font-serif text-xl font-semibold mb-3">Meine Philosophie</h4>
-              <p className="italic">
-                "Schönheit bedeutet, das zu verbessern, was bereits vorhanden ist. Ich glaube an subtile, natürlich aussehende Ergebnisse, die meinen Patienten helfen, erfrischt auszusehen und sich in ihrer eigenen Haut wohlzufühlen. Jedes Gesicht erzählt eine einzigartige Geschichte, und meine Aufgabe ist es, seine besten Eigenschaften hervorzuheben."</p>
-              <p className="text-right font-medium mt-2">— Saskia Heer</p>
+            <p className="paragraph mb-8">
+              Nach ihrem erfolgreichen Abschluss an der renommierten Charité Universitätsmedizin Berlin im Jahr 2023 hat Saskia Heer sich einem intensiven einjährigen Weiterbildungsprogramm gewidmet. Durch individuell zugeschnittene Fachkurse und praktische Spezialisierung hat sie ihre Expertise in innovativen, nichtinvasiven Techniken der ästhetischen Medizin kontinuierlich verfeinert und erweitert. Dieser Weg ermöglicht es ihr heute, exzellente ästhetisch-medizinische Ergebnisse auf dem neuesten wissenschaftlichen Forschungsstandard zu erzielen.
+            </p>
+            
+            <div className="bg-light p-8 rounded-none border border-secondary/10 shadow-elegant mb-8">
+              <h4 className="font-serif text-xl font-semibold mb-4 text-primary text-center">Meine Philosophie</h4>
+              <p className="italic text-primary/90 text-center">
+                "Wahre Schönheit liegt in der feinen Balance zwischen Perfektion und Natürlichkeit. Mein Ansatz verbindet wissenschaftliche Präzision mit einem künstlerischen Blick für Harmonie und Proportion. Jede Behandlung wird individuell konzipiert, um Ihre natürlichen Vorzüge zu betonen und gleichzeitig subtile, aber wirkungsvolle Verbesserungen zu erzielen. Das schönste Kompliment für meine Arbeit ist, wenn das Ergebnis so harmonisch wirkt, dass es nicht als 'gemacht' erkennbar ist."
+              </p>
+              <p className="text-right font-medium mt-4 text-secondary">— Saskia Heer</p>
             </div>
             
-            <p className="paragraph mb-6">
-              Als Gründerin von MedEstetique hat Saskia Heer eine Luxusklinik geschaffen, in der Wissenschaft und Schönheit in einer komfortablen, einladenden Umgebung aufeinandertreffen. Sie bleibt durch kontinuierliche Weiterbildung und Schulungen in den neuesten Techniken und Produkten an der Spitze der ästhetischen Medizin.
-            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+              <div className="bg-white p-6 border border-secondary/10 shadow-elegant">
+                <h5 className="font-serif text-lg font-medium mb-3 text-primary">Fachliche Expertise</h5>
+                <p className="text-sm text-primary/80">
+                  Spezialisierung auf minimalinvasive ästhetische Verfahren mit Fokus auf Präzision und wissenschaftlich fundierte Methoden.
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 border border-secondary/10 shadow-elegant">
+                <h5 className="font-serif text-lg font-medium mb-3 text-primary">Kontinuierliche Weiterbildung</h5>
+                <p className="text-sm text-primary/80">
+                  Regelmäßige Teilnahme an internationalen Fachkongressen und Workshops zu neuesten Techniken und Produkten.
+                </p>
+              </div>
+              
+              <div className="bg-white p-6 border border-secondary/10 shadow-elegant">
+                <h5 className="font-serif text-lg font-medium mb-3 text-primary">Ganzheitlicher Ansatz</h5>
+                <p className="text-sm text-primary/80">
+                  Kombination verschiedener Behandlungsmethoden für optimale, langanhaltende Ergebnisse mit Fokus auf Hautgesundheit.
+                </p>
+              </div>
+            </div>
             
-            <a href="#contact" className="button-primary inline-block">
-              Beratungstermin Vereinbaren
-            </a>
+            <div className="text-center">
+              <a href="#contact" className="button-primary inline-block">
+                Beratungstermin Vereinbaren
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>

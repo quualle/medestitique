@@ -161,7 +161,7 @@ const Hero = () => {
             <p 
               className="text-base leading-relaxed mb-10 max-w-xl mx-auto text-primary/90 font-medium"
             >
-              Premium Schönheitsbehandlungen von Ärzten. <br className="hidden md:block" /> 
+              Exklusive Schönheitsbehandlungen von Ärztin Saskia Heer. <br className="hidden md:block" /> 
               Erleben Sie die perfekte Verbindung von Wissenschaft und Schönheit.  
             </p>
             

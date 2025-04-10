@@ -103,6 +103,20 @@ const treatments = [
     )
   },
   {
+    id: 'polynucleotides',
+    title: 'Polynukleotide',
+    icon: <FaDna />,
+    shortDescription: 'Innovative Hautregeneration auf zellulärer Ebene.',
+    hasSubMenu: false,
+    fullDescription: (
+      <>
+        <p className="paragraph mb-4">Polynukleotide sind hochreine DNA-Fragmente, die die Zellerneuerung stimulieren und die Kollagensynthese anregen. Diese innovative Behandlung wirkt direkt auf die Hautstruktur und fördert nachhaltig die natürliche Regeneration.</p>
+        <p className="paragraph mb-4">Die Therapie aktiviert die Fibroblasten, verbessert die Hauthydratation und erhöht nachweislich die Elastizität. Im Vergleich zu anderen Verfahren bieten Polynukleotide einen langanhaltenden, natürlichen Verjüngungseffekt ohne Volumenzunahme.</p>
+        <p className="paragraph mb-4">Besonders geeignet ist die Behandlung bei feiner, dünner Haut, Elastizitätsverlust und zur allgemeinen Verbesserung der Hautqualität, Textur und Festigkeit.</p>
+      </>
+    )
+  },
+  {
     id: 'prp',
     title: 'PRP Eigenbluttherapie',
     icon: <FaTint />,
@@ -181,6 +195,10 @@ const TreatmentCard = ({ treatment, isSelected, onClick, index, inView }) => {
     hyaluronic: {
       start: 'rgba(215, 198, 172, 0.85)',
       end: 'rgba(194, 173, 140, 0.9)'
+    },
+    polynucleotides: {
+      start: 'rgba(212, 196, 174, 0.85)',
+      end: 'rgba(191, 175, 145, 0.9)'
     },
     prp: {
       start: 'rgba(208, 191, 168, 0.85)',

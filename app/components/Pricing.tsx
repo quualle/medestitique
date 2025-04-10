@@ -32,7 +32,7 @@ const pricingPlans = [
       'Ergebnisse halten 6-18 Monate',
       '30-minütige Behandlung',
       'Natürlich aussehende Ergebnisse',
-      'Verfügbar für Lippen, Wangen und Nasolabialfalten'
+      'Verfügbar für alle Behandlungszonen'
     ],
     popular: false,
     natural: false,
@@ -56,16 +56,17 @@ const pricingPlans = [
     icon: '/images/logo.jpg'
   },
   {
-    title: 'PRP Therapie (Einzeln)',
-    description: 'Natürliche Hautregeneration',
-    price: '€320',
-    priceDetail: 'pro Sitzung',
+    title: 'PRP Doppelbehandlung',
+    description: 'Intensive Hautregeneration',
+    price: '€650',
+    priceDetail: 'für 2 Sitzungen',
     features: [
       'Inklusive Blutentnahme & Verarbeitung',
-      'Einzelne Sitzung zur Auffrischung oder Kennenlernen',
+      'Zwei Sitzungen für optimale Ergebnisse',
+      'Ergänzende Einzelbehandlung für €300 möglich',
+      'Pro Lebensdekade eine PRP Behandlung empfohlen',
       '45-60 minütige Behandlung',
-      'Progressive Ergebnisse über 2-3 Monate',
-      'Gut kombinierbar mit Microneedling (+€150)'
+      'Progressive Ergebnisse über 2-3 Monate'
     ],
     popular: false,
     natural: true,

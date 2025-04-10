@@ -4,6 +4,7 @@ import Treatments from './components/Treatments';
 import Pricing from './components/Pricing';
 import About from './components/About';
 import Testimonials from './components/Testimonials';
+import TreatmentRooms from './components/TreatmentRooms';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
@@ -20,6 +21,7 @@ export default function Home() {
         <Pricing />
         <Testimonials />
         <About />
+        <TreatmentRooms />
         <Contact />
         <Footer />
       </div>
