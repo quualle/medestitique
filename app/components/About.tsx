@@ -11,7 +11,7 @@ const About = () => {
 
   return (
     <section id="about" className="py-24 bg-white">
-      <div className="section-container !pt-0 !pb-0">
+      <div className="section-container !pt-0 !pb-0" ref={ref}>
         <div className="grid grid-cols-1 gap-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
