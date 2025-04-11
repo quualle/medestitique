@@ -15,7 +15,7 @@ const Footer = () => {
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-xl hover:text-[#C0A080] transition-colors">
               <FaFacebook />
             </a>
-            <a href="mailto:contact@medestetique.com" aria-label="Email" className="text-xl hover:text-[#C0A080] transition-colors">
+            <a href="mailto:saskia.medestetique@gmail.com" aria-label="Email" className="text-xl hover:text-[#C0A080] transition-colors">
               <FaEnvelope />
             </a>
           </div>
@@ -37,11 +37,11 @@ const Footer = () => {
           <ul className="space-y-2">
             <li className="flex items-center">
               <FaPhone className="mr-2" />
-              <p>+49 30 1234 5678</p>
+              <p>0173 8615766</p>
             </li>
             <li className="flex items-center">
               <FaEnvelope className="mr-2" />
-              <p>contact@medestetique.com</p>
+              <p>saskia.medestetique@gmail.com</p>
             </li>
           </ul>
         </div>
