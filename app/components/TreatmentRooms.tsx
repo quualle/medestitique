@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const TreatmentRooms = () => {
   const { ref, inView } = useInView({
@@ -54,10 +55,15 @@ const TreatmentRooms = () => {
         >
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Image side */}
-            <div className="h-72 lg:h-auto relative overflow-hidden">
-              <div 
-                className="absolute inset-0 bg-[url('https://glamglowkw.de/wp-content/uploads/2023/12/IMGL0062-1.webp')] bg-cover bg-center transform hover:scale-105 transition-transform duration-700"
-              ></div>
+            <div className="h-72 lg:h-auto relative overflow-hidden flex items-center justify-center bg-light">
+              <Image
+                src="/images/room.jpg"
+                alt="Behandlungsraum GlamGlow Studio"
+                fill
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
+                className="transition-transform duration-700 hover:scale-105 rounded-none"
+                priority
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-dark/50 to-transparent opacity-30"></div>
             </div>
             

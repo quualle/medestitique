@@ -56,10 +56,10 @@ const pricingPlans = [
     icon: '/images/logo.jpg'
   },
   {
-    title: 'PRP Doppelbehandlung',
+    title: 'PRP Behandlung',
     description: 'Intensive Hautregeneration',
     price: '€550',
-    priceDetail: 'für 2 Sitzungen',
+    priceDetail: '(2 Sitzungen enthalten)',
     features: [
       'Inklusive Blutentnahme & Verarbeitung',
       'Zwei Sitzungen für optimale Ergebnisse',

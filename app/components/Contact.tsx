@@ -86,17 +86,6 @@ const Contact = () => {
                   <p>saskia.medestetique@gmail.com</p>
                 </div>
               </div>
-              <div className="flex items-start">
-                <div className="bg-[#333333]/50 p-3 rounded-full mr-4">
-                  <FaClock className="text-[#C0A080]" />
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-1">Öffnungszeiten</h4>
-                  <p>Montag - Freitag: 9:00 - 19:00 Uhr</p>
-                  <p>Samstag: 10:00 - 16:00 Uhr</p>
-                  <p>Sonntag: Geschlossen</p>
-                </div>
-              </div>
             </div>
           </motion.div>
 
