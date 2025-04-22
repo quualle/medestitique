@@ -133,7 +133,7 @@ const Testimonials = () => {
           className="text-center mt-12"
         >
           <a href="#contact" className="button-primary">
-            Beratungstermin Vereinbaren
+            Jetzt Termin Buchen
           </a>
         </motion.div>
       </div>

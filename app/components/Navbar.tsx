@@ -169,11 +169,11 @@ const Navbar = () => {
             <div className="gold-divider w-24 my-8"></div>
             
             <Link 
-              href="#contact" 
+              href="#contact"
               className="button-primary mt-4"
               onClick={toggleMenu}
             >
-              Termin Buchen
+              Jetzt Termin Buchen
             </Link>
           </motion.div>
         )}

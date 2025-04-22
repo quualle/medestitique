@@ -715,7 +715,7 @@ const Treatments = () => {
                         }}
                         whileHover={{ boxShadow: `0 15px 30px -8px ${colors.primaryAccent}7A` }} // Stärkerer Hover-Schatten
                        >
-                        Behandlung Buchen
+                        Jetzt Termin Buchen
                       </motion.a>
                     </div>
                 </div>

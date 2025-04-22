@@ -9,7 +9,7 @@ const pricingPlans = [
   {
     title: 'Botox Behandlung',
     description: 'Gezielte Faltenreduktion',
-    price: '€14',
+    price: '€12',
     priceDetail: 'pro Einheit',
     features: [
       'Beratung inklusive',
@@ -25,7 +25,7 @@ const pricingPlans = [
   {
     title: 'Hyaluronsäure Filler',
     description: 'Volumenwiederherstellung & -verbesserung',
-    price: '€300',
+    price: '€299',
     priceDetail: 'pro ml',
     features: [
       'Premium Filler Produkte',
@@ -58,7 +58,7 @@ const pricingPlans = [
   {
     title: 'PRP Doppelbehandlung',
     description: 'Intensive Hautregeneration',
-    price: '€650',
+    price: '€550',
     priceDetail: 'für 2 Sitzungen',
     features: [
       'Inklusive Blutentnahme & Verarbeitung',
@@ -207,7 +207,7 @@ const Pricing = () => {
                       : 'button-secondary'
                   } transform transition-all duration-500 hover:shadow-gold hover:translate-y-[-4px]`}
                 >
-                  Termin Vereinbaren
+                  Jetzt Termin Buchen
                 </a>
               </div>
               

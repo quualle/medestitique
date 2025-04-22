@@ -101,7 +101,7 @@ const TreatmentRooms = () => {
             href="#contact"
             className="button-primary inline-block"
           >
-            Jetzt Termin vereinbaren
+            Jetzt Termin Buchen
           </Link>
         </div>
       </div>

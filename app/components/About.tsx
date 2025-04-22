@@ -64,7 +64,7 @@ const About = () => {
             
             <div className="text-center">
               <a href="#contact" className="button-primary inline-block">
-                Beratungstermin Vereinbaren
+                Jetzt Termin Buchen
               </a>
             </div>
           </motion.div>

@@ -59,14 +59,14 @@ const Contact = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Kontaktinformationen */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="bg-white rounded-2xl shadow-xl p-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto"
           >
             <h3 className="heading-3 mb-6">Kontaktinformationen</h3>
-            
             <div className="space-y-6 mb-8">
               <div className="flex items-start">
                 <div className="bg-[#333333]/50 p-3 rounded-full mr-4">
@@ -77,7 +77,6 @@ const Contact = () => {
                   <p>0173 8615766</p>
                 </div>
               </div>
-              
               <div className="flex items-start">
                 <div className="bg-[#333333]/50 p-3 rounded-full mr-4">
                   <FaEnvelope className="text-[#C0A080]" />
@@ -87,8 +86,6 @@ const Contact = () => {
                   <p>saskia.medestetique@gmail.com</p>
                 </div>
               </div>
-              
-              
               <div className="flex items-start">
                 <div className="bg-[#333333]/50 p-3 rounded-full mr-4">
                   <FaClock className="text-[#C0A080]" />
@@ -101,97 +98,32 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-            
-            {/* Kein Kartenplatzhalter mehr benötigt, da keine Adresse angezeigt wird */}
           </motion.div>
 
+          {/* Deutlich hervorgehobene Buchungsplattform-CTA */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mt-16 max-w-3xl mx-auto text-center p-10 relative"
           >
-            <div className="bg-white rounded-2xl shadow-xl p-8">
-              <h3 className="heading-3 mb-6">Senden Sie uns eine Nachricht</h3>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="name" className="block mb-2 font-medium">Ihr Name*</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="email" className="block mb-2 font-medium">E-Mail Adresse*</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent"
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="phone" className="block mb-2 font-medium">Telefonnummer</label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="service" className="block mb-2 font-medium">Behandlungsinteresse*</label>
-                    <select
-                      id="service"
-                      name="service"
-                      value={formData.service}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
-                      required
-                    >
-                      <option value="" disabled>Behandlung auswählen</option>
-                      <option value="botox">Botox Behandlung</option>
-                      <option value="fillers">Hyaluronsäure Filler</option>
-                      <option value="prp">PRP Therapie</option>
-                      <option value="consultation">Allgemeine Beratung</option>
-                    </select>
-                  </div>
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block mb-2 font-medium">Ihre Nachricht</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={5}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary"
-                  ></textarea>
-                </div>
-                
-                <div className="text-right">
-                  <button type="submit" className="button-primary">
-                    Nachricht Senden
-                  </button>
-                </div>
-              </form>
+            <div className="absolute inset-0 bg-gradient-to-br from-secondary to-[#d2b48c] rounded-2xl shadow-gold"></div>
+            <div className="relative z-10 text-light">
+              <h3 className="font-serif text-3xl mb-6 font-semibold drop-shadow-lg">Jetzt Termin Buchen</h3>
+              <p className="mb-8 text-lg font-light max-w-xl mx-auto">
+                Ärztliche Leistungen von Saskia Heer werden an ausgewählten Tagen im Jahr
+                im Kosmetikstudio Glam & Glow Beauty in
+                Königs Wusterhausen angeboten. Terminreservierungen sind bequem über unsere
+                Buchungsplattform möglich.
+              </p>
+              <a
+                href="https://www.planity.com/de-DE/glam-glow-beauty-15711-konigs-wusterhausen"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-10 py-4 rounded-full bg-light text-secondary font-semibold text-lg shadow-lg transform hover:scale-105 transition-transform duration-300"
+              >
+                Zur Buchungsplattform
+              </a>
             </div>
           </motion.div>
         </div>

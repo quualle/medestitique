@@ -176,7 +176,7 @@ const Hero = () => {
                 href="#contact" 
                 className="button-secondary font-semibold" 
               >
-                Termin buchen
+                Jetzt Termin Buchen
               </a>
             </div>
           </motion.div>
