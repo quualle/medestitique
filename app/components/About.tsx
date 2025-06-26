@@ -24,7 +24,7 @@ const About = () => {
             <div className="w-20 h-px bg-secondary/30 mx-auto mb-8"></div>
             
             <p className="paragraph mb-6">
-              Als Fachärztin mit einer außergewöhnlichen Leidenschaft für ästhetische Medizin widmet sich Saskia Heer der Kunst, natürliche Schönheit durch präzise, individuelle Behandlungskonzepte zu betonen – stets mit dem Ziel, harmonische Ergebnisse zu erzielen, die das Selbstbewusstsein und Wohlbefinden ihrer Patientinnen und Patienten nachhaltig steigern.
+              Als Ärztin mit einer außergewöhnlichen Leidenschaft für ästhetische Medizin widmet sich Saskia Heer der Kunst, natürliche Schönheit durch präzise, individuelle Behandlungskonzepte zu betonen – stets mit dem Ziel, harmonische Ergebnisse zu erzielen, die das Selbstbewusstsein und Wohlbefinden ihrer Patientinnen und Patienten nachhaltig steigern.
             </p>
             
             <p className="paragraph mb-8">
