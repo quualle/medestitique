@@ -326,7 +326,7 @@ const SummerSpecialLanding = () => {
                       Jetzt Termin sichern
                     </motion.button>
                     <p className="text-sm bg-yellow-100 border border-yellow-300 text-primary px-4 py-2 rounded-lg mt-3 font-medium text-center">
-                      ⚠️ Wichtig: Scrollen Sie auf Planity zu<br/>"Medizinische Behandlungen by Medestetique"
+                      ⚠️ Wichtig: Scrollen Sie bis zu<br/>"Medizinische Behandlungen"
                     </p>
                   </div>
                   <div className="flex flex-col items-center">
@@ -618,7 +618,7 @@ const SummerSpecialLanding = () => {
         initial={{ x: 100 }}
         animate={{ x: isSticky ? 0 : 100 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-4"
+        className="fixed right-20 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-4"
       >
         <motion.button
           whileHover={{ scale: 1.1 }}
