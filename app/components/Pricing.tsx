@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useState } from 'react';
-import { FaSyringe, FaDroplet, FaStar, FaClock, FaGift, FaCircleInfo } from 'react-icons/fa6';
+import { FaSyringe, FaDroplet, FaStar, FaClock, FaGift, FaCircleInfo, FaVial } from 'react-icons/fa6';
 import { getPlanityBookingUrl } from '../utils/planityBooking';
 
 // Neue Datenstruktur für die überarbeitete Preisliste
@@ -49,6 +49,25 @@ const treatments = {
       { name: 'Russian Lips 2 ml', price: 404, special: true, info: 'Spezielle Technik für natürlich volle Lippen' },
       { name: 'Liquid Lift (Full Face) 6 ml', price: 1169, savings: 337, info: 'Komplette Gesichtsverjüngung ohne OP' }
     ]
+  },
+  prp: {
+    title: 'PRP',
+    subtitle: 'Eigenblutbehandlung',
+    icon: FaVial,
+    color: 'primary',
+    description: 'Natürliche Hautverjüngung mit körpereigenen Wachstumsfaktoren',
+    treatments: [
+      { name: 'PRP Behandlung', price: 550, duration: '45-60 Min', info: 'Intensive Hautregeneration mit 2 Sitzungen', unit: undefined },
+      { name: 'Ergänzende Einzelbehandlung', price: 300, duration: '45 Min', info: 'Zusätzliche PRP-Sitzung für optimale Ergebnisse', unit: undefined }
+    ],
+    packages: [
+      { 
+        name: 'Exklusives Anti-Aging Konzept', 
+        price: 1899, 
+        special: true, 
+        info: '4x 3-Stufen Intensivbehandlung + Nährstoffanalyse. Inkl. PRP + Infusion + individuelle PRP-Creme' 
+      }
+    ]
   }
 };
 
@@ -58,7 +77,7 @@ const Pricing = () => {
     triggerOnce: true
   });
 
-  const [activeCategory, setActiveCategory] = useState<'botox' | 'hyaluron'>('botox');
+  const [activeCategory, setActiveCategory] = useState<'botox' | 'hyaluron' | 'prp'>('botox');
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const containerVariants = {
@@ -125,7 +144,7 @@ const Pricing = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col sm:flex-row justify-center gap-4 mb-12"
+          className="flex flex-col sm:flex-row justify-center gap-4 mb-12 flex-wrap max-w-4xl mx-auto"
         >
           {Object.entries(treatments).map(([key, category]) => {
             const Icon = category.icon;
@@ -134,19 +153,21 @@ const Pricing = () => {
             return (
               <motion.button
                 key={key}
-                onClick={() => setActiveCategory(key as 'botox' | 'hyaluron')}
+                onClick={() => setActiveCategory(key as 'botox' | 'hyaluron' | 'prp')}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={`
-                  relative px-8 py-4 rounded-2xl transition-all duration-300
+                  relative px-6 lg:px-8 py-4 rounded-2xl transition-all duration-300
                   ${isActive 
-                    ? 'bg-gradient-to-r from-secondary to-secondary/90 text-white shadow-xl' 
+                    ? key === 'prp' 
+                      ? 'bg-gradient-to-r from-primary to-primary/90 text-white shadow-xl'
+                      : 'bg-gradient-to-r from-secondary to-secondary/90 text-white shadow-xl' 
                     : 'bg-white/60 backdrop-blur-sm border border-gray-200 hover:border-secondary/30 text-primary'
                   }
                 `}
               >
                 <div className="flex items-center gap-3">
-                  <Icon className={`text-xl ${isActive ? 'text-white' : 'text-secondary'}`} />
+                  <Icon className={`text-xl ${isActive ? 'text-white' : key === 'prp' ? 'text-primary' : 'text-secondary'}`} />
                   <div className="text-left">
                     <div className="font-serif text-lg">{category.title}</div>
                     <div className="text-xs opacity-80">{category.subtitle}</div>
@@ -155,7 +176,11 @@ const Pricing = () => {
                 {isActive && (
                   <motion.div
                     layoutId="activeIndicator"
-                    className="absolute inset-0 bg-gradient-to-r from-secondary to-secondary/90 rounded-2xl -z-10"
+                    className={`absolute inset-0 rounded-2xl -z-10 ${
+                      key === 'prp' 
+                        ? 'bg-gradient-to-r from-primary to-primary/90'
+                        : 'bg-gradient-to-r from-secondary to-secondary/90'
+                    }`}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
                 )}
