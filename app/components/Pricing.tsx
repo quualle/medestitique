@@ -25,7 +25,7 @@ const treatments = {
     ],
     packages: [
       { name: 'Stirn + Glabella Paket', price: 269, savings: 44, info: 'Kombinationsbehandlung für die obere Gesichtshälfte', special: undefined },
-      { name: 'Summer-Special', price: 719, special: true, info: 'Limitiertes Angebot für die Sommersaison', savings: undefined },
+      { name: 'Summer-Special: Hyperhidrose Achseln', price: 719, special: true, info: 'Botox gegen starkes Schwitzen - Sonderpreis nur für kurze Zeit! (Normalpreis: 809€)', savings: 90 },
       { name: '2 Zonen (Stirn + Glabella)', price: 314, info: 'Zwei Behandlungszonen zum Vorteilspreis', special: undefined, savings: undefined },
       { name: '3 Zonen (Stirn + Glabella + Krähenfüße)', price: 449, savings: 79, info: 'Komplettbehandlung für ein frisches Aussehen', special: undefined }
     ]
@@ -290,9 +290,9 @@ const Pricing = () => {
                       {/* Special Badge */}
                       {pkg.special && (
                         <div className="absolute -top-3 right-6">
-                          <div className="bg-secondary text-white px-4 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                          <div className={`${pkg.name.includes('Summer') ? 'bg-gradient-to-r from-yellow-400 to-orange-500' : 'bg-secondary'} text-white px-4 py-1 rounded-full text-xs font-medium flex items-center gap-1 shadow-lg`}>
                             <FaGift />
-                            Special
+                            {pkg.name.includes('Summer') ? '☀️ SOMMER-AKTION' : 'Special'}
                           </div>
                         </div>
                       )}
