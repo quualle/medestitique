@@ -143,76 +143,108 @@ const Pricing = () => {
               variants={fadeUpVariant}
               initial="hidden"
               animate={inView ? "visible" : "hidden"}
-              className={`price-card relative overflow-hidden group flex flex-col ${
-                plan.popular ? 'shadow-gold border-secondary/30' : ''
-              } ${
-                plan.natural ? 'border-green-400/30' : ''
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              className={`relative overflow-hidden group flex flex-col rounded-2xl backdrop-blur-lg transition-all duration-500 ${
+                plan.popular 
+                  ? 'bg-gradient-to-br from-secondary/20 via-secondary/10 to-transparent border-2 border-secondary/40 shadow-2xl shadow-secondary/20' 
+                  : plan.natural
+                  ? 'bg-gradient-to-br from-green-500/10 via-transparent to-transparent border-2 border-green-500/30 shadow-xl shadow-green-500/10'
+                  : 'bg-white/40 border border-secondary/20 shadow-xl hover:shadow-2xl hover:border-secondary/40'
               }`}
             >
-              {/* Top corner decoration */}
-              <div className="absolute -top-12 -right-12 w-24 h-24 opacity-20 transform rotate-45 bg-gradient-to-br from-secondary to-transparent"></div>
+              {/* Animated background gradient */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-transparent animate-gradient-shift"></div>
+              </div>
               
-              {/* Popular badge */}
+              {/* Floating particles effect */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute -top-4 -right-4 w-24 h-24 bg-secondary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/5 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700"></div>
+              </div>
+              
+              {/* Badge */}
               {plan.popular && (
-                <div className="absolute top-6 right-6 text-secondary">
-                  <FaStar className="h-6 w-6" />
+                <div className="absolute -top-px -right-px">
+                  <div className="relative bg-gradient-to-r from-secondary to-secondary/80 text-white px-6 py-2 rounded-bl-2xl rounded-tr-2xl shadow-lg">
+                    <FaStar className="inline-block h-4 w-4 mr-1 mb-1" />
+                    <span className="text-xs font-medium uppercase tracking-wider">Beliebt</span>
+                  </div>
                 </div>
               )}
               
-              {/* Natural badge */}
               {plan.natural && (
-                <div className="absolute top-6 right-6 text-green-500">
-                  <FaLeaf className="h-5 w-5" />
+                <div className="absolute -top-px -right-px">
+                  <div className="relative bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-bl-2xl rounded-tr-2xl shadow-lg">
+                    <FaLeaf className="inline-block h-4 w-4 mr-1 mb-1" />
+                    <span className="text-xs font-medium uppercase tracking-wider">Natürlich</span>
+                  </div>
                 </div>
               )}
               
-              <div className="text-center pt-10 pb-6">
-                <div className="w-12 h-12 mx-auto mb-6 rounded-full overflow-hidden shadow-elegant">
-                  <div className="w-full h-full bg-gradient-luxury rounded-full flex items-center justify-center">
-                    <div className="text-light text-opacity-90">
-                      <FaDiamond className="w-5 h-5" />
-                    </div>
+              <div className="relative text-center pt-12 pb-8 px-8">
+                {/* Icon with glow effect */}
+                <div className="relative inline-block mb-6">
+                  <div className="absolute inset-0 bg-secondary/20 rounded-full blur-xl scale-150 group-hover:scale-[2] transition-transform duration-700"></div>
+                  <div className="relative w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-secondary via-secondary/80 to-secondary/60 shadow-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-500">
+                    <FaDiamond className="w-7 h-7 text-white" />
                   </div>
                 </div>
                 
-                <h3 className="heading-3 mb-2 group-hover:text-secondary transition-colors duration-300">{plan.title}</h3>
-                <div className="w-12 h-px bg-secondary/30 mx-auto my-3"></div>
-                <p className="text-primary/70 text-sm px-4 mb-6">{plan.description}</p>
+                <h3 className="text-2xl font-serif font-medium mb-3 text-primary group-hover:text-secondary transition-colors duration-300">{plan.title}</h3>
                 
-                <div className="mb-8 group-hover:scale-105 transition-transform duration-500">
-                  <span className="text-4xl font-light text-secondary">{plan.price}</span>
-                  <span className="text-primary/70 ml-2 text-sm">{plan.priceDetail}</span>
+                {/* Animated underline */}
+                <div className="relative h-px w-16 mx-auto mb-4 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary to-transparent transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                  <div className="absolute inset-0 bg-secondary/20"></div>
+                </div>
+                
+                <p className="text-primary/70 text-sm leading-relaxed mb-8">{plan.description}</p>
+                
+                {/* Price with animated background */}
+                <div className="relative mb-8">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/10 to-transparent rounded-full blur-xl scale-y-75 group-hover:scale-110 transition-transform duration-500"></div>
+                  <div className="relative">
+                    <span className="text-5xl font-light bg-gradient-to-r from-secondary via-secondary/90 to-secondary bg-clip-text text-transparent">{plan.price}</span>
+                    <span className="text-primary/60 ml-2 text-sm font-light">{plan.priceDetail}</span>
+                  </div>
                 </div>
               </div>
               
+              {/* Features with stagger animation */}
               <ul className="space-y-3 mb-10 px-8 flex-grow">
                 {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-start text-sm">
-                    <div className={`h-5 w-5 ${plan.natural ? 'text-green-500' : 'text-secondary'} flex-shrink-0 opacity-80`}>
-                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
+                  <motion.li 
+                    key={i} 
+                    className="flex items-start text-sm group/item"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: index * 0.1 + i * 0.05 }}
+                  >
+                    <div className={`h-5 w-5 mt-0.5 ${plan.natural ? 'text-green-500' : 'text-secondary'} flex-shrink-0 transform group-hover/item:scale-110 transition-transform duration-300`}>
+                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <span className="ml-3 text-primary/80">{feature}</span>
-                  </li>
+                    <span className="ml-3 text-primary/80 group-hover/item:text-primary transition-colors duration-300">{feature}</span>
+                  </motion.li>
                 ))}
               </ul>
               
-              <div className="text-center pb-10 mt-auto">
+              {/* CTA Button */}
+              <div className="relative text-center pb-10 px-8 mt-auto">
                 <a 
                   href="#contact" 
-                  className={`inline-block ${
+                  className={`relative inline-block px-8 py-4 rounded-full font-light tracking-wider uppercase text-sm overflow-hidden transition-all duration-500 ${
                     plan.popular || plan.natural 
-                      ? 'button-primary text-light/95' 
-                      : 'button-secondary'
-                  } transform transition-all duration-500 hover:shadow-gold hover:translate-y-[-4px]`}
+                      ? 'bg-gradient-to-r from-secondary to-secondary/90 text-white shadow-lg hover:shadow-xl hover:scale-105' 
+                      : 'bg-white/60 backdrop-blur-sm border border-secondary/30 text-secondary hover:bg-secondary hover:text-white hover:border-secondary hover:scale-105'
+                  }`}
                 >
-                  Jetzt Termin Buchen
+                  <span className="relative z-10">Jetzt Termin Buchen</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                 </a>
               </div>
-              
-              {/* Subtle hover effect overlay */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
             </motion.div>
           ))}
         </div>
