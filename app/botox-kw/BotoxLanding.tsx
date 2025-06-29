@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FaPhone, FaCheck, FaStar, FaClock, FaUserMd } from 'react-icons/fa';
-import { FaWhatsapp } from 'react-icons/fa6';
 
 // GA4 Event Tracking
 declare global {
@@ -22,14 +21,13 @@ const trackEvent = (eventName: string, parameters?: any) => {
 const BotoxLanding = () => {
   const [isSticky, setIsSticky] = useState(false);
   const phoneNumber = '+4915150616959';
-  const whatsappNumber = '4915150616959';
-  const whatsappMessage = 'Hallo, ich interessiere mich für eine Botox-Behandlung in Königs Wusterhausen.';
 
   useEffect(() => {
     // Track page view
     trackEvent('page_view', {
       page_title: 'Botox Landing Page KW',
-      page_location: window.location.href
+      page_location: window.location.href,
+      campaign: 'botox_sprint'
     });
 
     // Handle sticky buttons
@@ -49,13 +47,6 @@ const BotoxLanding = () => {
     window.location.href = `tel:${phoneNumber}`;
   };
 
-  const handleWhatsappClick = () => {
-    trackEvent('wa_click', {
-      event_category: 'engagement',
-      event_label: 'header_whatsapp_button'
-    });
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-  };
 
   const handleBookingClick = () => {
     trackEvent('booking_start', {
@@ -85,7 +76,7 @@ const BotoxLanding = () => {
               {/* Trust Badge */}
               <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full mb-6 shadow-sm">
                 <FaUserMd className="text-secondary" />
-                <span className="text-sm font-medium text-primary">Dr. med. Saskia Heer</span>
+                <span className="text-sm font-medium text-primary">Saskia Heer, Ärztin</span>
               </div>
 
               <h1 className="text-4xl md:text-6xl font-serif font-light mb-6 text-primary">
@@ -277,27 +268,20 @@ const BotoxLanding = () => {
         </div>
       </section>
 
-      {/* Mobile Sticky Buttons */}
+      {/* Mobile Sticky Button */}
       <motion.div
         initial={{ y: 100 }}
         animate={{ y: isSticky ? 0 : 100 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white shadow-2xl border-t border-gray-200"
       >
-        <div className="grid grid-cols-2 gap-2 p-3">
+        <div className="p-3">
           <button
             onClick={handleCallClick}
-            className="flex items-center justify-center gap-2 py-3 bg-primary text-white rounded-xl font-medium"
+            className="w-full flex items-center justify-center gap-2 py-4 bg-primary text-white rounded-xl font-medium text-lg"
           >
             <FaPhone />
-            Anrufen
-          </button>
-          <button
-            onClick={handleWhatsappClick}
-            className="flex items-center justify-center gap-2 py-3 bg-green-500 text-white rounded-xl font-medium"
-          >
-            <FaWhatsapp />
-            WhatsApp
+            Jetzt anrufen
           </button>
         </div>
       </motion.div>
@@ -307,21 +291,14 @@ const BotoxLanding = () => {
         initial={{ x: 100 }}
         animate={{ x: isSticky ? 0 : 100 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-3"
+        className="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden md:block"
       >
         <button
           onClick={handleCallClick}
-          className="w-14 h-14 bg-primary text-white rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center hover:scale-110 transition-all duration-300"
+          className="w-16 h-16 bg-primary text-white rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center hover:scale-110 transition-all duration-300"
           aria-label="Anrufen"
         >
-          <FaPhone className="text-xl" />
-        </button>
-        <button
-          onClick={handleWhatsappClick}
-          className="w-14 h-14 bg-green-500 text-white rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center hover:scale-110 transition-all duration-300"
-          aria-label="WhatsApp"
-        >
-          <FaWhatsapp className="text-xl" />
+          <FaPhone className="text-2xl" />
         </button>
       </motion.div>
 

@@ -1,7 +1,7 @@
 import BotoxLanding from './BotoxLanding';
 
 export const metadata = {
-  title: 'Botox Königs Wusterhausen ab 179€ | Dr. med. Saskia Heer',
+  title: 'Botox Königs Wusterhausen ab 179€ | Saskia Heer',
   description: 'Botox-Behandlung in Königs Wusterhausen ✓ Ab 179€ ✓ Ärztin mit Erfahrung ✓ MwSt-frei ✓ Kostenlose Touch-ups. Jetzt Termin buchen!',
   keywords: 'Botox Königs Wusterhausen, Botox KW, Faltenbehandlung, Botox Preis',
   openGraph: {
