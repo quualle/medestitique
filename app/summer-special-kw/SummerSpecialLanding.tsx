@@ -72,7 +72,7 @@ const useCountdown = () => {
 const SummerSpecialLanding = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [activeAccordion, setActiveAccordion] = useState<number | null>(null);
-  const phoneNumber = '+4915150616959';
+  const phoneNumber = '+491738615766';
   const whatsappNumber = '4915150616959';
   const whatsappMessage = 'Hallo, ich interessiere mich für das Summer Special für Faltenbehandlung.';
   
