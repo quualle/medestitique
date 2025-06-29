@@ -44,6 +44,14 @@ const BotoxLanding = () => {
       event_category: 'engagement',
       event_label: 'header_call_button'
     });
+    
+    // Google Ads Conversion Event
+    trackEvent('conversion', {
+      'send_to': 'AW-17275818810/CALL_CONVERSION_LABEL',
+      'value': 1.0,
+      'currency': 'EUR'
+    });
+    
     window.location.href = `tel:${phoneNumber}`;
   };
 
@@ -53,6 +61,14 @@ const BotoxLanding = () => {
       event_category: 'conversion',
       event_label: 'botox_booking_start'
     });
+    
+    // Google Ads Conversion Event
+    trackEvent('conversion', {
+      'send_to': 'AW-17275818810/BOOKING_CONVERSION_LABEL',
+      'value': 179.0,
+      'currency': 'EUR'
+    });
+    
     // Direct link to Planity Botox service
     window.open('https://www.planity.com/de-DE/glam-glow-beauty-15711-konigs-wusterhausen#service-name-10-0', '_blank');
   };
