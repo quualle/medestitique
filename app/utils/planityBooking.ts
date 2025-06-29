@@ -14,7 +14,7 @@ export const openPlanityBooking = (e?: React.MouseEvent) => {
   // Scroll-Anpassung nach dem Laden (scrollt zum Anfang der Medestetique-Sektion)
   setTimeout(() => {
     try {
-      window.scrollBy(0, -450);
+      window.scrollBy(0, -600);
     } catch (error) {
       console.log('Scroll-Anpassung nicht möglich');
     }
