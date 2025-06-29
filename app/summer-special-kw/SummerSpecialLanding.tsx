@@ -618,7 +618,7 @@ const SummerSpecialLanding = () => {
         initial={{ x: 100 }}
         animate={{ x: isSticky ? 0 : 100 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden md:block"
+        className="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-4"
       >
         <motion.button
           whileHover={{ scale: 1.1 }}
@@ -628,6 +628,15 @@ const SummerSpecialLanding = () => {
         >
           <FaPhone className="text-2xl" />
         </motion.button>
+        
+        <motion.a
+          href="/"
+          whileHover={{ scale: 1.05 }}
+          className="bg-white border-2 border-primary text-primary rounded-2xl px-4 py-3 shadow-xl hover:shadow-2xl hover:bg-primary hover:text-white transition-colors text-sm font-medium text-center"
+          style={{ writingMode: 'horizontal-tb', maxWidth: '200px' }}
+        >
+          Mehr erfahren über Medestetique
+        </motion.a>
       </motion.div>
 
       {/* Schema Markup */}
