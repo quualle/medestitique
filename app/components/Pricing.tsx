@@ -1,78 +1,55 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaLeaf, FaDiamond, FaStar } from 'react-icons/fa6';
-import Image from 'next/image';
+import { useState } from 'react';
+import { FaSyringe, FaDroplet, FaStar, FaInfoCircle, FaClock, FaGift } from 'react-icons/fa6';
 
-const pricingPlans = [
-  {
-    title: 'Botox Behandlung',
-    description: 'Gezielte Faltenreduktion',
-    price: '€12',
-    priceDetail: 'pro Einheit',
-    features: [
-      'Beratung inklusive',
-      'Gesichtszone: ca. €200 - €350',
-      'Hält 3-4 Monate',
-      'Schnelle 15-minütige Behandlung',
-      'Nachuntersuchung'
+// Neue Datenstruktur für die überarbeitete Preisliste
+const treatments = {
+  botox: {
+    title: 'Botox®',
+    subtitle: 'Faltenbehandlung',
+    icon: FaSyringe,
+    color: 'secondary',
+    description: 'Präzise Muskelentspannung für ein natürlich verjüngtes Aussehen',
+    treatments: [
+      { name: 'Zornesfalte (Glabella)', price: 179, duration: '15 Min', info: 'Glättet die vertikalen Falten zwischen den Augenbrauen' },
+      { name: 'Stirn quer', price: 134, duration: '10 Min', info: 'Reduziert horizontale Stirnfalten' },
+      { name: 'Krähenfüße (beidseitig)', price: 215, duration: '15 Min', info: 'Mildert Lachfältchen um die Augen' },
+      { name: 'Bunny Lines Nase', price: 80, duration: '5 Min', info: 'Glättet Nasenfalten beim Lachen' },
+      { name: 'Lippen-Flip / Gummy Smile', price: 107, duration: '10 Min', info: 'Korrigiert das Zahnfleischlächeln' },
+      { name: 'Masseter (Knirschen)', price: 404, duration: '20 Min', info: 'Entspannt die Kaumuskulatur' },
+      { name: 'Hyperhidrose Achsel', price: 809, duration: '30 Min', info: 'Stoppt übermäßiges Schwitzen' }
     ],
-    popular: true,
-    natural: false,
-    icon: '/images/logo.jpg'
+    packages: [
+      { name: 'Stirn + Glabella Paket', price: 269, savings: 44, info: 'Kombinationsbehandlung für die obere Gesichtshälfte' },
+      { name: 'Summer-Special', price: 719, special: true, info: 'Limitiertes Angebot für die Sommersaison' },
+      { name: '2 Zonen (Stirn + Glabella)', price: 314, info: 'Zwei Behandlungszonen zum Vorteilspreis' },
+      { name: '3 Zonen (Stirn + Glabella + Krähenfüße)', price: 449, savings: 79, info: 'Komplettbehandlung für ein frisches Aussehen' }
+    ]
   },
-  {
-    title: 'Hyaluronsäure Filler',
-    description: 'Volumenwiederherstellung & -verbesserung',
-    price: '€299',
-    priceDetail: 'pro ml',
-    features: [
-      'Premium Filler Produkte',
-      'Ergebnisse halten 6-18 Monate',
-      '30-minütige Behandlung',
-      'Natürlich aussehende Ergebnisse',
-      'Verfügbar für alle Behandlungszonen'
+  hyaluron: {
+    title: 'Hyaluron-Filler',
+    subtitle: 'Volumenaufbau & Konturierung',
+    icon: FaDroplet,
+    color: 'accent',
+    description: 'Natürliche Volumengabe und Faltenunterspritzung mit Premium-Fillern',
+    treatments: [
+      { name: 'Lippen Volumen 1 ml', price: 224, duration: '30 Min', info: 'Für vollere, definierte Lippen' },
+      { name: 'Nasolabialfalte 1 ml', price: 224, duration: '20 Min', info: 'Glättet tiefe Falten von Nase zu Mund' },
+      { name: 'Marionettenfalten 1 ml', price: 224, duration: '20 Min', info: 'Mildert Falten von Mundwinkel zum Kinn' },
+      { name: 'Wangen / Midface', price: 251, unit: '/ml', duration: '30 Min', info: 'Stellt jugendliches Volumen wieder her' },
+      { name: 'Jawline Kontur', price: 251, unit: '/ml', duration: '40 Min', info: 'Definiert die Kieferlinie' }
     ],
-    popular: false,
-    natural: false,
-    icon: '/images/logo.jpg'
-  },
-  {
-    title: 'Exklusives Anti-Aging Konzept',
-    description: '4x 3-Stufen Intensivbehandlung + Analyse',
-    price: '€1899',
-    priceDetail: 'Gesamtpaket',
-    features: [
-      '4 Sitzungen (PRP + Infusion + Creme)',
-      'Inkl. Nährstoffanalyse (Haarprobe + Besprechung)',
-      'Individuelle Infusionstherapie basierend auf Analyseergebnissen',
-      'Maximale Hauterneuerung & -gesundheit',
-      '100% natürliche, individuelle PRP-Creme inklusive',
-      'Langfristige Optimierung der Hautgesundheit'
-    ],
-    popular: false,
-    natural: true,
-    icon: '/images/logo.jpg'
-  },
-  {
-    title: 'PRP Behandlung',
-    description: 'Intensive Hautregeneration',
-    price: '€550',
-    priceDetail: '(2 Sitzungen enthalten)',
-    features: [
-      'Inklusive Blutentnahme & Verarbeitung',
-      'Zwei Sitzungen für optimale Ergebnisse',
-      'Ergänzende Einzelbehandlung für €300 möglich',
-      'Pro Lebensdekade eine PRP Behandlung empfohlen',
-      '45-60 minütige Behandlung',
-      'Progressive Ergebnisse über 2-3 Monate'
-    ],
-    popular: false,
-    natural: true,
-    icon: '/images/logo.jpg'
+    packages: [
+      { name: '2 ml-Paket', price: 476, savings: 22, info: 'Ideal für kombinierte Behandlungen' },
+      { name: '4 ml-Paket', price: 944, savings: 60, info: 'Für umfassende Volumenbehandlungen' },
+      { name: 'Russian Lips 2 ml', price: 404, special: true, info: 'Spezielle Technik für natürlich volle Lippen' },
+      { name: 'Liquid Lift (Full Face) 6 ml', price: 1169, savings: 337, info: 'Komplette Gesichtsverjüngung ohne OP' }
+    ]
   }
-];
+};
 
 const Pricing = () => {
   const { ref, inView } = useInView({
@@ -80,37 +57,49 @@ const Pricing = () => {
     triggerOnce: true
   });
 
-  const fadeUpVariant = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i: number) => ({
+  const [activeCategory, setActiveCategory] = useState<'botox' | 'hyaluron'>('botox');
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
       opacity: 1,
       y: 0,
       transition: {
-        delay: i * 0.1,
-        duration: 0.7,
+        duration: 0.5,
         ease: [0.22, 1, 0.36, 1]
       }
-    })
+    }
   };
 
   return (
-    <section id="pricing" className="py-28 relative overflow-hidden">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 bg-gradient-radial opacity-70"></div>
-      <div className="absolute inset-0 opacity-5" 
-        style={{
-          backgroundImage: `radial-gradient(circle, ${hexToRGBA('#D2B48C', 0.7)} 1px, transparent 1px)`,
-          backgroundSize: '40px 40px'
-        }}>
+    <section id="pricing" className="py-24 relative overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-light via-white to-light opacity-50"></div>
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
       
-      <div className="section-container relative !pt-0 !pb-0">
+      <div className="section-container relative">
+        {/* Header */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
           <motion.div 
             initial={{ width: 0 }}
@@ -120,152 +109,219 @@ const Pricing = () => {
           />
           
           <h2 className="heading-2 mb-6">
-            <span className="inline text-primary">Behandlungs</span><span className="text-secondary font-medium">preise</span>
+            <span className="inline text-primary">Unsere</span>{' '}
+            <span className="text-secondary font-medium">Behandlungspreise</span>
           </h2>
           
           <p className="paragraph max-w-3xl mx-auto text-primary/80">
-            Wir bieten transparente Preise für unsere Premium-Behandlungen. Alle Verfahren werden von Saskia Heer mit ausschließlich hochwertigen Produkten durchgeführt.
+            Transparente Preise für erstklassige ästhetische Behandlungen. 
+            Alle Eingriffe werden von Saskia Heer mit höchster Präzision durchgeführt.
           </p>
-          
-          <motion.div 
-            initial={{ width: 0 }}
-            animate={inView ? { width: '80px' } : {}}
-            transition={{ duration: 1.2, delay: 0.3 }}
-            className="h-px bg-secondary/50 mx-auto mt-8"
-          />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 lg:gap-6">
-          {pricingPlans.map((plan, index) => (
-            <motion.div
-              key={plan.title}
-              custom={index}
-              variants={fadeUpVariant}
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              whileHover={{ y: -10, transition: { duration: 0.3 } }}
-              className={`relative overflow-hidden group flex flex-col rounded-2xl backdrop-blur-lg transition-all duration-500 ${
-                plan.popular 
-                  ? 'bg-gradient-to-br from-secondary/20 via-secondary/10 to-transparent border-2 border-secondary/40 shadow-2xl shadow-secondary/20' 
-                  : plan.natural
-                  ? 'bg-gradient-to-br from-green-500/10 via-transparent to-transparent border-2 border-green-500/30 shadow-xl shadow-green-500/10'
-                  : 'bg-white/40 border border-secondary/20 shadow-xl hover:shadow-2xl hover:border-secondary/40'
-              }`}
-            >
-              {/* Animated background gradient */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-transparent animate-gradient-shift"></div>
-              </div>
-              
-              {/* Floating particles effect */}
-              <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-secondary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
-                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/5 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700"></div>
-              </div>
-              
-              {/* Badge */}
-              {plan.popular && (
-                <div className="absolute -top-px -right-px">
-                  <div className="relative bg-gradient-to-r from-secondary to-secondary/80 text-white px-6 py-2 rounded-bl-2xl rounded-tr-2xl shadow-lg">
-                    <FaStar className="inline-block h-4 w-4 mr-1 mb-1" />
-                    <span className="text-xs font-medium uppercase tracking-wider">Beliebt</span>
+        {/* Category Selector */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex flex-col sm:flex-row justify-center gap-4 mb-12"
+        >
+          {Object.entries(treatments).map(([key, category]) => {
+            const Icon = category.icon;
+            const isActive = activeCategory === key;
+            
+            return (
+              <motion.button
+                key={key}
+                onClick={() => setActiveCategory(key as 'botox' | 'hyaluron')}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`
+                  relative px-8 py-4 rounded-2xl transition-all duration-300
+                  ${isActive 
+                    ? 'bg-gradient-to-r from-secondary to-secondary/90 text-white shadow-xl' 
+                    : 'bg-white/60 backdrop-blur-sm border border-gray-200 hover:border-secondary/30 text-primary'
+                  }
+                `}
+              >
+                <div className="flex items-center gap-3">
+                  <Icon className={`text-xl ${isActive ? 'text-white' : 'text-secondary'}`} />
+                  <div className="text-left">
+                    <div className="font-serif text-lg">{category.title}</div>
+                    <div className="text-xs opacity-80">{category.subtitle}</div>
                   </div>
                 </div>
-              )}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeIndicator"
+                    className="absolute inset-0 bg-gradient-to-r from-secondary to-secondary/90 rounded-2xl -z-10"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </motion.button>
+            );
+          })}
+        </motion.div>
+
+        {/* Treatment Grid */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="space-y-12"
+          >
+            {/* Category Description */}
+            <motion.div variants={itemVariants} className="text-center max-w-2xl mx-auto">
+              <p className="text-primary/70">{treatments[activeCategory].description}</p>
+            </motion.div>
+
+            {/* Individual Treatments */}
+            <motion.div variants={itemVariants}>
+              <h3 className="text-xl font-serif text-primary mb-6 flex items-center gap-2">
+                <span className="w-8 h-px bg-secondary/30"></span>
+                Einzelbehandlungen
+                <span className="flex-1 h-px bg-secondary/30"></span>
+              </h3>
               
-              {plan.natural && (
-                <div className="absolute -top-px -right-px">
-                  <div className="relative bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-bl-2xl rounded-tr-2xl shadow-lg">
-                    <FaLeaf className="inline-block h-4 w-4 mr-1 mb-1" />
-                    <span className="text-xs font-medium uppercase tracking-wider">Natürlich</span>
-                  </div>
-                </div>
-              )}
-              
-              <div className="relative text-center pt-12 pb-8 px-8">
-                {/* Icon with glow effect */}
-                <div className="relative inline-block mb-6">
-                  <div className="absolute inset-0 bg-secondary/20 rounded-full blur-xl scale-150 group-hover:scale-[2] transition-transform duration-700"></div>
-                  <div className="relative w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-secondary via-secondary/80 to-secondary/60 shadow-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-500">
-                    <FaDiamond className="w-7 h-7 text-white" />
-                  </div>
-                </div>
-                
-                <h3 className="text-2xl font-serif font-medium mb-3 text-primary group-hover:text-secondary transition-colors duration-300">{plan.title}</h3>
-                
-                {/* Animated underline */}
-                <div className="relative h-px w-16 mx-auto mb-4 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary to-transparent transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                  <div className="absolute inset-0 bg-secondary/20"></div>
-                </div>
-                
-                <p className="text-primary/70 text-sm leading-relaxed mb-8">{plan.description}</p>
-                
-                {/* Price with animated background */}
-                <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-secondary/10 to-transparent rounded-full blur-xl scale-y-75 group-hover:scale-110 transition-transform duration-500"></div>
-                  <div className="relative">
-                    <span className="text-5xl font-light bg-gradient-to-r from-secondary via-secondary/90 to-secondary bg-clip-text text-transparent">{plan.price}</span>
-                    <span className="text-primary/60 ml-2 text-sm font-light">{plan.priceDetail}</span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Features with stagger animation */}
-              <ul className="space-y-3 mb-10 px-8 flex-grow">
-                {plan.features.map((feature, i) => (
-                  <motion.li 
-                    key={i} 
-                    className="flex items-start text-sm group/item"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: index * 0.1 + i * 0.05 }}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {treatments[activeCategory].treatments.map((treatment, index) => (
+                  <motion.div
+                    key={treatment.name}
+                    variants={itemVariants}
+                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                    onHoverStart={() => setHoveredItem(treatment.name)}
+                    onHoverEnd={() => setHoveredItem(null)}
+                    className="relative group"
                   >
-                    <div className={`h-5 w-5 mt-0.5 ${plan.natural ? 'text-green-500' : 'text-secondary'} flex-shrink-0 transform group-hover/item:scale-110 transition-transform duration-300`}>
-                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
+                    <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-gray-100 hover:border-secondary/30 transition-all duration-300 h-full">
+                      {/* Main Content */}
+                      <div className="flex justify-between items-start mb-2">
+                        <h4 className="font-medium text-primary flex-1 pr-4">{treatment.name}</h4>
+                        <div className="text-right">
+                          <span className="text-2xl font-light text-secondary">€{treatment.price}</span>
+                          {treatment.unit && <span className="text-sm text-primary/60">{treatment.unit}</span>}
+                        </div>
+                      </div>
+                      
+                      {/* Duration */}
+                      <div className="flex items-center gap-2 text-sm text-primary/60 mb-3">
+                        <FaClock className="text-xs" />
+                        <span>{treatment.duration}</span>
+                      </div>
+                      
+                      {/* Hover Info */}
+                      <AnimatePresence>
+                        {hoveredItem === treatment.name && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pt-3 border-t border-gray-100">
+                              <p className="text-sm text-primary/70 flex items-start gap-2">
+                                <FaInfoCircle className="text-secondary mt-0.5 flex-shrink-0" />
+                                {treatment.info}
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <span className="ml-3 text-primary/80 group-hover/item:text-primary transition-colors duration-300">{feature}</span>
-                  </motion.li>
+                  </motion.div>
                 ))}
-              </ul>
-              
-              {/* CTA Button */}
-              <div className="relative text-center pb-10 px-8 mt-auto">
-                <a 
-                  href="#contact" 
-                  className={`relative inline-block px-8 py-4 rounded-full font-light tracking-wider uppercase text-sm overflow-hidden transition-all duration-500 ${
-                    plan.popular || plan.natural 
-                      ? 'bg-gradient-to-r from-secondary to-secondary/90 text-white shadow-lg hover:shadow-xl hover:scale-105' 
-                      : 'bg-white/60 backdrop-blur-sm border border-secondary/30 text-secondary hover:bg-secondary hover:text-white hover:border-secondary hover:scale-105'
-                  }`}
-                >
-                  <span className="relative z-10">Jetzt Termin Buchen</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                </a>
               </div>
             </motion.div>
-          ))}
-        </div>
-        
+
+            {/* Packages */}
+            <motion.div variants={itemVariants}>
+              <h3 className="text-xl font-serif text-primary mb-6 flex items-center gap-2">
+                <span className="w-8 h-px bg-secondary/30"></span>
+                Vorteilspakete & Specials
+                <span className="flex-1 h-px bg-secondary/30"></span>
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {treatments[activeCategory].packages.map((pkg, index) => (
+                  <motion.div
+                    key={pkg.name}
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                    className="relative group"
+                  >
+                    <div className={`
+                      rounded-2xl p-8 h-full transition-all duration-300
+                      ${pkg.special 
+                        ? 'bg-gradient-to-br from-secondary/20 via-secondary/10 to-transparent border-2 border-secondary/40 shadow-xl' 
+                        : 'bg-white/80 backdrop-blur-sm border border-gray-100 hover:border-secondary/30'
+                      }
+                    `}>
+                      {/* Special Badge */}
+                      {pkg.special && (
+                        <div className="absolute -top-3 right-6">
+                          <div className="bg-secondary text-white px-4 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                            <FaGift />
+                            Special
+                          </div>
+                        </div>
+                      )}
+                      
+                      {/* Package Content */}
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="flex-1">
+                          <h4 className="font-serif text-lg text-primary mb-2">{pkg.name}</h4>
+                          <p className="text-sm text-primary/70">{pkg.info}</p>
+                        </div>
+                      </div>
+                      
+                      {/* Price and Savings */}
+                      <div className="flex items-end justify-between">
+                        <div>
+                          <span className="text-3xl font-light text-secondary">€{pkg.price}</span>
+                        </div>
+                        {pkg.savings && (
+                          <div className="text-right">
+                            <span className="text-sm text-green-600 font-medium">
+                              Sie sparen €{pkg.savings}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Hover Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500"></div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-20 text-center p-10 max-w-3xl mx-auto relative"
+          className="mt-20 text-center"
         >
-          <div className="absolute inset-0 bg-light shadow-elegant rounded-none border border-secondary/20"></div>
-          
-          <div className="relative">
-            <div className="gold-circle mb-6"></div>
-            <h4 className="font-serif text-2xl font-light mb-3 text-secondary">Individuelle Behandlungspakete</h4>
-            <p className="mb-8 max-w-lg mx-auto">
-              Suchen Sie einen personalisierten Ansatz für Ihre ästhetischen Ziele? 
-              Wir kreieren maßgeschneiderte Behandlungskombinationen, die perfekt auf Ihre individuellen Bedürfnisse zugeschnitten sind.
+          <div className="max-w-3xl mx-auto bg-gradient-to-r from-light via-white to-light p-12 rounded-3xl shadow-xl border border-secondary/20">
+            <h3 className="font-serif text-2xl text-primary mb-4">
+              Individuelle Beratung gewünscht?
+            </h3>
+            <p className="text-primary/70 mb-8 max-w-xl mx-auto">
+              Jede Behandlung beginnt mit einem persönlichen Beratungsgespräch. 
+              Gemeinsam finden wir die optimale Lösung für Ihre individuellen Bedürfnisse.
             </p>
-            <a href="#contact" className="button-secondary hover:shadow-gold">
-              Individuelles Angebot Anfordern
+            <a 
+              href="#contact" 
+              className="inline-block px-8 py-4 bg-gradient-to-r from-secondary to-secondary/90 text-white rounded-full font-light tracking-wider uppercase text-sm transform transition-all duration-300 hover:shadow-xl hover:scale-105"
+            >
+              Beratungstermin vereinbaren
             </a>
           </div>
         </motion.div>
@@ -273,13 +329,5 @@ const Pricing = () => {
     </section>
   );
 };
-
-// Helper function to convert hex color to rgba
-function hexToRGBA(hex: string, alpha: number) {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
 
 export default Pricing;
