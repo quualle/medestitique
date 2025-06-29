@@ -20,28 +20,53 @@ const trackEvent = (eventName: string, parameters?: any) => {
 };
 
 // Countdown Timer Hook
-const useCountdown = (endDate: Date) => {
+const useCountdown = () => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [isEventActive, setIsEventActive] = useState(false);
+  const [eventMessage, setEventMessage] = useState('');
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = endDate.getTime() - now;
-
-      if (distance > 0) {
+      const now = new Date();
+      const startDate = new Date('2024-07-14T00:00:00');
+      const endDate = new Date('2024-07-26T23:59:59');
+      
+      if (now < startDate) {
+        // Countdown bis zum Start
+        const distance = startDate.getTime() - now.getTime();
+        setIsEventActive(false);
+        setEventMessage('Das Summer Special startet in:');
+        
         setTimeLeft({
           days: Math.floor(distance / (1000 * 60 * 60 * 24)),
           hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
           minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((distance % (1000 * 60)) / 1000)
         });
+      } else if (now >= startDate && now <= endDate) {
+        // Event läuft
+        const distance = endDate.getTime() - now.getTime();
+        setIsEventActive(true);
+        setEventMessage('Angebot endet in:');
+        
+        setTimeLeft({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000)
+        });
+      } else {
+        // Event vorbei
+        setIsEventActive(false);
+        setEventMessage('Das Summer Special ist beendet');
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [endDate]);
+  }, []);
 
-  return timeLeft;
+  return { timeLeft, isEventActive, eventMessage };
 };
 
 const SummerSpecialLanding = () => {
@@ -51,10 +76,42 @@ const SummerSpecialLanding = () => {
   const whatsappNumber = '4915150616959';
   const whatsappMessage = 'Hallo, ich interessiere mich für das Summer Special für Faltenbehandlung.';
   
-  // Countdown bis 14 Tage ab heute
-  const endDate = new Date();
-  endDate.setDate(endDate.getDate() + 14);
-  const timeLeft = useCountdown(endDate);
+  // Countdown Logik
+  const { timeLeft, isEventActive, eventMessage } = useCountdown();
+  
+  // Termine Logik (halbstündliches Update)
+  const [availableSlots, setAvailableSlots] = useState(20);
+  
+  useEffect(() => {
+    const calculateSlots = () => {
+      const now = new Date();
+      const startDate = new Date('2024-07-14T00:00:00');
+      const endDate = new Date('2024-07-26T23:59:59');
+      
+      if (now < startDate) {
+        setAvailableSlots(20);
+      } else if (now >= startDate && now <= endDate) {
+        const totalDuration = endDate.getTime() - startDate.getTime();
+        const elapsed = now.getTime() - startDate.getTime();
+        const progress = elapsed / totalDuration;
+        
+        if (progress < 0.5) {
+          // Erste Hälfte: 20 → 10 Termine
+          setAvailableSlots(Math.max(10, Math.floor(20 - (progress * 2 * 10))));
+        } else {
+          // Zweite Hälfte: 3 Termine
+          setAvailableSlots(3);
+        }
+      } else {
+        setAvailableSlots(0);
+      }
+    };
+    
+    calculateSlots();
+    const interval = setInterval(calculateSlots, 30 * 60 * 1000); // 30 Minuten
+    
+    return () => clearInterval(interval);
+  }, []);
 
   // Parallax Effect
   const heroRef = useRef(null);
@@ -191,7 +248,7 @@ const SummerSpecialLanding = () => {
               </h1>
               
               <p className="text-xl md:text-2xl text-primary/80 mb-10 max-w-3xl mx-auto">
-                Nutzen Sie jetzt unsere limitierte Sommer-Aktion für strahlend glatte Haut
+                {isEventActive ? 'Sichern Sie sich jetzt Ihren Platz für strahlend glatte Haut' : 'Bald startet unsere limitierte Sommer-Aktion'}
               </p>
 
               {/* Countdown Timer */}
@@ -259,23 +316,31 @@ const SummerSpecialLanding = () => {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={handleBookingClick}
-                    className="px-8 py-4 bg-white text-purple-600 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all"
-                  >
-                    Jetzt Termin sichern
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={handleCallClick}
-                    className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white border-2 border-white/50 rounded-full font-bold text-lg hover:bg-white/30 transition-all"
-                  >
-                    <FaPhone className="inline mr-2" />
-                    Sofort anrufen
-                  </motion.button>
+                  <div className="relative">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={handleBookingClick}
+                      className="px-8 py-4 bg-white text-secondary rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all"
+                    >
+                      Jetzt Termin sichern
+                    </motion.button>
+                    <p className="text-xs text-white/70 mt-2 text-center">
+                      (Scrollen Sie auf Planity zu "Medizinische Behandlungen by Medestetique")
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={handleCallClick}
+                      className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white border-2 border-white/50 rounded-full font-bold text-lg hover:bg-white/30 transition-all"
+                    >
+                      <FaPhone className="inline mr-2" />
+                      Sofort anrufen
+                    </motion.button>
+                    <p className="text-sm text-white/80 mt-2">{phoneNumber}</p>
+                  </div>
                 </div>
               </motion.div>
 
@@ -294,7 +359,7 @@ const SummerSpecialLanding = () => {
       </section>
 
       {/* Treatment Options */}
-      <section className="py-20 bg-gradient-to-b from-white to-purple-50/30">
+      <section className="py-20 bg-gradient-to-b from-white to-light">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -303,7 +368,7 @@ const SummerSpecialLanding = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-serif font-light mb-6 text-primary">
-              Ihre <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Behandlungsoptionen</span>
+              Ihre <span className="text-secondary">Behandlungsoptionen</span>
             </h2>
             <p className="text-xl text-primary/70 max-w-3xl mx-auto">
               Wählen Sie aus unseren bewährten Verfahren für natürlich glatte Haut
@@ -318,7 +383,7 @@ const SummerSpecialLanding = () => {
                 description: "Gezielte Faltenglättung durch Muskelrelaxation",
                 features: ["Zornesfalte", "Stirnfalten", "Krähenfüße"],
                 duration: "3-4 Monate",
-                gradient: "from-purple-500 to-purple-700"
+                gradient: "from-secondary to-secondary/80"
               },
               {
                 title: "Hyaluron-Filler",
@@ -326,7 +391,7 @@ const SummerSpecialLanding = () => {
                 description: "Volumenaufbau mit körpereigenem Stoff",
                 features: ["Nasolabialfalten", "Lippen", "Wangen"],
                 duration: "6-18 Monate",
-                gradient: "from-pink-500 to-pink-700"
+                gradient: "from-accent to-accent/80"
               },
               {
                 title: "PRP Eigenblut",
@@ -334,7 +399,7 @@ const SummerSpecialLanding = () => {
                 description: "Natürliche Hautverjüngung mit Wachstumsfaktoren",
                 features: ["Hautstraffung", "Regeneration", "Anti-Aging"],
                 duration: "3-6 Monate",
-                gradient: "from-orange-500 to-orange-700"
+                gradient: "from-primary to-primary/80"
               }
             ].map((treatment, i) => (
               <motion.div
@@ -346,14 +411,14 @@ const SummerSpecialLanding = () => {
                 whileHover={{ y: -10 }}
                 className="relative group"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all"></div>
                 <div className="relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all">
                   <div className={`w-16 h-16 bg-gradient-to-r ${treatment.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
                     <FaLeaf className="text-white text-2xl" />
                   </div>
                   
                   <h3 className="text-2xl font-medium mb-2 text-primary">{treatment.title}</h3>
-                  <p className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-4">
+                  <p className="text-3xl font-bold text-secondary mb-4">
                     {treatment.price}
                   </p>
                   <p className="text-primary/70 mb-6">{treatment.description}</p>
@@ -373,7 +438,7 @@ const SummerSpecialLanding = () => {
                   
                   <button
                     onClick={handleBookingClick}
-                    className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-medium hover:shadow-lg transition-all"
+                    className="w-full py-3 bg-gradient-to-r from-secondary to-secondary/90 text-white rounded-xl font-medium hover:shadow-lg transition-all"
                   >
                     Auswählen
                   </button>
@@ -494,7 +559,7 @@ const SummerSpecialLanding = () => {
             
             <div className="bg-white/20 backdrop-blur-sm rounded-3xl p-8 md:p-10">
               <div className="text-3xl font-bold mb-4">
-                Nur noch {Math.floor(Math.random() * 5) + 3} Termine diese Woche frei!
+                {availableSlots > 0 ? `Nur noch ${availableSlots} Termine verfügbar!` : 'Alle Termine sind ausgebucht'}
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -509,11 +574,11 @@ const SummerSpecialLanding = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={handleWhatsappClick}
-                  className="px-10 py-5 bg-green-500 text-white rounded-full font-bold text-xl shadow-xl hover:shadow-2xl transition-all flex items-center justify-center gap-3"
+                  onClick={handleCallClick}
+                  className="px-10 py-5 bg-white/30 backdrop-blur-sm text-white border-2 border-white rounded-full font-bold text-xl shadow-xl hover:shadow-2xl transition-all"
                 >
-                  <FaWhatsapp className="text-2xl" />
-                  WhatsApp Termin
+                  <FaPhone className="inline mr-2" />
+                  Telefonisch buchen
                 </motion.button>
               </div>
             </div>
