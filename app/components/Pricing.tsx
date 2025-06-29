@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useState } from 'react';
 import { FaSyringe, FaDroplet, FaStar, FaClock, FaGift, FaCircleInfo } from 'react-icons/fa6';
+import { getPlanityBookingUrl } from '../utils/planityBooking';
 
 // Neue Datenstruktur für die überarbeitete Preisliste
 const treatments = {
@@ -14,13 +15,13 @@ const treatments = {
     color: 'secondary',
     description: 'Präzise Muskelentspannung für ein natürlich verjüngtes Aussehen',
     treatments: [
-      { name: 'Zornesfalte (Glabella)', price: 179, duration: '15 Min', info: 'Glättet die vertikalen Falten zwischen den Augenbrauen' },
-      { name: 'Stirn quer', price: 134, duration: '10 Min', info: 'Reduziert horizontale Stirnfalten' },
-      { name: 'Krähenfüße (beidseitig)', price: 215, duration: '15 Min', info: 'Mildert Lachfältchen um die Augen' },
-      { name: 'Bunny Lines Nase', price: 80, duration: '5 Min', info: 'Glättet Nasenfalten beim Lachen' },
-      { name: 'Lippen-Flip / Gummy Smile', price: 107, duration: '10 Min', info: 'Korrigiert das Zahnfleischlächeln' },
-      { name: 'Masseter (Knirschen)', price: 404, duration: '20 Min', info: 'Entspannt die Kaumuskulatur' },
-      { name: 'Hyperhidrose Achsel', price: 809, duration: '30 Min', info: 'Stoppt übermäßiges Schwitzen' }
+      { name: 'Zornesfalte (Glabella)', price: 179, duration: '15 Min', info: 'Glättet die vertikalen Falten zwischen den Augenbrauen', unit: undefined },
+      { name: 'Stirn quer', price: 134, duration: '10 Min', info: 'Reduziert horizontale Stirnfalten', unit: undefined },
+      { name: 'Krähenfüße (beidseitig)', price: 215, duration: '15 Min', info: 'Mildert Lachfältchen um die Augen', unit: undefined },
+      { name: 'Bunny Lines Nase', price: 80, duration: '5 Min', info: 'Glättet Nasenfalten beim Lachen', unit: undefined },
+      { name: 'Lippen-Flip / Gummy Smile', price: 107, duration: '10 Min', info: 'Korrigiert das Zahnfleischlächeln', unit: undefined },
+      { name: 'Masseter (Knirschen)', price: 404, duration: '20 Min', info: 'Entspannt die Kaumuskulatur', unit: undefined },
+      { name: 'Hyperhidrose Achsel', price: 809, duration: '30 Min', info: 'Stoppt übermäßiges Schwitzen', unit: undefined }
     ],
     packages: [
       { name: 'Stirn + Glabella Paket', price: 269, savings: 44, info: 'Kombinationsbehandlung für die obere Gesichtshälfte' },
@@ -36,9 +37,9 @@ const treatments = {
     color: 'accent',
     description: 'Natürliche Volumengabe und Faltenunterspritzung mit Premium-Fillern',
     treatments: [
-      { name: 'Lippen Volumen 1 ml', price: 224, duration: '30 Min', info: 'Für vollere, definierte Lippen' },
-      { name: 'Nasolabialfalte 1 ml', price: 224, duration: '20 Min', info: 'Glättet tiefe Falten von Nase zu Mund' },
-      { name: 'Marionettenfalten 1 ml', price: 224, duration: '20 Min', info: 'Mildert Falten von Mundwinkel zum Kinn' },
+      { name: 'Lippen Volumen 1 ml', price: 224, duration: '30 Min', info: 'Für vollere, definierte Lippen', unit: undefined },
+      { name: 'Nasolabialfalte 1 ml', price: 224, duration: '20 Min', info: 'Glättet tiefe Falten von Nase zu Mund', unit: undefined },
+      { name: 'Marionettenfalten 1 ml', price: 224, duration: '20 Min', info: 'Mildert Falten von Mundwinkel zum Kinn', unit: undefined },
       { name: 'Wangen / Midface', price: 251, unit: '/ml', duration: '30 Min', info: 'Stellt jugendliches Volumen wieder her' },
       { name: 'Jawline Kontur', price: 251, unit: '/ml', duration: '40 Min', info: 'Definiert die Kieferlinie' }
     ],
@@ -318,7 +319,9 @@ const Pricing = () => {
               Gemeinsam finden wir die optimale Lösung für Ihre individuellen Bedürfnisse.
             </p>
             <a 
-              href="#contact" 
+              href={getPlanityBookingUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-block px-8 py-4 bg-gradient-to-r from-secondary to-secondary/90 text-white rounded-full font-light tracking-wider uppercase text-sm transform transition-all duration-300 hover:shadow-xl hover:scale-105"
             >
               Beratungstermin vereinbaren

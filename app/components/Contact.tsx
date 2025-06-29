@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
+import { getPlanityBookingUrl } from '../utils/planityBooking';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -106,7 +107,7 @@ const Contact = () => {
                 Buchungsplattform möglich.
               </p>
               <a
-                href="https://www.planity.com/de-DE/glam-glow-beauty-15711-konigs-wusterhausen"
+                href={getPlanityBookingUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-10 py-4 rounded-full bg-light text-secondary font-semibold text-lg shadow-lg transform hover:scale-105 transition-transform duration-300"

@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { getPlanityBookingUrl, openPlanityBooking } from '../utils/planityBooking';
 
 const Hero = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -173,7 +174,8 @@ const Hero = () => {
                 Unsere Behandlungen
               </a>
               <a 
-                href="#contact" 
+                href={getPlanityBookingUrl()}
+                onClick={openPlanityBooking}
                 className="button-secondary font-semibold" 
               >
                 Jetzt Termin Buchen

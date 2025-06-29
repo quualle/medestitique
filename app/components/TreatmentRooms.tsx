@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getPlanityBookingUrl, openPlanityBooking } from '../utils/planityBooking';
 
 const TreatmentRooms = () => {
   const { ref, inView } = useInView({
@@ -103,12 +104,13 @@ const TreatmentRooms = () => {
         </motion.div>
         
         <div className="text-center mt-12">
-          <Link 
-            href="#contact"
+          <a 
+            href={getPlanityBookingUrl()}
+            onClick={openPlanityBooking}
             className="button-primary inline-block"
           >
             Jetzt Termin Buchen
-          </Link>
+          </a>
         </div>
       </div>
     </section>

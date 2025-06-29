@@ -5,6 +5,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { getPlanityBookingUrl, openPlanityBooking } from '../utils/planityBooking';
 import { 
   FaSyringe, FaWater, FaTint, FaChevronDown, FaSmile, FaAngry, FaGrinAlt, FaUserAlt, FaTeeth, 
   FaColumns, FaChartPie, FaCircle, FaBrain, FaSnowflake, FaGrimace, FaBabyCarriage, 
@@ -706,7 +707,8 @@ const Treatments = () => {
                   {/* Button - Style angepasst */}
                    <div className="mt-10 text-center">
                       <motion.a 
-                        href="#contact" 
+                        href={getPlanityBookingUrl()}
+                        onClick={openPlanityBooking}
                         className="inline-block px-10 py-4 text-lg font-semibold rounded-full shadow-lg transition-all duration-300 ease-out transform hover:-translate-y-1" // Größerer Button
                         style={{ 
                           background: `linear-gradient(135deg, ${colors.buttonGradientStart}, ${colors.buttonGradientEnd})`, 

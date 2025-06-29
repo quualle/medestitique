@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { getPlanityBookingUrl } from '../utils/planityBooking';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -168,13 +169,15 @@ const Navbar = () => {
             
             <div className="gold-divider w-24 my-8"></div>
             
-            <Link 
-              href="#contact"
+            <a 
+              href={getPlanityBookingUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
               className="button-primary mt-4"
               onClick={toggleMenu}
             >
               Jetzt Termin Buchen
-            </Link>
+            </a>
           </motion.div>
         )}
       </nav>
