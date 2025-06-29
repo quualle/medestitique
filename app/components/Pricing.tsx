@@ -24,10 +24,10 @@ const treatments = {
       { name: 'Hyperhidrose Achsel', price: 809, duration: '30 Min', info: 'Stoppt übermäßiges Schwitzen', unit: undefined }
     ],
     packages: [
-      { name: 'Stirn + Glabella Paket', price: 269, savings: 44, info: 'Kombinationsbehandlung für die obere Gesichtshälfte' },
-      { name: 'Summer-Special', price: 719, special: true, info: 'Limitiertes Angebot für die Sommersaison' },
-      { name: '2 Zonen (Stirn + Glabella)', price: 314, info: 'Zwei Behandlungszonen zum Vorteilspreis' },
-      { name: '3 Zonen (Stirn + Glabella + Krähenfüße)', price: 449, savings: 79, info: 'Komplettbehandlung für ein frisches Aussehen' }
+      { name: 'Stirn + Glabella Paket', price: 269, savings: 44, info: 'Kombinationsbehandlung für die obere Gesichtshälfte', special: undefined },
+      { name: 'Summer-Special', price: 719, special: true, info: 'Limitiertes Angebot für die Sommersaison', savings: undefined },
+      { name: '2 Zonen (Stirn + Glabella)', price: 314, info: 'Zwei Behandlungszonen zum Vorteilspreis', special: undefined, savings: undefined },
+      { name: '3 Zonen (Stirn + Glabella + Krähenfüße)', price: 449, savings: 79, info: 'Komplettbehandlung für ein frisches Aussehen', special: undefined }
     ]
   },
   hyaluron: {
@@ -44,10 +44,10 @@ const treatments = {
       { name: 'Jawline Kontur', price: 251, unit: '/ml', duration: '40 Min', info: 'Definiert die Kieferlinie' }
     ],
     packages: [
-      { name: '2 ml-Paket', price: 476, savings: 22, info: 'Ideal für kombinierte Behandlungen' },
-      { name: '4 ml-Paket', price: 944, savings: 60, info: 'Für umfassende Volumenbehandlungen' },
-      { name: 'Russian Lips 2 ml', price: 404, special: true, info: 'Spezielle Technik für natürlich volle Lippen' },
-      { name: 'Liquid Lift (Full Face) 6 ml', price: 1169, savings: 337, info: 'Komplette Gesichtsverjüngung ohne OP' }
+      { name: '2 ml-Paket', price: 476, savings: 22, info: 'Ideal für kombinierte Behandlungen', special: undefined },
+      { name: '4 ml-Paket', price: 944, savings: 60, info: 'Für umfassende Volumenbehandlungen', special: undefined },
+      { name: 'Russian Lips 2 ml', price: 404, special: true, info: 'Spezielle Technik für natürlich volle Lippen', savings: undefined },
+      { name: 'Liquid Lift (Full Face) 6 ml', price: 1169, savings: 337, info: 'Komplette Gesichtsverjüngung ohne OP', special: undefined }
     ]
   },
   prp: {
@@ -65,7 +65,8 @@ const treatments = {
         name: 'Exklusives Anti-Aging Konzept', 
         price: 1899, 
         special: true, 
-        info: '4x 3-Stufen Intensivbehandlung + Nährstoffanalyse. Inkl. PRP + Infusion + individuelle PRP-Creme' 
+        info: '4x 3-Stufen Intensivbehandlung + Nährstoffanalyse. Inkl. PRP + Infusion + individuelle PRP-Creme',
+        savings: undefined
       }
     ]
   }
