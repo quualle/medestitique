@@ -4,8 +4,8 @@ import { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaPhone, FaCheck, FaStar, FaClock, FaUserMd, FaShieldAlt, FaAward, FaSyringe, FaSparkles, FaArrowRight, FaQuoteLeft } from 'react-icons/fa';
-import { FaCircleCheck } from 'react-icons/fa6';
+import { FaPhone, FaCheck, FaStar, FaClock, FaUserMd, FaShieldAlt, FaAward, FaSyringe, FaArrowRight, FaQuoteLeft } from 'react-icons/fa';
+import { FaCircleCheck, FaWandMagicSparkles } from 'react-icons/fa6';
 
 // GA4 Event Tracking
 declare global {
@@ -139,7 +139,7 @@ const BotoxLanding = () => {
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           className="absolute bottom-40 right-20 text-accent/20"
         >
-          <FaSparkles className="text-5xl" />
+          <FaWandMagicSparkles className="text-5xl" />
         </motion.div>
         
         <motion.div style={{ opacity }} className="container mx-auto px-4 relative z-10">
@@ -326,7 +326,7 @@ const BotoxLanding = () => {
                 step: "3",
                 title: "Ergebnis",
                 description: "Sichtbare Resultate nach 3-5 Tagen, volle Wirkung nach 14 Tagen",
-                icon: <FaSparkles className="text-3xl" />
+                icon: <FaWandMagicSparkles className="text-3xl" />
               }
             ].map((item, index) => (
               <motion.div
@@ -466,7 +466,7 @@ const BotoxLanding = () => {
                 
                 <div className="flex items-center justify-between mb-8">
                   <h3 className="text-2xl font-medium text-primary">Vorteilspakete</h3>
-                  <FaSparkles className="text-3xl text-secondary" />
+                  <FaWandMagicSparkles className="text-3xl text-secondary" />
                 </div>
                 
                 <div className="space-y-6">
