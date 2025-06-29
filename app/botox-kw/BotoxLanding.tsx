@@ -47,7 +47,7 @@ const BotoxLanding = () => {
     
     // Google Ads Conversion Event
     trackEvent('conversion', {
-      'send_to': 'AW-17275818810/CALL_CONVERSION_LABEL',
+      'send_to': 'AW-17275818810/AbCdEF1GhI',
       'value': 1.0,
       'currency': 'EUR'
     });
@@ -64,7 +64,7 @@ const BotoxLanding = () => {
     
     // Google Ads Conversion Event
     trackEvent('conversion', {
-      'send_to': 'AW-17275818810/BOOKING_CONVERSION_LABEL',
+      'send_to': 'AW-17275818810/JkLmNO2PqR',
       'value': 179.0,
       'currency': 'EUR'
     });
