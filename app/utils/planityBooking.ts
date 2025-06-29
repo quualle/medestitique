@@ -11,10 +11,10 @@ export const openPlanityBooking = (e?: React.MouseEvent) => {
   // Öffne Planity mit dem spezifischen Service-Anker
   window.open(`${PLANITY_BASE_URL}#service-name-10-0`, '_blank');
   
-  // Scroll-Anpassung nach dem Laden (3cm ≈ 113px weiter oben)
+  // Scroll-Anpassung nach dem Laden (scrollt zum Anfang der Medestetique-Sektion)
   setTimeout(() => {
     try {
-      window.scrollBy(0, -213);
+      window.scrollBy(0, -450);
     } catch (error) {
       console.log('Scroll-Anpassung nicht möglich');
     }
