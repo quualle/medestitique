@@ -28,8 +28,8 @@ const useCountdown = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
-      const startDate = new Date('2024-07-14T00:00:00');
-      const endDate = new Date('2024-07-26T23:59:59');
+      const startDate = new Date('2025-07-14T00:00:00');
+      const endDate = new Date('2025-07-26T23:59:59');
       
       if (now < startDate) {
         // Countdown bis zum Start
@@ -85,8 +85,8 @@ const SummerSpecialLanding = () => {
   useEffect(() => {
     const calculateSlots = () => {
       const now = new Date();
-      const startDate = new Date('2024-07-14T00:00:00');
-      const endDate = new Date('2024-07-26T23:59:59');
+      const startDate = new Date('2025-07-14T00:00:00');
+      const endDate = new Date('2025-07-26T23:59:59');
       
       if (now < startDate) {
         setAvailableSlots(20);
@@ -237,12 +237,12 @@ const SummerSpecialLanding = () => {
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-6 py-3 rounded-full mb-8 shadow-xl"
               >
                 <FaGift className="text-xl" />
-                <span className="font-bold text-lg">SUMMER SPECIAL 2024</span>
+                <span className="font-bold text-lg">SUMMER SPECIAL 2025</span>
                 <FaGift className="text-xl" />
               </motion.div>
 
               <h1 className="text-5xl md:text-7xl font-serif font-light mb-6 text-primary">
-                Falten <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">glätten</span>
+                Falten <span className="text-secondary">glätten</span>
                 <br />
                 <span className="text-3xl md:text-5xl">in Königs Wusterhausen</span>
               </h1>
@@ -258,7 +258,7 @@ const SummerSpecialLanding = () => {
                 transition={{ delay: 0.4 }}
                 className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 shadow-2xl max-w-2xl mx-auto mb-10"
               >
-                <p className="text-lg font-medium text-primary mb-4">Angebot endet in:</p>
+                <p className="text-lg font-medium text-primary mb-4">{eventMessage}</p>
                 <div className="grid grid-cols-4 gap-4">
                   {[
                     { value: timeLeft.days, label: 'Tage' },
@@ -276,19 +276,19 @@ const SummerSpecialLanding = () => {
                 </div>
               </motion.div>
 
-              {/* Price & Trust Elements */}
+              {/* Price & Trust Elements - Dezent */}
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-3xl p-8 md:p-10 shadow-2xl max-w-4xl mx-auto"
+                className="bg-white/95 backdrop-blur-sm border-2 border-secondary/30 rounded-3xl p-8 md:p-10 shadow-xl max-w-4xl mx-auto"
               >
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div>
-                    <div className="text-5xl md:text-6xl font-bold mb-2">ab 179 €</div>
-                    <div className="text-xl opacity-90">statt regulär ab 299 €</div>
-                    <div className="text-lg mt-2 flex items-center justify-center md:justify-start gap-2">
-                      <FaGift />
+                    <div className="text-5xl md:text-6xl font-light text-secondary mb-2">ab 179 €</div>
+                    <div className="text-xl text-primary/70">statt regulär ab 299 €</div>
+                    <div className="text-lg mt-2 flex items-center justify-center md:justify-start gap-2 text-primary">
+                      <FaGift className="text-secondary" />
                       <span>Sie sparen bis zu 40%</span>
                     </div>
                   </div>
@@ -305,9 +305,9 @@ const SummerSpecialLanding = () => {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.8 + i * 0.1 }}
-                        className="flex items-center gap-3 text-lg"
+                        className="flex items-center gap-3 text-lg text-primary"
                       >
-                        <item.icon className="text-2xl" />
+                        <item.icon className="text-2xl text-secondary" />
                         <span>{item.text}</span>
                       </motion.div>
                     ))}
@@ -321,12 +321,12 @@ const SummerSpecialLanding = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={handleBookingClick}
-                      className="px-8 py-4 bg-white text-secondary rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all"
+                      className="px-8 py-4 bg-secondary text-white rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all"
                     >
                       Jetzt Termin sichern
                     </motion.button>
-                    <p className="text-xs text-white/70 mt-2 text-center">
-                      (Scrollen Sie auf Planity zu "Medizinische Behandlungen by Medestetique")
+                    <p className="text-sm bg-yellow-100 border border-yellow-300 text-primary px-4 py-2 rounded-lg mt-3 font-medium text-center">
+                      ⚠️ Wichtig: Scrollen Sie auf Planity zu<br/>"Medizinische Behandlungen by Medestetique"
                     </p>
                   </div>
                   <div className="flex flex-col items-center">
@@ -334,12 +334,14 @@ const SummerSpecialLanding = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={handleCallClick}
-                      className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white border-2 border-white/50 rounded-full font-bold text-lg hover:bg-white/30 transition-all"
+                      className="px-8 py-4 bg-white text-primary border-2 border-secondary/50 rounded-full font-bold text-lg hover:bg-light transition-all"
                     >
-                      <FaPhone className="inline mr-2" />
+                      <FaPhone className="inline mr-2 text-secondary" />
                       Sofort anrufen
                     </motion.button>
-                    <p className="text-sm text-white/80 mt-2">{phoneNumber}</p>
+                    <p className="text-base font-medium bg-white text-primary border border-secondary/30 px-4 py-2 rounded-lg mt-2">
+                      📞 {phoneNumber}
+                    </p>
                   </div>
                 </div>
               </motion.div>
@@ -616,23 +618,15 @@ const SummerSpecialLanding = () => {
         initial={{ x: 100 }}
         animate={{ x: isSticky ? 0 : 100 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-3"
+        className="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden md:block"
       >
         <motion.button
           whileHover={{ scale: 1.1 }}
           onClick={handleCallClick}
-          className="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-700 text-white rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center"
+          className="w-16 h-16 bg-primary text-white rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center"
           aria-label="Anrufen"
         >
           <FaPhone className="text-2xl" />
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          onClick={handleWhatsappClick}
-          className="w-16 h-16 bg-green-500 text-white rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center"
-          aria-label="WhatsApp"
-        >
-          <FaWhatsapp className="text-2xl" />
         </motion.button>
       </motion.div>
 
