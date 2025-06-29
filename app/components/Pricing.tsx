@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useState } from 'react';
-import { FaSyringe, FaDroplet, FaStar, FaInfoCircle, FaClock, FaGift } from 'react-icons/fa6';
+import { FaSyringe, FaDroplet, FaStar, FaClock, FaGift, FaCircleInfo } from 'react-icons/fa6';
 
 // Neue Datenstruktur für die überarbeitete Preisliste
 const treatments = {
@@ -224,7 +224,7 @@ const Pricing = () => {
                           >
                             <div className="pt-3 border-t border-gray-100">
                               <p className="text-sm text-primary/70 flex items-start gap-2">
-                                <FaInfoCircle className="text-secondary mt-0.5 flex-shrink-0" />
+                                <FaCircleInfo className="text-secondary mt-0.5 flex-shrink-0" />
                                 {treatment.info}
                               </p>
                             </div>
