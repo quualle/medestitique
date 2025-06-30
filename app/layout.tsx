@@ -20,12 +20,12 @@ const playfairDisplay = Playfair_Display({
 
 export const metadata: Metadata = {
   title: 'MedEstetique | Saskia Heer | Premium Schönheitsbehandlungen',
-  description: 'Exklusive ästhetische Behandlungen mit Botox, Hyaluronsäure und PRP von Saskia Heer in erstklassiger Qualität für Ihre natürliche Schönheit.',
-  keywords: 'Botox, Hyaluronsäure, PRP, ästhetische Behandlungen, Faltenbehandlung, Schönheitsbehandlung, Premium',
+  description: 'Exklusive ästhetische Behandlungen mit Muskelrelaxanzien, Hyaluronsäure und PRP von Saskia Heer in erstklassiger Qualität für Ihre natürliche Schönheit.',
+  keywords: 'Muskelrelaxans, Hyaluronsäure, PRP, ästhetische Behandlungen, Faltenbehandlung, Schönheitsbehandlung, Premium',
   authors: [{ name: 'Saskia Heer' }],
   openGraph: {
     title: 'MedEstetique | Saskia Heer | Premium Schönheitsbehandlungen',
-    description: 'Exklusive ästhetische Behandlungen mit Botox, Hyaluronsäure und PRP von Saskia Heer in erstklassiger Qualität.',
+    description: 'Exklusive ästhetische Behandlungen mit Muskelrelaxanzien, Hyaluronsäure und PRP von Saskia Heer in erstklassiger Qualität.',
     images: ['/images/logo.jpg'],
   },
 };

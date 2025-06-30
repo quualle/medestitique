@@ -10,7 +10,7 @@ const testimonials = [
     id: 1,
     name: 'Sophie K.',
     age: 42,
-    treatment: 'Botox & Fillers',
+    treatment: 'Muskelrelaxans & Fillers',
     content: 'Bin sehr zufrieden mit den Ergebnissen. Meine Freunde haben bemerkt, dass ich frischer aussehe, konnten aber nicht sagen warum. Genau was ich wollte – natürlich aussehen, nicht \"gemacht\".',
     rating: 5
   },
@@ -34,8 +34,8 @@ const testimonials = [
     id: 4,
     name: 'Maria D.',
     age: 36,
-    treatment: 'Botox',
-    content: 'Habe schon Botox in verschiedenen Kliniken probiert, aber hier war das Ergebnis am besten. Man nimmt sich Zeit und achtet darauf, dass die Mimik erhalten bleibt. Das Resultat ist genau, was ich wollte.',
+    treatment: 'Muskelrelaxans',
+    content: 'Habe schon Muskelrelaxanzien in verschiedenen Kliniken probiert, aber hier war das Ergebnis am besten. Man nimmt sich Zeit und achtet darauf, dass die Mimik erhalten bleibt. Das Resultat ist genau, was ich wollte.',
     rating: 5
   },
   {

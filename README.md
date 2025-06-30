@@ -5,7 +5,7 @@ Dies ist eine moderne, responsive Website für Saskia Heers ästhetische Medizin
 ## Features
 
 - Modernes, responsives Design mit eleganten Animationen
-- Detaillierte Informationen über Botox, Hyaluronsäure-Filler und PRP-Behandlungen
+- Detaillierte Informationen über Muskelrelaxanzien, Hyaluronsäure-Filler und PRP-Behandlungen
 - Interaktive Behandlungsauswahl und Preiskarten
 - Kontaktformular mit Validierung
 - Kundenbewertungen-Karussell

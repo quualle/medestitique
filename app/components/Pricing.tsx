@@ -9,7 +9,7 @@ import { getPlanityBookingUrl } from '../utils/planityBooking';
 // Neue Datenstruktur für die überarbeitete Preisliste
 const treatments = {
   botox: {
-    title: 'Botox®',
+    title: 'Muskelrelaxans',
     subtitle: 'Faltenbehandlung',
     icon: FaSyringe,
     color: 'secondary',
@@ -25,7 +25,7 @@ const treatments = {
     ],
     packages: [
       { name: 'Stirn + Glabella Paket', price: 269, savings: 44, info: 'Kombinationsbehandlung für die obere Gesichtshälfte', special: undefined },
-      { name: 'Summer-Special: Hyperhidrose Achseln', price: 719, special: true, info: 'Botox gegen starkes Schwitzen - Sonderpreis nur für kurze Zeit! (Normalpreis: 809€)', savings: 90 },
+      { name: 'Summer-Special: Hyperhidrose Achseln', price: 719, special: true, info: 'Behandlung gegen starkes Schwitzen - Sonderpreis nur für kurze Zeit! (Normalpreis: 809€)', savings: 90 },
       { name: '2 Zonen (Stirn + Glabella)', price: 314, info: 'Zwei Behandlungszonen zum Vorteilspreis', special: undefined, savings: undefined },
       { name: '3 Zonen (Stirn + Glabella + Krähenfüße)', price: 449, savings: 79, info: 'Komplettbehandlung für ein frisches Aussehen', special: undefined }
     ]

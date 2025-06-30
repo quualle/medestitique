@@ -41,7 +41,7 @@ const colors = {
 };
 
 // Sub-treatments (Inhalte bleiben gleich, Icons können angepasst werden)
-const botoxSubTreatments = [
+const muskelrelaxansSubTreatments = [
   { id: 'eyebrowLift', title: 'AUGENBRAUENLIFTING', icon: <FaEye />, description: 'Natürliches Anheben der Augenbrauen für einen offeneren Blick.' },
   { id: 'gummySmile', title: 'GUMMY SMILE', icon: <FaSmileWink />, description: 'Korrektur eines übermäßigen Zahnfleischlächelns.' },
   { id: 'foreheadLines', title: 'STIRNFALTEN', icon: <FaAngry />, description: 'Glättung horizontaler Stirnfalten.' },
@@ -51,8 +51,8 @@ const botoxSubTreatments = [
   { id: 'facialSlimming', title: 'FACIAL SLIMMING', icon: <FaUserAlt />, description: 'Verschmälerung des Gesichts durch Entspannung der Kaumuskeln.' },
   { id: 'neckLift', title: 'NEFERTITI LIFT (HALS)', icon: <FaArrowUp />, description: 'Straffung der Halspartie und Definition der Kinnlinie.' },
   { id: 'chinDimples', title: 'ERDBEERKINN', icon: <FaCircle />, description: 'Glättung von Grübchen und Unebenheiten am Kinn.' },
-  { id: 'bruxismBotox', title: 'BRUXISMUS (ZÄHNEKNIRSCHEN)', icon: <FaTeeth />, description: 'Linderung von Zähneknirschen und Kieferschmerzen.' },
-  { id: 'hyperhidrosisBotox', title: 'HYPERHIDROSE (SCHWITZEN)', icon: <FaTint />, description: 'Reduzierung von übermäßigem Schwitzen unter den Achseln, an Händen oder Füßen.' },
+  { id: 'bruxismBehandlung', title: 'BRUXISMUS (ZÄHNEKNIRSCHEN)', icon: <FaTeeth />, description: 'Linderung von Zähneknirschen und Kieferschmerzen.' },
+  { id: 'hyperhidrosisBehandlung', title: 'HYPERHIDROSE (SCHWITZEN)', icon: <FaTint />, description: 'Reduzierung von übermäßigem Schwitzen unter den Achseln, an Händen oder Füßen.' },
 ];
 
 const hyaluronSubTreatments = [
@@ -75,15 +75,15 @@ const lipolysisSubTreatments = [
 const treatments = [
   {
     id: 'botox',
-    title: 'Botox Behandlung',
+    title: 'Muskelrelaxans-Behandlung',
     icon: <FaSyringe />,
     shortDescription: 'Faltenreduktion & Prävention für ein frisches Aussehen.',
     hasSubMenu: true,
-    subTreatments: botoxSubTreatments,
+    subTreatments: muskelrelaxansSubTreatments,
     fullDescription: (
       <>
-        <p className="paragraph mb-4">Botulinumtoxin, bekannt als Botox®, ist ein bewährtes Mittel zur Glättung mimischer Falten. Es entspannt gezielt die Muskulatur, die für Falten wie Zornesfalten, Stirnfalten oder Krähenfüße verantwortlich ist.</p>
-        <p className="paragraph mb-4">Unsere erfahrenen Anwenderinnen setzen Botox® präzise ein, um ein natürliches, verjüngtes Ergebnis zu erzielen, ohne die Mimik einzuschränken. Neben der Faltenglättung kann Botox® auch bei Zähneknirschen (Bruxismus) oder übermäßigem Schwitzen (Hyperhidrose) helfen.</p>
+        <p className="paragraph mb-4">Muskelrelaxanzien sind bewährte Mittel zur Glättung mimischer Falten. Sie entspannen gezielt die Muskulatur, die für Falten wie Zornesfalten, Stirnfalten oder Krähenfüße verantwortlich ist.</p>
+        <p className="paragraph mb-4">Unsere erfahrenen Anwenderinnen setzen Muskelrelaxanzien präzise ein, um ein natürliches, verjüngtes Ergebnis zu erzielen, ohne die Mimik einzuschränken. Neben der Faltenglättung können diese auch bei Zähneknirschen (Bruxismus) oder übermäßigem Schwitzen (Hyperhidrose) helfen.</p>
         <p className="paragraph mb-4">Wir verwenden ausschließlich hochwertige, zertifizierte Produkte für maximale Sicherheit und Wirksamkeit.</p>
       </>
     )
@@ -655,12 +655,12 @@ const Treatments = () => {
                              </ul>
                            </div>
                          )}
-                         {selectedSubTreatment.id === 'bruxismBotox' && (
+                         {selectedSubTreatment.id === 'bruxismBehandlung' && (
                            <div className="space-y-6 mt-6">
                              <div className="bg-white/50 p-6 rounded-xl shadow-md border" style={{ borderColor: colors.cardBorder }}>
                                <h4 className="font-serif text-xl font-semibold mb-3" style={{ color: colors.textPrimary }}>Wirkung bei Zähneknirschen</h4>
                                <p className="paragraph mb-0 text-sm" style={{ color: colors.textSecondary }}>
-                                Botox® entspannt gezielt die Kaumuskulatur, um unbewusstes Zähneknirschen und Kieferpressen zu reduzieren.
+                                Das Muskelrelaxans entspannt gezielt die Kaumuskulatur, um unbewusstes Zähneknirschen und Kieferpressen zu reduzieren.
                                </p>
                              </div>
                               <div className="bg-white/50 p-6 rounded-xl shadow-md border" style={{ borderColor: colors.cardBorder }}>
@@ -677,12 +677,12 @@ const Treatments = () => {
                              </div>
                            </div>
                          )}
-                         {selectedSubTreatment.id === 'hyperhidrosisBotox' && (
+                         {selectedSubTreatment.id === 'hyperhidrosisBehandlung' && (
                            <div className="space-y-6 mt-6">
                              <div className="bg-white/50 p-6 rounded-xl shadow-md border" style={{ borderColor: colors.cardBorder }}>
                                <h4 className="font-serif text-xl font-semibold mb-3" style={{ color: colors.textPrimary }}>Wirkung bei Schwitzen</h4>
                                <p className="paragraph mb-0 text-sm" style={{ color: colors.textSecondary }}>
-                                Botox® blockiert temporär die Nervensignale an die Schweißdrüsen und reduziert so die Schweißproduktion in den behandelten Arealen effektiv.
+                                Das Muskelrelaxans blockiert temporär die Nervensignale an die Schweißdrüsen und reduziert so die Schweißproduktion in den behandelten Arealen effektiv.
                                </p>
                              </div>
                              <div className="bg-white/50 p-6 rounded-xl shadow-md border" style={{ borderColor: colors.cardBorder }}>
