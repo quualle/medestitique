@@ -628,15 +628,6 @@ const SummerSpecialLanding = () => {
         >
           <FaPhone className="text-2xl" />
         </motion.button>
-        
-        <motion.a
-          href="/"
-          whileHover={{ scale: 1.05 }}
-          className="bg-white border-2 border-primary text-primary rounded-2xl px-4 py-3 shadow-xl hover:shadow-2xl hover:bg-primary hover:text-white transition-colors text-sm font-medium text-center"
-          style={{ writingMode: 'horizontal-tb', maxWidth: '200px' }}
-        >
-          Mehr erfahren über Medestetique
-        </motion.a>
       </motion.div>
 
       {/* Schema Markup */}
