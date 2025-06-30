@@ -74,7 +74,7 @@ const lipolysisSubTreatments = [
 // Main treatments data (Inhalte bleiben gleich)
 const treatments = [
   {
-    id: 'botox',
+    id: 'muskelrelaxans',
     title: 'Muskelrelaxans-Behandlung',
     icon: <FaSyringe />,
     shortDescription: 'Faltenreduktion & Prävention für ein frisches Aussehen.',
@@ -631,7 +631,7 @@ const Treatments = () => {
                               style={{ background: `${colors.secondaryAccent}26`, borderColor: colors.primaryAccent }} >
                            <p className="paragraph mb-0 italic text-base" style={{ color: colors.textPrimary }}>
                              {/* Text bleibt spezifisch für Behandlung */}
-                             {selectedTreatment.id === 'botox' 
+                             {selectedTreatment.id === 'muskelrelaxans' 
                                ? `Unsere Spezialisten für ${selectedSubTreatment.title} verwenden nur hochwertige Produkte und präzise Techniken für natürlich aussehende Ergebnisse, die Ihre natürliche Ausdrucksfähigkeit bewahren.`
                                : selectedTreatment.id === 'hyaluronic'
                                ? `Unsere Spezialisten für ${selectedSubTreatment.title} verwenden nur hochwertige Hyaluronsäure-Produkte und fortschrittliche Techniken für harmonische Ergebnisse.`

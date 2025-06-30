@@ -8,7 +8,7 @@ import { getPlanityBookingUrl } from '../utils/planityBooking';
 
 // Neue Datenstruktur für die überarbeitete Preisliste
 const treatments = {
-  botox: {
+  muskelrelaxans: {
     title: 'Muskelrelaxans',
     subtitle: 'Faltenbehandlung',
     icon: FaSyringe,
@@ -78,7 +78,7 @@ const Pricing = () => {
     triggerOnce: true
   });
 
-  const [activeCategory, setActiveCategory] = useState<'botox' | 'hyaluron' | 'prp'>('botox');
+  const [activeCategory, setActiveCategory] = useState<'muskelrelaxans' | 'hyaluron' | 'prp'>('muskelrelaxans');
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const containerVariants = {
@@ -154,7 +154,7 @@ const Pricing = () => {
             return (
               <motion.button
                 key={key}
-                onClick={() => setActiveCategory(key as 'botox' | 'hyaluron' | 'prp')}
+                onClick={() => setActiveCategory(key as 'muskelrelaxans' | 'hyaluron' | 'prp')}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={`
